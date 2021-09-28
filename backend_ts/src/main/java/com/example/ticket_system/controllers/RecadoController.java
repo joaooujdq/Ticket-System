@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class RecadoController {
 
     //response body informa que no corpo da requisição post, virá um objeto Recado
     @PostMapping
-    public ResponseEntity<Recado> incluir(@RequestBody Recado obj){
+    public ResponseEntity<Recado> incluir(@Valid @RequestBody Recado obj){
         obj = service.save(obj);
         return ResponseEntity.created(null).body(obj);
     }

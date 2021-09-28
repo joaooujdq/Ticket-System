@@ -3,6 +3,8 @@ package com.example.ticket_system.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -19,9 +21,13 @@ public class Recado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
+    @NotBlank
+    @Size(max=60)
     @Column(name = "nome_emp", nullable = false)
     private String empresa;
 
+    @NotBlank
+    @Size(max=60)
     @Column(name = "nome_func", nullable = false)
     private String funcionario;
 
@@ -33,6 +39,16 @@ public class Recado implements Serializable {
 
     @Column(name = "setor", nullable = false)
     private String setor;
+
+    @NotBlank
+    @Size(max=255)
+    @Column(name = "mensagem", nullable = false)
+    private String mensagem;
+
+    @Size(max=11)
+    @Size(max=10)
+    @Column(name = "telefone")
+    private String telefone;
 
     @Column(name = "data", nullable = false)
     private String data;

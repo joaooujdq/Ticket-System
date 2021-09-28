@@ -19,15 +19,18 @@ public class GestaoRecado {
 
     //todas as transações tem a garantia que elas só se realizam
     //se todo o processo que lhe envolve for executado com sucesso
+    //O ideal é usar somente em metodos posts, put ou delete
 
-    @Transactional
+
     public List<Recado> findAll(){
         return recadoDAO.findAll();
     }
+    public Optional<Recado> findByNameFunc(String nomeFunc){
+        return recadoDAO.findByNameFunc(nomeFunc);
+    }
 
-    @Transactional
-    public Optional<Recado> findById(Integer id){
-        return recadoDAO.findById(id);
+    public Optional<Recado> findByTelefone(String telefone){
+        return recadoDAO.findByTelefone(telefone);
     }
 
     @Transactional
@@ -37,6 +40,12 @@ public class GestaoRecado {
 
     @Transactional
     public Recado save(Recado obj){
+        boolean telefoneExists = recadoDAO.findByTelefone(obj.getTelefone()).stream()
+                .anyMatch(objResult -> objResult.equals(obj));
+
+        if(telefoneExists){
+            throw new BusinessException("Telefone já existente!");
+        }
         return recadoDAO.save(obj);
     }
 

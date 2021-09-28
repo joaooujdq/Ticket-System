@@ -2,12 +2,10 @@ package com.example.ticket_system.controllers;
 
 import com.example.ticket_system.models.Recado;
 import com.example.ticket_system.repositories.RecadoDAO;
+import com.example.ticket_system.services.GestaoRecado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,17 +15,43 @@ import java.util.Optional;
 public class RecadoController {
 
     @Autowired
-    private RecadoDAO recadoDAO;
+    private GestaoRecado service;
+    //dentro de service há uma instancia de RecadoDAO
 
     @GetMapping
     public List<Recado> buscarTodos(){
-        return recadoDAO.findAll();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Recado> buscarUm(@PathVariable Integer id){
-        Optional<Recado> objOpt = recadoDAO.findById(id);
-        Recado obj = objOpt.orElse(null);
+        return service.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    //response body informa que no corpo da requisição post, virá um objeto Recado
+    @PostMapping
+    public ResponseEntity<Recado> incluir(@RequestBody Recado obj){
+        obj = service.save(obj);
+        return ResponseEntity.created(null).body(obj);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Recado> atualizar(@PathVariable Integer id, @RequestBody Recado obj){
+        if(!service.existById(id)){
+            return ResponseEntity.notFound().build();
+        }
+        obj.setCodigo(id);
+        obj = service.save(obj);
         return ResponseEntity.ok(obj);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Integer id){
+        if(!service.existById(id)){
+            return ResponseEntity.notFound().build();
+        }
+        service.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

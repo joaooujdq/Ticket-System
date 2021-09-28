@@ -14,7 +14,7 @@ public class BackendTsApplication implements CommandLineRunner {
 
 	@Autowired
 	private RecadoDAO recadoDAO;
-	//aula 6 mod 03 assistido
+
 
 
 	public static void main(String[] args) {

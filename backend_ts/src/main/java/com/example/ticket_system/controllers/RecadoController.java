@@ -2,6 +2,9 @@ package com.example.ticket_system.controllers;
 import com.example.ticket_system.dtos.RecadoDTO;
 import com.example.ticket_system.models.Recado;
 import com.example.ticket_system.services.GestaoRecado;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +24,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RestController
-@RequestMapping("/ts/recados")
+@RequestMapping("/v1/ts/recados")
+@Tag(name = "Endpoint de Recado")
 public class RecadoController {
 
     //aula 11 mod 2 assistido
@@ -30,6 +34,7 @@ public class RecadoController {
     //dentro de service há uma instancia de RecadoDAO
 
     @GetMapping
+    @Operation(summary = "Busca todos os recados")
     public ResponseEntity<CollectionModel<RecadoDTO>> buscarTodos(
             @RequestParam(value="page", defaultValue = "0") int page,
             @RequestParam(value="limit", defaultValue = "12") int limit,
@@ -51,21 +56,25 @@ public class RecadoController {
         return ResponseEntity.ok(CollectionModel.of(pages));
     }
 
+
     @GetMapping("/{id}")
+    @Operation(summary = "Busca por Id")
     public ResponseEntity<RecadoDTO> buscarUm(@PathVariable Integer id) {
         RecadoDTO objDTO = service.findById(id);
         objDTO.add(linkTo(methodOn(RecadoController.class).buscarUm(id)).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/{funcionario}")
+    @GetMapping("/funcionario/{funcionario}")
+    @Operation(summary = "Busca por nome de funcionario")
     public ResponseEntity<RecadoDTO> buscarFuncionario(@PathVariable String nomeFunc) {
         RecadoDTO objDTO = service.findByFuncionario(nomeFunc);
         objDTO.add(linkTo(methodOn(RecadoController.class).buscarFuncionario(nomeFunc)).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/{empresa}")
+    @GetMapping("/empresa/{empresa}")
+    @Operation(summary = "Busca por nome de uma empresa")
     public ResponseEntity<RecadoDTO> buscarEmpresa(@PathVariable String empNome) {
         RecadoDTO objDTO = service.findByEmpresa(empNome);
         objDTO.add(linkTo(methodOn(RecadoController.class).buscarEmpresa(empNome)).withSelfRel());
@@ -75,6 +84,7 @@ public class RecadoController {
     //response body informa que no corpo da requisição post, virá um objeto Recado
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Insere um recado")
     public ResponseEntity<RecadoDTO> incluir(@RequestBody Recado obj){
         RecadoDTO objDTO = service.save(obj);
         objDTO.add(linkTo(methodOn(RecadoController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
@@ -82,6 +92,7 @@ public class RecadoController {
     }
 
     @PutMapping
+    @Operation(summary = "Atualiza um recado")
     public ResponseEntity<RecadoDTO> atualizar(@PathVariable Integer id, @RequestBody Recado obj){
         if(!service.existById(id)){
             return ResponseEntity.notFound().build();
@@ -94,6 +105,7 @@ public class RecadoController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Exclui um recado pelo id")
     public ResponseEntity<Void> excluir(@PathVariable Integer id){
         if(!service.existById(id)){
             return ResponseEntity.notFound().build();

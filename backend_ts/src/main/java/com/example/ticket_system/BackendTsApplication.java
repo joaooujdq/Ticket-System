@@ -5,13 +5,18 @@ import com.example.ticket_system.repositories.RecadoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.Arrays;
 
+@EnableAutoConfiguration
+@ComponentScan
 @SpringBootApplication
 public class BackendTsApplication implements CommandLineRunner {
 
+	//aula 9 mod 01 assistido
 	@Autowired
 	private RecadoDAO recadoDAO;
 

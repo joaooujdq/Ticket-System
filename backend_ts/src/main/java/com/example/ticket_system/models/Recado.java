@@ -46,7 +46,7 @@ public class Recado implements Serializable {
     private String mensagem;
 
     @Size(max=11)
-    @Size(max=10)
+    @Size(min=10)
     @Column(name = "telefone")
     private String telefone;
 

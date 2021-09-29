@@ -1,5 +1,6 @@
 package com.example.ticket_system.ExceptionHandler;
 
+import com.example.ticket_system.services.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +38,13 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now(),"Verifique o preenchimento dos campos", erro_campos);
 
         return handleExceptionInternal(ex, erro, headers, status, request);
+    }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(BusinessException.class)
+    public ResponseEntity<StandardError> dataIntegrity (BusinessException ex){
+
+        StandardError erro = new StandardError(HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now(),ex.getMessage(), null);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 }

@@ -1,52 +1,98 @@
 package com.example.ticket_system.controllers;
-
+import com.example.ticket_system.dtos.RecadoDTO;
 import com.example.ticket_system.models.Recado;
-import com.example.ticket_system.repositories.RecadoDAO;
 import com.example.ticket_system.services.GestaoRecado;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
+
+
+
+
 
 @RestController
 @RequestMapping("/ts/recados")
 public class RecadoController {
 
+    //aula 11 mod 2 assistido
     @Autowired
     private GestaoRecado service;
     //dentro de service há uma instancia de RecadoDAO
 
     @GetMapping
-    public List<Recado> buscarTodos(){
-        return service.findAll();
+    public ResponseEntity<CollectionModel<RecadoDTO>> buscarTodos(
+            @RequestParam(value="page", defaultValue = "0") int page,
+            @RequestParam(value="limit", defaultValue = "12") int limit,
+            @RequestParam(value="direction", defaultValue = "asc") String direction) {
+
+
+        Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+
+        Page<RecadoDTO> pages = service.findAll(pageable);
+        pages
+                .stream()
+                .forEach(p -> p.add(
+                                linkTo(methodOn(RecadoController.class).buscarUm(p.getCodigo())).withSelfRel()
+                        )
+                );
+
+        return ResponseEntity.ok(CollectionModel.of(pages));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Recado> buscarUm(@PathVariable Integer id){
-        return service.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RecadoDTO> buscarUm(@PathVariable Integer id) {
+        RecadoDTO objDTO = service.findById(id);
+        objDTO.add(linkTo(methodOn(RecadoController.class).buscarUm(id)).withSelfRel());
+        return ResponseEntity.ok(objDTO);
+    }
+
+    @GetMapping("/{funcionario}")
+    public ResponseEntity<RecadoDTO> buscarFuncionario(@PathVariable String nomeFunc) {
+        RecadoDTO objDTO = service.findByFuncionario(nomeFunc);
+        objDTO.add(linkTo(methodOn(RecadoController.class).buscarFuncionario(nomeFunc)).withSelfRel());
+        return ResponseEntity.ok(objDTO);
+    }
+
+    @GetMapping("/{empresa}")
+    public ResponseEntity<RecadoDTO> buscarEmpresa(@PathVariable String empNome) {
+        RecadoDTO objDTO = service.findByEmpresa(empNome);
+        objDTO.add(linkTo(methodOn(RecadoController.class).buscarEmpresa(empNome)).withSelfRel());
+        return ResponseEntity.ok(objDTO);
     }
 
     //response body informa que no corpo da requisição post, virá um objeto Recado
     @PostMapping
-    public ResponseEntity<Recado> incluir(@Valid @RequestBody Recado obj){
-        obj = service.save(obj);
-        return ResponseEntity.created(null).body(obj);
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<RecadoDTO> incluir(@RequestBody Recado obj){
+        RecadoDTO objDTO = service.save(obj);
+        objDTO.add(linkTo(methodOn(RecadoController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
+        return ResponseEntity.ok(objDTO);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Recado> atualizar(@PathVariable Integer id, @RequestBody Recado obj){
+    @PutMapping
+    public ResponseEntity<RecadoDTO> atualizar(@PathVariable Integer id, @RequestBody Recado obj){
         if(!service.existById(id)){
             return ResponseEntity.notFound().build();
         }
+
         obj.setCodigo(id);
-        obj = service.save(obj);
-        return ResponseEntity.ok(obj);
+        RecadoDTO objDTO = service.save(obj);
+        objDTO.add(linkTo(methodOn(RecadoController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
+        return ResponseEntity.ok(objDTO);
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Integer id){
         if(!service.existById(id)){

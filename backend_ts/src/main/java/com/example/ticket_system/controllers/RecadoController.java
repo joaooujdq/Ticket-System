@@ -20,9 +20,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 
-
-
-
 @RestController
 @RequestMapping("/v1/ts/recados")
 @Tag(name = "Endpoint de Recado")

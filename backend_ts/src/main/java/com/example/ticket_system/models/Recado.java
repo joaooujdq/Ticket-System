@@ -23,12 +23,12 @@ public class Recado implements Serializable {
 
     @NotBlank
     @Size(max=60)
-    @Column(name = "nome_emp", nullable = false)
+    @Column(name = "empresa_rec", nullable = false)
     private String empresa;
 
     @NotBlank
     @Size(max=60)
-    @Column(name = "nome_func", nullable = false)
+    @Column(name = "funcionario_rec", nullable = false)
     private String funcionario;
 
     @Column(name = "status", nullable = false)

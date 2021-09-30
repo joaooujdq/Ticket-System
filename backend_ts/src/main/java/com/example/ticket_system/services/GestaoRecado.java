@@ -61,9 +61,10 @@ public class GestaoRecado {
 
     /*
      @Transactional(readOnly = true)
-      public Optional<RecadoDTO> findByTelefone(String telefone) {
-          Optional<Recado> result  = recadoDAO.findByTelefone(telefone);
-          return result.map(obj -> new RecadoDTO(obj));
+      public RecadoDTO findByTelefone(String telefone) {
+          Recado result  = recadoDAO.findByTelefone(telefone)
+                  .orElseThrow(()-> new BusinessException("Registros não encontrados"));
+         return new RecadoDTO(result);
       }
     */
 

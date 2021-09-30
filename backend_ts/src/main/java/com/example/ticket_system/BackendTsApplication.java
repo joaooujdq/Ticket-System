@@ -16,7 +16,6 @@ import java.util.Arrays;
 @SpringBootApplication
 public class BackendTsApplication implements CommandLineRunner {
 
-	//aula 9 mod 01 assistido
 	@Autowired
 	private RecadoDAO recadoDAO;
 

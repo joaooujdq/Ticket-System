@@ -65,7 +65,7 @@ public class RecadoController {
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/funcionario/{funcionario}")
+    @GetMapping("/funcionario/{nomeFunc}") //{variavel} deve ter o mesmo nome da variavel que esta sendo passada como parametro ao endpoint
     @Operation(summary = "Busca por nome de funcionario")
     public ResponseEntity<RecadoDTO> buscarFuncionario(@PathVariable String nomeFunc) {
         RecadoDTO objDTO = service.findByFuncionario(nomeFunc);
@@ -73,7 +73,7 @@ public class RecadoController {
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/empresa/{empresa}")
+    @GetMapping("/empresa/{empNome}")
     @Operation(summary = "Busca por nome de uma empresa")
     public ResponseEntity<RecadoDTO> buscarEmpresa(@PathVariable String empNome) {
         RecadoDTO objDTO = service.findByEmpresa(empNome);

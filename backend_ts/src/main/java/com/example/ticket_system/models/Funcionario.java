@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "Funcionarios")
 public class Funcionario implements Serializable {
@@ -21,24 +20,26 @@ public class Funcionario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @NotBlank
-    @Size(max=60)
+
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    @NotBlank
-    @Size(max=60)
+
     @Column(name = "cargo", nullable = false)
     private String cargo;
 
-    @NotBlank
-    @Size(max=255)
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Size(max=11)
-    @Size(min=10)
+
     @Column(name = "telefone")
     private String telefone;
 
+    public Funcionario(Integer codigo, String nome, String cargo, String email, String telefone) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.cargo = cargo;
+        this.email = email;
+        this.telefone = telefone;
+    }
 }

@@ -1,7 +1,9 @@
 package com.example.ticket_system.services;
 
 import com.example.ticket_system.dtos.FuncionarioDTO;
+import com.example.ticket_system.dtos.RecadoDTO;
 import com.example.ticket_system.models.Funcionario;
+import com.example.ticket_system.models.Recado;
 import com.example.ticket_system.repositories.FuncionarioDAO;
 import com.example.ticket_system.services.exceptions.BusinessException;
 import lombok.AllArgsConstructor;
@@ -47,15 +49,38 @@ public class GestaoFuncionario {
       public Optional<FuncionarioDTO> findByTelefone(String telefone) {
           Optional<Funcionario> result  = funcionarioDAO.findByTelefone(telefone);
           return result.map(obj -> new FuncionarioDTO(obj));
+
       }
     */
 
     @Transactional
-    public FuncionarioDTO save(Funcionario obj) {
-        boolean telefoneExists = funcionarioDAO.findByTelefone(obj.getTelefone()).stream()
-                .anyMatch(objResult -> !objResult.equals(obj));
-        boolean emailExists = funcionarioDAO.findByEmail(obj.getTelefone()).stream()
-                .anyMatch(objResult -> !objResult.equals(obj));
+    public FuncionarioDTO update(FuncionarioDTO obj) {
+        Funcionario entity = funcionarioDAO.findById(obj.getCodigo())
+                .orElseThrow(() -> new BusinessException("Registros não encontrados!!!"));
+
+        entity.setNome(obj.getNome());
+        entity.setCargo(obj.getCargo());
+        entity.setEmail(obj.getEmail());
+        entity.setTelefone(obj.getTelefone());
+
+
+
+        return new FuncionarioDTO(funcionarioDAO.save(entity));
+
+
+    }
+
+    @Transactional
+    public FuncionarioDTO save(FuncionarioDTO obj) {
+        Funcionario entity = new Funcionario(obj.getCodigo(), obj.getNome(), obj.getCargo(),obj.getEmail(),
+                obj.getTelefone());
+
+        boolean telefoneExists = funcionarioDAO.findByTelefone(entity.getTelefone())
+                .stream()
+                .anyMatch(objResult -> !objResult.equals(entity));
+        boolean emailExists = funcionarioDAO.findByEmail(entity.getTelefone())
+                .stream()
+                .anyMatch(objResult -> !objResult.equals(entity));
 
         if (telefoneExists) {
             throw new BusinessException("Telefone já existente!");
@@ -63,7 +88,7 @@ public class GestaoFuncionario {
             throw new BusinessException("Email já existente!");
         }
 
-        return new FuncionarioDTO(funcionarioDAO.save(obj));
+        return new FuncionarioDTO(funcionarioDAO.save(entity));
     }
 
     @Transactional

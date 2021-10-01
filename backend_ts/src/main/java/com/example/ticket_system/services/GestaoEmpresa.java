@@ -1,8 +1,12 @@
 package com.example.ticket_system.services;
 
 import com.example.ticket_system.dtos.EmpresaDTO;
+import com.example.ticket_system.dtos.FuncionarioDTO;
 import com.example.ticket_system.models.Empresa;
+import com.example.ticket_system.models.Funcionario;
+import com.example.ticket_system.models.Recado;
 import com.example.ticket_system.repositories.EmpresaDAO;
+import com.example.ticket_system.repositories.RecadoDAO;
 import com.example.ticket_system.services.exceptions.BusinessException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -10,9 +14,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class GestaoEmpresa {
+
     private EmpresaDAO empresaDAO;
 
     @Transactional(readOnly = true)
@@ -43,13 +50,43 @@ public class GestaoEmpresa {
     */
 
     @Transactional
-    public EmpresaDTO save(Empresa obj) {
-        boolean telefoneExists = empresaDAO.findByTelefone(obj.getTelefone()).stream()
-                .anyMatch(objResult -> !objResult.equals(obj));
-        boolean emailExists = empresaDAO.findByEmail(obj.getTelefone()).stream()
-                .anyMatch(objResult -> !objResult.equals(obj));
-        boolean cnpjExists = empresaDAO.findByCnpj(obj.getTelefone()).stream()
-                .anyMatch(objResult -> !objResult.equals(obj));
+    public EmpresaDTO update(EmpresaDTO obj) {
+        Empresa entity = empresaDAO.findById(obj.getCodigo())
+                .orElseThrow(() -> new BusinessException("Registros não encontrados!!!"));
+
+        entity.setNome(obj.getNome());
+        entity.setRazao(obj.getRazao());
+        entity.setCnpj(obj.getCnpj());
+        entity.setEmail(obj.getEmail());
+        entity.setEndereco(obj.getEndereco());
+        entity.setTelefone(obj.getTelefone());
+
+
+
+        return new EmpresaDTO(empresaDAO.save(entity));
+
+
+    }
+
+    @Transactional
+    public EmpresaDTO save(EmpresaDTO obj) {
+
+        Empresa entity = new Empresa(
+                obj.getCodigo(), obj.getNome(), obj.getRazao(),obj.getCnpj(),
+                obj.getEmail(), obj.getEndereco(), obj.getTelefone(),
+                new Recado(
+                        obj.getRecado().getCodigo(),obj.getRecado().getEmpresa(), obj.getRecado().getFuncionario(),
+                        obj.getRecado().isStatus(),obj.getRecado().getPrioridade(), obj.getRecado().getSetor(),
+                        obj.getRecado().getMensagem(), obj.getRecado().getTelefone(), obj.getRecado().getData(),
+                        obj.getRecado().getHora()));
+
+
+        boolean telefoneExists = empresaDAO.findByTelefone(entity.getTelefone()).stream()
+                .anyMatch(objResult -> !objResult.equals(entity));
+        boolean emailExists = empresaDAO.findByEmail(entity.getTelefone()).stream()
+                .anyMatch(objResult -> !objResult.equals(entity));
+        boolean cnpjExists = empresaDAO.findByCnpj(entity.getTelefone()).stream()
+                .anyMatch(objResult -> !objResult.equals(entity));
 
         if (telefoneExists) {
             throw new BusinessException("Telefone já existente!");
@@ -59,7 +96,7 @@ public class GestaoEmpresa {
             throw new BusinessException("CNPJ já existente!");
         }
 
-        return new EmpresaDTO(empresaDAO.save(obj));
+        return new EmpresaDTO(empresaDAO.save(entity));
     }
 
     @Transactional

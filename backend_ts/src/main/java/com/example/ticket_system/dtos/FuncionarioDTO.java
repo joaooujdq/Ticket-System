@@ -6,13 +6,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder()
+@JsonPropertyOrder({"codigo_func", "nome_func", "cargo_func", "email_func", "telefone_func"})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -21,15 +23,23 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implemen
     @JsonProperty("codigo_func")
     private Integer codigo;
 
+    @NotBlank
+    @Size(max=60)
     @JsonProperty("nome_func")
     private String nome;
 
+    @NotBlank
+    @Size(max=60)
     @JsonProperty("cargo_func")
     private String cargo;
 
+    @NotBlank
+    @Size(max=255)
     @JsonProperty("email_func")
     private String email;
 
+    @Size(max=11)
+    @Size(min=10)
     @JsonProperty("telefone_func")
     private String telefone;
 

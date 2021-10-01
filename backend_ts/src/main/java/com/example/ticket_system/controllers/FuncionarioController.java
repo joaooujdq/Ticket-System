@@ -65,7 +65,7 @@ public class FuncionarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Insere um funcionario")
-    public ResponseEntity<FuncionarioDTO> incluir(@RequestBody Funcionario obj){
+    public ResponseEntity<FuncionarioDTO> incluir(@RequestBody FuncionarioDTO obj){
         FuncionarioDTO objDTO = service.save(obj);
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);
@@ -73,12 +73,7 @@ public class FuncionarioController {
 
     @PutMapping
     @Operation(summary = "Atualiza um funcionario")
-    public ResponseEntity<FuncionarioDTO> atualizar(@PathVariable Integer id, @RequestBody Funcionario obj){
-        if(!service.existById(id)){
-            return ResponseEntity.notFound().build();
-        }
-
-        obj.setCodigo(id);
+    public ResponseEntity<FuncionarioDTO> atualizar(@PathVariable Integer id, @RequestBody FuncionarioDTO obj){
         FuncionarioDTO objDTO = service.save(obj);
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);

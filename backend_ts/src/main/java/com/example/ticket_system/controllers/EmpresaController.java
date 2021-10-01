@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -63,7 +65,7 @@ public class EmpresaController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Insere uma empresa")
-    public ResponseEntity<EmpresaDTO> incluir(@RequestBody Empresa obj){
+    public ResponseEntity<EmpresaDTO> incluir(@RequestBody @Valid EmpresaDTO obj){
         EmpresaDTO objDTO = service.save(obj);
         objDTO.add(linkTo(methodOn(EmpresaController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);
@@ -71,12 +73,8 @@ public class EmpresaController {
 
     @PutMapping
     @Operation(summary = "Atualiza uma empresa")
-    public ResponseEntity<EmpresaDTO> atualizar(@PathVariable Integer id, @RequestBody Empresa obj){
-        if(!service.existById(id)){
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<EmpresaDTO> atualizar(@PathVariable Integer id, @RequestBody EmpresaDTO obj){
 
-        obj.setCodigo(id);
         EmpresaDTO objDTO = service.save(obj);
         objDTO.add(linkTo(methodOn(EmpresaController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);

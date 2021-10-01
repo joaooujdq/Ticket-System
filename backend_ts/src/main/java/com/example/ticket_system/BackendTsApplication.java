@@ -46,8 +46,8 @@ public class BackendTsApplication implements CommandLineRunner {
 		Funcionario f1 = new Funcionario(1, "nome_func", "cargo_func", "email_func", "1234567890");
 		Funcionario f2 = new Funcionario(2, "2nome_func", "2cargo_func", "2email_func", "21234567890");
 
-		Empresa e1 = new Empresa(1, "nome_emp", "razao_emp", "12345678901234", "email_emp", "endereco_emp", "1234567890");
-		Empresa e2 = new Empresa(2, "2nome_emp", "2razao_emp", "12345678901234", "2email_emp", "2endereco_emp", "21234567890");
+		Empresa e1 = new Empresa(1, "nome_emp", "razao_emp", "12345678901234", "email_emp", "endereco_emp", "1234567890", r1);
+		Empresa e2 = new Empresa(2, "2nome_emp", "2razao_emp", "12345678901234", "2email_emp", "2endereco_emp", "21234567890", r2);
 
 		recadoDAO.saveAll(Arrays.asList(r1,r2));
 		funcionarioDAO.saveAll(Arrays.asList(f1,f2));

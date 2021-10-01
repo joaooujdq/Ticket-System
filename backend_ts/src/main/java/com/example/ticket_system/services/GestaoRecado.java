@@ -67,17 +67,41 @@ public class GestaoRecado {
          return new RecadoDTO(result);
       }
     */
+    @Transactional
+    public RecadoDTO update(RecadoDTO obj) {
+        Recado entity = recadoDAO.findById(obj.getCodigo())
+                .orElseThrow(() -> new BusinessException("Registros não encontrados!!!"));
+
+        entity.setEmpresa(obj.getEmpresa());
+        entity.setFuncionario(obj.getFuncionario());
+        entity.setStatus(obj.isStatus());
+        entity.setPrioridade(obj.getPrioridade());
+        entity.setSetor(obj.getSetor());
+        entity.setMensagem(obj.getMensagem());
+        entity.setTelefone(obj.getTelefone());
+        entity.setData(obj.getData());
+        entity.setHora(obj.getHora());
+
+
+        return new RecadoDTO(recadoDAO.save(entity));
+
+
+    }
 
     @Transactional
-    public RecadoDTO save(Recado obj) {
-        boolean telefoneExists = recadoDAO.findByTelefone(obj.getTelefone()).stream()
-                .anyMatch(objResult -> !objResult.equals(obj));
+    public RecadoDTO save(RecadoDTO obj) {
+        Recado entity = new Recado(obj.getCodigo(), obj.getEmpresa(), obj.getFuncionario(),obj.isStatus(),
+                obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), obj.getTelefone(), obj.getData(), obj.getHora());
+
+        boolean telefoneExists = recadoDAO.findByTelefone(entity.getTelefone())
+                .stream()
+                .anyMatch(objResult -> !objResult.equals(entity));
 
         if (telefoneExists) {
             throw new BusinessException("Telefone já existente!");
         }
 
-        return new RecadoDTO(recadoDAO.save(obj));
+        return new RecadoDTO(recadoDAO.save(entity));
     }
 
     @Transactional

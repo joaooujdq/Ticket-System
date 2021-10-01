@@ -82,7 +82,7 @@ public class RecadoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Insere um recado")
-    public ResponseEntity<RecadoDTO> incluir(@RequestBody Recado obj){
+    public ResponseEntity<RecadoDTO> incluir(@RequestBody RecadoDTO obj){
         RecadoDTO objDTO = service.save(obj);
         objDTO.add(linkTo(methodOn(RecadoController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);
@@ -90,13 +90,8 @@ public class RecadoController {
 
     @PutMapping
     @Operation(summary = "Atualiza um recado")
-    public ResponseEntity<RecadoDTO> atualizar(@PathVariable Integer id, @RequestBody Recado obj){
-        if(!service.existById(id)){
-            return ResponseEntity.notFound().build();
-        }
-
-        obj.setCodigo(id);
-        RecadoDTO objDTO = service.save(obj);
+    public ResponseEntity<RecadoDTO> atualizar(@PathVariable Integer id, @RequestBody RecadoDTO obj){
+        RecadoDTO objDTO = service.update(obj);
         objDTO.add(linkTo(methodOn(RecadoController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }

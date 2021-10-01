@@ -6,12 +6,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "Recados")
 public class Recado implements Serializable {
@@ -21,14 +23,12 @@ public class Recado implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
 
-    @NotBlank
-    @Size(max=60)
-    @Column(name = "empresa_rec", nullable = false)
+
+    @Column(name = "empresa", nullable = false)
     private String empresa;
 
-    @NotBlank
-    @Size(max=60)
-    @Column(name = "funcionario_rec", nullable = false)
+
+    @Column(name = "funcionario", nullable = false)
     private String funcionario;
 
     @Column(name = "status", nullable = false)
@@ -40,13 +40,10 @@ public class Recado implements Serializable {
     @Column(name = "setor", nullable = false)
     private String setor;
 
-    @NotBlank
-    @Size(max=255)
+
     @Column(name = "mensagem", nullable = false)
     private String mensagem;
 
-    @Size(max=11)
-    @Size(min=10)
     @Column(name = "telefone")
     private String telefone;
 
@@ -55,5 +52,21 @@ public class Recado implements Serializable {
 
     @Column(name = "hora", nullable = false)
     private String hora;
+
+    @OneToMany(mappedBy = "recado") //deve ter o mesmo nome da variavel que é manyToOne
+    private List<Empresa> empresas = new ArrayList<>();
+
+    public Recado(Integer codigo, String empresa, String funcionario, boolean status, int prioridade, String setor, String mensagem, String telefone, String data, String hora) {
+        this.codigo = codigo;
+        this.empresa = empresa;
+        this.funcionario = funcionario;
+        this.status = status;
+        this.prioridade = prioridade;
+        this.setor = setor;
+        this.mensagem = mensagem;
+        this.telefone = telefone;
+        this.data = data;
+        this.hora = hora;
+    }
 }
 

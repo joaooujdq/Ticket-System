@@ -2,6 +2,7 @@ package com.example.ticket_system.services;
 
 import com.example.ticket_system.dtos.EmpresaDTO;
 import com.example.ticket_system.dtos.FuncionarioDTO;
+import com.example.ticket_system.dtos.RecadoDTO;
 import com.example.ticket_system.models.Empresa;
 import com.example.ticket_system.models.Funcionario;
 import com.example.ticket_system.models.Recado;
@@ -41,13 +42,34 @@ public class GestaoEmpresa {
     }
 
 
-    /*
-     @Transactional(readOnly = true)
-      public Optional<EmpresaDTO> findByTelefone(String telefone) {
-          Optional<Empresa> result  = empresaDAO.findByTelefone(telefone);
-          return result.map(obj -> new EmpresaDTO(obj));
-      }
-    */
+    @Transactional(readOnly = true)
+    public EmpresaDTO findByEmail(String email) {
+        Empresa result  = empresaDAO.findByEmail(email)
+                .orElseThrow(()-> new BusinessException("Registros não encontrados"));
+        return new EmpresaDTO(result);
+    }
+
+    @Transactional(readOnly = true)
+    public EmpresaDTO findByCnpj(String cnpj) {
+        Empresa result = empresaDAO.findByCnpj(cnpj)
+                .orElseThrow(() -> new BusinessException("Registros não encontrados"));
+        return new EmpresaDTO(result);
+    }
+    @Transactional(readOnly = true)
+    public EmpresaDTO findByTelefone(String telefone) {
+        Empresa result  = empresaDAO.findByTelefone(telefone)
+                .orElseThrow(()-> new BusinessException("Registros não encontrados"));
+        return new EmpresaDTO(result);
+
+    }
+
+    @Transactional(readOnly = true)
+    public EmpresaDTO findByNome(String nome) {
+        Empresa result  = empresaDAO.findByNome(nome)
+                .orElseThrow(()-> new BusinessException("Registros não encontrados"));
+        return new EmpresaDTO(result);
+    }
+
 
     @Transactional
     public EmpresaDTO update(EmpresaDTO obj) {
@@ -73,19 +95,13 @@ public class GestaoEmpresa {
 
         Empresa entity = new Empresa(
                 obj.getCodigo(), obj.getNome(), obj.getRazao(),obj.getCnpj(),
-                obj.getEmail(), obj.getEndereco(), obj.getTelefone(),
-                new Recado(
-                        obj.getRecado().getCodigo(),obj.getRecado().getEmpresa(), obj.getRecado().getFuncionario(),
-                        obj.getRecado().isStatus(),obj.getRecado().getPrioridade(), obj.getRecado().getSetor(),
-                        obj.getRecado().getMensagem(), obj.getRecado().getTelefone(), obj.getRecado().getData(),
-                        obj.getRecado().getHora()));
-
+                obj.getEmail(), obj.getEndereco(), obj.getTelefone());
 
         boolean telefoneExists = empresaDAO.findByTelefone(entity.getTelefone()).stream()
                 .anyMatch(objResult -> !objResult.equals(entity));
-        boolean emailExists = empresaDAO.findByEmail(entity.getTelefone()).stream()
+        boolean emailExists = empresaDAO.findByEmail(entity.getEmail()).stream()
                 .anyMatch(objResult -> !objResult.equals(entity));
-        boolean cnpjExists = empresaDAO.findByCnpj(entity.getTelefone()).stream()
+        boolean cnpjExists = empresaDAO.findByCnpj(entity.getCnpj()).stream()
                 .anyMatch(objResult -> !objResult.equals(entity));
 
         if (telefoneExists) {

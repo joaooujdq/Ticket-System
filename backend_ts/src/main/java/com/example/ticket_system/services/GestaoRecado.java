@@ -1,6 +1,8 @@
 package com.example.ticket_system.services;
 
 import com.example.ticket_system.dtos.RecadoDTO;
+import com.example.ticket_system.models.Empresa;
+import com.example.ticket_system.models.Funcionario;
 import com.example.ticket_system.models.Recado;
 import com.example.ticket_system.repositories.RecadoDAO;
 import com.example.ticket_system.services.exceptions.BusinessException;
@@ -46,15 +48,15 @@ public class GestaoRecado {
     }
 
     @Transactional(readOnly = true)
-    public RecadoDTO findByFuncionario(String nomeFunc) {
-        Recado result  = recadoDAO.findByFuncionario(nomeFunc)
+    public RecadoDTO findByFuncionario(String funcioanrio) {
+        Recado result  = recadoDAO.findByFuncionario(funcioanrio)
                 .orElseThrow(() -> new BusinessException("Registros não encontrados"));
         return new RecadoDTO(result);
     }
 
     @Transactional(readOnly = true)
-    public RecadoDTO findByEmpresa(String nomeEmp) {
-        Recado result  = recadoDAO.findByEmpresa(nomeEmp)
+    public RecadoDTO findByEmpresa(String empresa) {
+        Recado result  = recadoDAO.findByEmpresa(empresa)
                 .orElseThrow(()-> new BusinessException("Registros não encontrados"));
         return new RecadoDTO(result);
     }
@@ -78,7 +80,6 @@ public class GestaoRecado {
         entity.setPrioridade(obj.getPrioridade());
         entity.setSetor(obj.getSetor());
         entity.setMensagem(obj.getMensagem());
-        entity.setTelefone(obj.getTelefone());
         entity.setData(obj.getData());
         entity.setHora(obj.getHora());
 
@@ -91,15 +92,16 @@ public class GestaoRecado {
     @Transactional
     public RecadoDTO save(RecadoDTO obj) {
         Recado entity = new Recado(obj.getCodigo(), obj.getEmpresa(), obj.getFuncionario(),obj.isStatus(),
-                obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), obj.getTelefone(), obj.getData(), obj.getHora());
+                obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), obj.getData(), obj.getHora(),
+                new Empresa(
+                        obj.getEmpresaDTO().getCodigo(), obj.getEmpresaDTO().getNome(), obj.getEmpresaDTO().getRazao(), obj.getEmpresaDTO().getCnpj(),
+                        obj.getEmpresaDTO().getEmail(), obj.getEmpresaDTO().getEndereco(), obj.getEmpresaDTO().getTelefone()),
+                new Funcionario(
+                        obj.getFuncionarioDTO().getCodigo(),obj.getFuncionarioDTO().getNome(),
+                        obj.getFuncionarioDTO().getCargo(), obj.getFuncionarioDTO().getEmail(), obj.getFuncionarioDTO().getTelefone()
+                ));
 
-        boolean telefoneExists = recadoDAO.findByTelefone(entity.getTelefone())
-                .stream()
-                .anyMatch(objResult -> !objResult.equals(entity));
 
-        if (telefoneExists) {
-            throw new BusinessException("Telefone já existente!");
-        }
 
         return new RecadoDTO(recadoDAO.save(entity));
     }

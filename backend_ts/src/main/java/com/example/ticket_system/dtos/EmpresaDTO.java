@@ -50,14 +50,13 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
     @JsonProperty("endereco_emp")
     private String endereco;
 
+    @NotBlank
     @Size(max = 11)
     @Size(min = 10)
     @JsonProperty("telefone_emp")
     private String telefone;
 
-    @NotNull
-    @Valid
-    private RecadoDTO recado;
+
 
     public EmpresaDTO(Empresa obj){
         codigo = obj.getCodigo();
@@ -67,6 +66,6 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
         email = obj.getEmail();
         endereco = obj.getEndereco();
         telefone = obj.getTelefone();
-        recado = new RecadoDTO(obj.getRecado());
+
     }
 }

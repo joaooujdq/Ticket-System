@@ -3,9 +3,9 @@ package com.example.ticket_system.models;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,9 +31,11 @@ public class Funcionario implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
-
     @Column(name = "telefone")
     private String telefone;
+
+    @OneToMany(mappedBy = "empresaObj")
+    private List<Recado> recados = new ArrayList<>();
 
     public Funcionario(Integer codigo, String nome, String cargo, String email, String telefone) {
         this.codigo = codigo;

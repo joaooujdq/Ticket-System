@@ -1,7 +1,9 @@
 package com.example.ticket_system.services;
 
+import com.example.ticket_system.dtos.EmpresaDTO;
 import com.example.ticket_system.dtos.FuncionarioDTO;
 import com.example.ticket_system.dtos.RecadoDTO;
+import com.example.ticket_system.models.Empresa;
 import com.example.ticket_system.models.Funcionario;
 import com.example.ticket_system.models.Recado;
 import com.example.ticket_system.repositories.FuncionarioDAO;
@@ -43,15 +45,31 @@ public class GestaoFuncionario {
         return funcionarioDAO.existsById(id);
     }
 
+    @Transactional(readOnly = true)
+    public FuncionarioDTO findByNome(String nome) {
+        Funcionario result  = funcionarioDAO.findByNome(nome)
+                .orElseThrow(()-> new BusinessException("Registros não encontrados"));
+        return new FuncionarioDTO(result);
+    }
 
     /*
+
      @Transactional(readOnly = true)
       public Optional<FuncionarioDTO> findByTelefone(String telefone) {
           Optional<Funcionario> result  = funcionarioDAO.findByTelefone(telefone);
           return result.map(obj -> new FuncionarioDTO(obj));
 
       }
+
+
+    @Transactional(readOnly = true)
+    public FuncionarioDTO findByEmail(String email) {
+        Funcionario result  = funcionarioDAO.findByEmail(email)
+                .orElseThrow(()-> new BusinessException("Registros não encontrados"));
+        return new FuncionarioDTO(result);
+    }
     */
+
 
     @Transactional
     public FuncionarioDTO update(FuncionarioDTO obj) {
@@ -62,8 +80,6 @@ public class GestaoFuncionario {
         entity.setCargo(obj.getCargo());
         entity.setEmail(obj.getEmail());
         entity.setTelefone(obj.getTelefone());
-
-
 
         return new FuncionarioDTO(funcionarioDAO.save(entity));
 
@@ -78,7 +94,7 @@ public class GestaoFuncionario {
         boolean telefoneExists = funcionarioDAO.findByTelefone(entity.getTelefone())
                 .stream()
                 .anyMatch(objResult -> !objResult.equals(entity));
-        boolean emailExists = funcionarioDAO.findByEmail(entity.getTelefone())
+        boolean emailExists = funcionarioDAO.findByEmail(entity.getEmail())
                 .stream()
                 .anyMatch(objResult -> !objResult.equals(entity));
 

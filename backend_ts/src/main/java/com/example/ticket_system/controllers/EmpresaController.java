@@ -1,6 +1,7 @@
 package com.example.ticket_system.controllers;
 
 import com.example.ticket_system.dtos.EmpresaDTO;
+import com.example.ticket_system.dtos.RecadoDTO;
 import com.example.ticket_system.models.Empresa;
 import com.example.ticket_system.services.GestaoEmpresa;
 import io.swagger.v3.oas.annotations.Operation;
@@ -60,8 +61,16 @@ public class EmpresaController {
         return ResponseEntity.ok(objDTO);
     }
 
+    @GetMapping("/nome/{nome}")
+    @Operation(summary = "Busca pelo nome")
+    public ResponseEntity<EmpresaDTO> buscarEmpresa(@PathVariable String nome) {
+        EmpresaDTO objDTO = service.findByNome(nome);
+        objDTO.add(linkTo(methodOn(EmpresaController.class).buscarEmpresa(nome)).withSelfRel());
+        return ResponseEntity.ok(objDTO);
+    }
 
-    //response body informa que no corpo da requisição post, virá um objeto Empresa
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Insere uma empresa")

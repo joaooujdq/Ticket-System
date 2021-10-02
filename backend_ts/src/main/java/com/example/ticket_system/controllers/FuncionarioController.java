@@ -1,5 +1,6 @@
 package com.example.ticket_system.controllers;
 
+import com.example.ticket_system.dtos.EmpresaDTO;
 import com.example.ticket_system.dtos.FuncionarioDTO;
 import com.example.ticket_system.models.Funcionario;
 import com.example.ticket_system.services.GestaoFuncionario;
@@ -57,6 +58,14 @@ public class FuncionarioController {
     public ResponseEntity<FuncionarioDTO> buscarUm(@PathVariable Integer id) {
         FuncionarioDTO objDTO = service.findById(id);
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarUm(id)).withSelfRel());
+        return ResponseEntity.ok(objDTO);
+    }
+
+    @GetMapping("/nome/{nome}")
+    @Operation(summary = "Busca pelo nome")
+    public ResponseEntity<FuncionarioDTO> buscarFuncionario(@PathVariable String nome) {
+        FuncionarioDTO objDTO = service.findByNome(nome);
+        objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarFuncionario(nome)).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
 

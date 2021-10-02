@@ -62,19 +62,19 @@ public class RecadoController {
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/funcionario/{nomeFunc}") //{variavel} deve ter o mesmo nome da variavel que esta sendo passada como parametro ao endpoint
-    @Operation(summary = "Busca por nome de funcionario")
-    public ResponseEntity<RecadoDTO> buscarFuncionario(@PathVariable String nomeFunc) {
-        RecadoDTO objDTO = service.findByFuncionario(nomeFunc);
-        objDTO.add(linkTo(methodOn(RecadoController.class).buscarFuncionario(nomeFunc)).withSelfRel());
+    @GetMapping("/funcionario/{funcionario}") //{variavel} deve ter o mesmo nome da variavel que esta sendo passada como parametro ao endpoint
+    @Operation(summary = "Busca pelo nome de um funcionario")
+    public ResponseEntity<RecadoDTO> buscarFuncionario(@PathVariable String funcionario) {
+        RecadoDTO objDTO = service.findByFuncionario(funcionario);
+        objDTO.add(linkTo(methodOn(RecadoController.class).buscarFuncionario(funcionario)).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/empresa/{empNome}")
-    @Operation(summary = "Busca por nome de uma empresa")
-    public ResponseEntity<RecadoDTO> buscarEmpresa(@PathVariable String empNome) {
-        RecadoDTO objDTO = service.findByEmpresa(empNome);
-        objDTO.add(linkTo(methodOn(RecadoController.class).buscarEmpresa(empNome)).withSelfRel());
+    @GetMapping("/empresa/{empresa}")
+    @Operation(summary = "Busca pelo nome de uma empresa")
+    public ResponseEntity<RecadoDTO> buscarEmpresa(@PathVariable String empresa) {
+        RecadoDTO objDTO = service.findByEmpresa(empresa);
+        objDTO.add(linkTo(methodOn(RecadoController.class).buscarEmpresa(empresa)).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
 

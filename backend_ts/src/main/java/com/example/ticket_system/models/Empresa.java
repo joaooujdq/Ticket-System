@@ -1,21 +1,21 @@
 package com.example.ticket_system.models;
 
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "Empresas")
 public class Empresa implements Serializable {
+
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,9 +45,18 @@ public class Empresa implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
-    @ManyToOne
-    private Recado recado;
+    @OneToMany(mappedBy = "funcionarioObj")
+    private List<Recado> recados = new ArrayList<>();
 
+    public Empresa(Integer codigo, String nome, String razao, String cnpj, String email, String endereco, String telefone) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.razao = razao;
+        this.cnpj = cnpj;
+        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
 }
 
 

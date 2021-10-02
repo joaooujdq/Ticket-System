@@ -7,10 +7,8 @@ import java.util.Optional;
 
 public interface RecadoDAO extends JpaRepository<Recado, Integer> {
 
-
-    Optional<Recado> findByTelefone(String telefone);
-    Optional<Recado> findByFuncionario(String nomeFunc);
-    Optional<Recado> findByEmpresa(String nomeEmp);
+    Optional<Recado> findByFuncionario(String funcionario);
+    Optional<Recado> findByEmpresa(String empresa);
 }
 
 

@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer> {
 
-
+    Optional<Funcionario> findByNome(String nome);
     Optional<Funcionario> findByTelefone(String telefone);
-    Optional<Funcionario> findByEmail(String telefone);
+    Optional<Funcionario> findByEmail(String email);
 
 }

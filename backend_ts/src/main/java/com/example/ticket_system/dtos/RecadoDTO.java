@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @JsonPropertyOrder({"codigo_rec", "empresa_rec", "funcionario_rec", "status_rec", "prioridade_rec",
-"setor_rec","mensagem_rec","telefone_rec", "data_rec", "hora_rec"})
+"setor_rec","mensagem_rec", "data_rec", "hora_rec"})
 public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -52,18 +52,19 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
     @JsonProperty("mensagem_rec")
     private String mensagem;
 
-    @Size(max=11)
-    @Size(min=10)
-    @JsonProperty("telefone_rec")
-    private String telefone;
-
     @JsonProperty("data_rec")
     private String data;
 
     @JsonProperty("hora_rec")
     private String hora;
 
+    @NotNull
+    @Valid
+    private EmpresaDTO empresaDTO;
 
+    @NotNull
+    @Valid
+    private FuncionarioDTO funcionarioDTO;
 
     public RecadoDTO(Recado obj){
         codigo = obj.getCodigo();
@@ -73,8 +74,9 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
         prioridade = obj.getPrioridade();
         setor = obj.getSetor();
         mensagem = obj.getMensagem();
-        telefone = obj.getTelefone();
         data = obj.getData();
         hora = obj.getHora();
+        empresaDTO = new EmpresaDTO(obj.getEmpresaObj());
+        funcionarioDTO = new FuncionarioDTO(obj.getFuncionarioObj());
     }
 }

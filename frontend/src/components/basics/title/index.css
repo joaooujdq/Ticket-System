@@ -1,0 +1,8 @@
+h1{
+    
+    width: 100vmax;
+    padding:4vh 0vw 4vh 2vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

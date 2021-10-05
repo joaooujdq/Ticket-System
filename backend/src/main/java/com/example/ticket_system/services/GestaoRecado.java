@@ -51,7 +51,7 @@ public class GestaoRecado {
         Recado entity = recadoDAO.findById(obj.getCodigo())
                 .orElseThrow(() -> new BusinessException("Registros não encontrados!!!"));
 
-        entity.setStatus(obj.isStatus());
+        entity.setStatus(obj.getStatus());
         entity.setPrioridade(obj.getPrioridade());
         entity.setSetor(obj.getSetor());
         entity.setMensagem(obj.getMensagem());
@@ -68,7 +68,7 @@ public class GestaoRecado {
         Optional<Empresa> emp = empresaDAO.findById(obj.getEmpresaDTO().getCodigo());
         Optional<Funcionario> func = funcionarioDAO.findById(obj.getFuncionarioDTO().getCodigo());
 
-        Recado entity = new Recado(obj.getCodigo(),obj.isStatus(),
+        Recado entity = new Recado(obj.getCodigo(),obj.getStatus(),
                 obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), obj.getData(), obj.getHora(),
                 new Empresa(
                         emp.get().getCodigo(), emp.get().getNome(), emp.get().getRazao(), emp.get().getCnpj(),

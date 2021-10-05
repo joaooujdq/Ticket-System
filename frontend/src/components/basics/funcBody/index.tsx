@@ -32,6 +32,7 @@ const FuncBody: React.FC = () => {
 
     async function loadMsg() {
         const response = api.get('/v1/ts/funcionarios/',{params:{page:page,limit:3}});
+        console.log(response)
         const limit = api.get('/v1/ts/funcionarios/');
         
         setFunc((await response).data._embedded.funcionarioDTOList);

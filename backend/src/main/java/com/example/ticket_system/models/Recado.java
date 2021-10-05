@@ -22,10 +22,10 @@ public class Recado implements Serializable {
     private Integer codigo;
 
     @Column(name = "status", nullable = false)
-    private boolean status;
+    private String status;
 
     @Column(name = "prioridade")
-    private int prioridade;
+    private String prioridade;
 
     @Column(name = "setor", nullable = false)
     private String setor;

@@ -34,10 +34,10 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
     private Integer codigo;
 
     @JsonProperty("status_rec")
-    private boolean status;
+    private String status;
 
     @JsonProperty("prioridade_rec")
-    private int prioridade;
+    private String prioridade;
 
     @JsonProperty("setor_rec")
     private String setor;
@@ -65,7 +65,7 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
 
     public RecadoDTO(Recado obj){
         codigo = obj.getCodigo();
-        status = obj.isStatus();
+        status = obj.getStatus();
         prioridade = obj.getPrioridade();
         setor = obj.getSetor();
         mensagem = obj.getMensagem();

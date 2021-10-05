@@ -3,19 +3,23 @@ import { useEffect, useState } from "react";
 import api from "../../../services/api";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import '../criarRecadoBody/index.css'
+
 import { Link } from "react-router-dom";
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 
 interface imensagem {
-    
-    status: boolean,
-    prioridade: number,
-    setor: string,
-    mensagem: string,
-    data: string,
-    hora: string,
+
+    status_rec: boolean,
+    prioridade_rec: number,
+    setor_rec: string,
+    mensagem_rec: string,
+    data_rec: string,
+    hora_rec: string,
     empresaDTO: iempresa,
     funcionarioDTO: ifuncionario,
-  
+
 }
 
 interface ifuncionario {
@@ -25,6 +29,7 @@ interface ifuncionario {
     email_func: string;
     telefone_func: string;
     _links: i_links
+
 }
 interface iempresa {
     codigo_emp: number,
@@ -33,9 +38,10 @@ interface iempresa {
     cnpj_emp: string,
     email_emp: string,
     endereco_emp: string,
-    telefone_emp: string
-    links_: i_links
+    telefone_emp: string,
+    _links: i_links
 }
+
 
 interface i_links {
     self: iself
@@ -46,54 +52,110 @@ interface iself {
 }
 
 
+
 const CriarRecadoBody: React.FC = () => {
-    const [inputEmpresaRec, setInputEmpresaRec] = useState('');
+
     const [inputStatus, setInputStatus] = useState('');
-    const [inputSetor, setInputSetor] = useState('');
     const [inputPrioridade, setInputPrioridade] = useState('');
-    const [inputTipo, setInputTipo] = useState('');
+    const [inputSetor, setInputSetor] = useState('');
     const [inputMensagem, setInputMensagem] = useState('');
+    const [inputData, setInputData] = useState('');
+    const [inputHora, setInputHora] = useState('');
+    const [Codigo, setCodigo] = useState('');
     const [inputFuncionarioId, setInputFuncionarioId] = useState('');
     const [inputEmpresaId, setInputEmpresaId] = useState('');
-    
+    const [page, setPage] = useState(0);
+
     const [Emp, setEmp] = useState<iempresa[]>([]);
     const [Func, setFunc] = useState<ifuncionario[]>([]);
     const [Msg, setMsg] = useState<imensagem[]>([]);
 
 
-    async function postMsg() {
-
-        const funcGet = api.get('/v1/ts/funcionarios/' + setInputFuncionarioId)
-        setFunc((await funcGet).data)
+    /*
+    "status_rec": inputStatus,
+    "prioridade_rec": inputPrioridade,
+    "setor_rec": inputSetor,
+    "mensagem_rec": inputMensagem,
+    "data_rec": inputData,
+    "hora_rec": inputHora,
+    "empresaDTO": Emp,
+    "funcionarioDTO": Func
  
-      
+    
+{
+        "status_rec": "teste",
+        "prioridade_rec": "teste",
+        "setor_rec": "setor",
+        "mensagem_rec": "mensagem",
+        "data_rec": "data",
+        "hora_rec": "hora",
+        "empresaDTO": {
+            "codigo_emp": 1,
+            "nome_emp": "nome_emp",
+            "razao_emp": "razao_emp",
+            "cnpj_emp": "12345678901234",
+            "email_emp": "email_emp",
+            "endereco_emp": "endereco_emp",
+            "telefone_emp": "1234567890"
+        },
+        "funcionarioDTO": {
+            "codigo_func": 1,
+            "nome_func": "nome_func",
+            "cargo_func": "cargo_func",
+            "email_func": "email_func",
+            "telefone_func": "1234567990"
+        }
+        }
+ 
+ 
+ 
+*/
+    
 
-
-        const empGet = api.get('/v1/ts/empresas/' + setInputEmpresaId)
-        setEmp((await empGet).data)
-
-      
+    const findFuncionarioById = async (codigo: string) => {
         
+        setCodigo(codigo);
 
-        const response = api.post('/v1/ts/recados/', {
-            //codigo_rec: number,
-
-            "empresa_rec": inputEmpresaRec,
-            "status_rec": inputStatus,
-            "prioridade_rec": inputPrioridade,
-            "setor_rec": inputSetor,
-            "mensagem_rec": inputMensagem,
-            "funcionario": Func,
-            "empresa": Emp,
-            "tipo_rec": inputTipo
-
-        });
-
-        window.location.reload();
+        const response = await api.get('/v1/ts/funcionarios/' + Codigo)
+       
+        setFunc(response.data)
+        
+        //setFunc((await response).data)
+    
+        console.log(Func)
+        findEmpresaById(inputEmpresaId)
 
     }
 
-  
+    const findEmpresaById =  async (codigo: string) => {
+
+        setCodigo(codigo);
+
+        const responses =  await api.get('/v1/ts/empresas/' + Codigo)
+        //console.log(responses)
+        setEmp(responses.data)
+        console.log(Emp)
+        postMsg()
+    }
+
+    const postMsg = async () => {
+
+        const response = await api.post('/v1/ts/recados/', {
+
+            "status_rec": "teste",
+            "prioridade_rec": "teste",
+            "setor_rec": "setor",
+            "mensagem_rec": "mensagem",
+            "data_rec": "data",
+            "hora_rec": "hora",
+            "empresaDTO": Emp,
+            "funcionarioDTO": Func
+        });
+
+        //window.location.reload();
+
+    }
+
 
 
 
@@ -106,34 +168,36 @@ const CriarRecadoBody: React.FC = () => {
                 <ul id='CriarRecadoUl'>
                     <div id='divH1'>
 
-                        <h1>Empresa: </h1>
+
                         <h1>Status: </h1>
                         <h1>Prioridade: </h1>
                         <h1>Setor: </h1>
                         <h1>Mensagem: </h1>
-                        <h1>Tipo: </h1>
+                        <h1>Data: </h1>
+                        <h1>Hora: </h1>
                         <h1>Funcionario ID: </h1>
                         <h1>Empresa ID: </h1>
-                        
+
 
 
                     </div>
                     <div id='divInput'>
-                        <input type="text" value={inputEmpresaRec} onChange={e => setInputEmpresaRec(e.target.value)} />
                         <input type="text" value={inputStatus} onChange={e => setInputStatus(e.target.value)} />
                         <input type="text" value={inputPrioridade} onChange={e => setInputPrioridade(e.target.value)} />
                         <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
-                        <input type="textarea" value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} />
-                        <input type="text" value={inputTipo} onChange={e => setInputTipo(e.target.value)} />
+                        <input type="text" value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} />
+                        <input type="text" value={inputData} onChange={e => setInputData(e.target.value)} />
+                        <input type="text" value={inputHora} onChange={e => setInputHora(e.target.value)} />
                         <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} />
                         <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} />
 
                     </div>
 
                 </ul>
-                <Link id='linkButton' to='/'>
-                    <button onClick={postMsg}>Cadastrar</button>
-                </Link>
+                
+               
+                    <button onTouchTap={() => { findFuncionarioById(inputFuncionarioId);}}>Cadastrar</button>
+                
 
 
 
@@ -147,4 +211,6 @@ const CriarRecadoBody: React.FC = () => {
 }
 
 export default CriarRecadoBody;
+
+
 

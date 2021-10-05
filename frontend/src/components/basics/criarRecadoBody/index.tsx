@@ -1,16 +1,10 @@
-
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import '../criarRecadoBody/index.css'
-
 import { Link } from "react-router-dom";
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
 
 interface imensagem {
-
     status_rec: boolean,
     prioridade_rec: number,
     setor_rec: string,
@@ -19,7 +13,6 @@ interface imensagem {
     hora_rec: string,
     empresaDTO: iempresa,
     funcionarioDTO: ifuncionario,
-
 }
 
 interface ifuncionario {
@@ -29,8 +22,8 @@ interface ifuncionario {
     email_func: string;
     telefone_func: string;
     _links: i_links
-
 }
+
 interface iempresa {
     codigo_emp: number,
     nome_emp: string,
@@ -42,7 +35,6 @@ interface iempresa {
     _links: i_links
 }
 
-
 interface i_links {
     self: iself
 }
@@ -51,25 +43,21 @@ interface iself {
     href: string
 }
 
-
-
 const CriarRecadoBody: React.FC = () => {
-
     const [inputStatus, setInputStatus] = useState('');
     const [inputPrioridade, setInputPrioridade] = useState('');
     const [inputSetor, setInputSetor] = useState('');
     const [inputMensagem, setInputMensagem] = useState('');
     const [inputData, setInputData] = useState('');
     const [inputHora, setInputHora] = useState('');
-    const [Codigo, setCodigo] = useState('');
+    const [CodigoEmp, setCodigoEmp] = useState('');
+    const [CodigoFunc, setCodigoFunc] = useState('');
     const [inputFuncionarioId, setInputFuncionarioId] = useState('');
     const [inputEmpresaId, setInputEmpresaId] = useState('');
     const [page, setPage] = useState(0);
-
     const [Emp, setEmp] = useState<iempresa[]>([]);
     const [Func, setFunc] = useState<ifuncionario[]>([]);
     const [Msg, setMsg] = useState<imensagem[]>([]);
-
 
     /*
     "status_rec": inputStatus,
@@ -80,8 +68,6 @@ const CriarRecadoBody: React.FC = () => {
     "hora_rec": inputHora,
     "empresaDTO": Emp,
     "funcionarioDTO": Func
- 
-    
 {
         "status_rec": "teste",
         "prioridade_rec": "teste",
@@ -106,42 +92,27 @@ const CriarRecadoBody: React.FC = () => {
             "telefone_func": "1234567990"
         }
         }
- 
- 
- 
 */
-    
+    useEffect(() => {
+        const findFuncionarioById = async () => {
+            const response = await api.get('/v1/ts/funcionarios/' + inputFuncionarioId)
+            setFunc(response.data)
+            console.log(Func)
+        }
+        findFuncionarioById()
+    }, [inputFuncionarioId])
 
-    const findFuncionarioById = async (codigo: string) => {
-        
-        setCodigo(codigo);
-
-        const response = await api.get('/v1/ts/funcionarios/' + Codigo)
-       
-        setFunc(response.data)
-        
-        //setFunc((await response).data)
-    
-        console.log(Func)
-        findEmpresaById(inputEmpresaId)
-
-    }
-
-    const findEmpresaById =  async (codigo: string) => {
-
-        setCodigo(codigo);
-
-        const responses =  await api.get('/v1/ts/empresas/' + Codigo)
-        //console.log(responses)
-        setEmp(responses.data)
-        console.log(Emp)
-        postMsg()
-    }
+    useEffect(() => {
+        const findEmpresaById = async () => {
+            const responses = await api.get('/v1/ts/empresas/' + inputEmpresaId)
+            setEmp(responses.data)
+            console.log(Emp)
+        }
+        findEmpresaById()
+    }, [inputEmpresaId])
 
     const postMsg = async () => {
-
         const response = await api.post('/v1/ts/recados/', {
-
             "status_rec": "teste",
             "prioridade_rec": "teste",
             "setor_rec": "setor",
@@ -151,66 +122,54 @@ const CriarRecadoBody: React.FC = () => {
             "empresaDTO": Emp,
             "funcionarioDTO": Func
         });
-
-        //window.location.reload();
-
     }
-
-
-
-
     return (
-
         <>
-
             <body id='CriarRecadoBody'>
-
                 <ul id='CriarRecadoUl'>
                     <div id='divH1'>
-
-
                         <h1>Status: </h1>
                         <h1>Prioridade: </h1>
                         <h1>Setor: </h1>
                         <h1>Mensagem: </h1>
                         <h1>Data: </h1>
                         <h1>Hora: </h1>
-                        <h1>Funcionario ID: </h1>
                         <h1>Empresa ID: </h1>
-
-
-
+                        <h1>Funcionario ID: </h1>
                     </div>
                     <div id='divInput'>
-                        <input type="text" value={inputStatus} onChange={e => setInputStatus(e.target.value)} />
+                        <div id="statusRadios">
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" checked/>
+                            <label className="form-check-label" >
+                            Pendente
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option2"/>
+                            <label className="form-check-label" >
+                            Concluido
+                            </label>
+                        </div>
+                    
+                        </div>
+               
                         <input type="text" value={inputPrioridade} onChange={e => setInputPrioridade(e.target.value)} />
                         <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
                         <input type="text" value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} />
                         <input type="text" value={inputData} onChange={e => setInputData(e.target.value)} />
                         <input type="text" value={inputHora} onChange={e => setInputHora(e.target.value)} />
-                        <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} />
                         <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} />
-
+                        <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} />
                     </div>
-
                 </ul>
-                
-               
-                    <button onTouchTap={() => { findFuncionarioById(inputFuncionarioId);}}>Cadastrar</button>
-                
+                <Link to="/">
+                    <button onClick={postMsg}>Cadastrar</button>
 
-
+                </Link>
 
             </body>
-
-
-
         </>
     );
-
 }
-
 export default CriarRecadoBody;
-
-
-

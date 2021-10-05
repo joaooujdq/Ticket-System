@@ -59,6 +59,8 @@
     
 }
 
+
+
 #CriarRecadoBody #CriarRecadoUl #divInput input{
     padding: 0 0 2.9vh 0;
     font-size: 2vh;
@@ -92,6 +94,15 @@
     width: 8vw;
     height: 4vh;
 
+
+
+}
+#CriarRecadoBody #CriarRecadoUl #divInput #statusRadios #inputRadios{
+    height: 1vh;
+    height: 1vh;
+    margin: 0;
+    border: 0;
+    
 }
 
 

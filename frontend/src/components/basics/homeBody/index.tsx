@@ -52,32 +52,34 @@ const HomeBody: React.FC = () => {
     const [deleteCodigo, setDeleteCodigo]= useState('');
     const [page, setPage]= useState(0);
 
-
-    async function loadMsg() {
+    useEffect(()=>{
         
-            const response = api.get('/v1/ts/recados',{params:{page:page,limit:3}});
-            const limit = api.get('/v1/ts/recados');
-            console.log("get"+ (await response).data)
-            setMsg((await response).data._embedded.recadoDTOList);
-            setLimit((await limit).data._embedded.recadoDTOList);
+    const loadMsg = async () => {
+        
+            const response = await api.get('/v1/ts/recados',{params:{page:page,limit:3}});
+            const limit = await api.get('/v1/ts/recados');
+            setMsg(response.data._embedded.recadoDTOList);
+            setLimit(limit.data._embedded.recadoDTOList);
             
 
     }
-
-    async function  deleteMsg(codigo: string) {
-
-        setDeleteCodigo(codigo);
-        const responseDelete = api.delete('/v1/ts/recados/' + deleteCodigo);
-        loadMsg()
-        
-    }
-
-
-    useEffect(()=>{
         loadMsg()
         
     },[page]);
 
+
+        
+        const deleteMsg =  async (codigo:string) => {
+            console.log(codigo)
+            setDeleteCodigo(codigo);
+            const responseDelete = await api.delete('/v1/ts/recados/' + codigo);
+            window.location.reload()
+
+        }
+
+    
+
+    
   
 
 
@@ -86,11 +88,12 @@ const HomeBody: React.FC = () => {
         <>
     
           <body>
-              
+
                 <thead>
                     {
                         Msg.map(m => (
                             <ul id='homeBody'>
+                                
                                 <li>{m.codigo_rec}</li>
                                 <li>{m.empresaDTO.nome_emp}</li>
                                 <li>{m.funcionarioDTO.nome_func}</li>
@@ -100,9 +103,9 @@ const HomeBody: React.FC = () => {
                                 <li id='msgRecado'>{m.mensagem_rec}</li>
                                 <li>{m.data_rec}</li>
                                 <li>{m.hora_rec}</li>
-                                <li id='deleteButton' onClick={() =>{
-                                    deleteMsg(m.codigo_rec.toString())
-                                }}> Excluir</li>
+                                
+                                <li id='deleteButton' onClick={ () => {deleteMsg(m.codigo_rec.toString())} }> Excluir</li>    
+                                
                           
                             </ul>
                         ))

@@ -4,17 +4,20 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "Recados")
 public class Recado implements Serializable {
+
+
+
 
     @EqualsAndHashCode.Include
     @Id
@@ -35,10 +38,7 @@ public class Recado implements Serializable {
     private String mensagem;
 
     @Column(name = "data", nullable = false)
-    private String data;
-
-    @Column(name = "hora", nullable = false)
-    private String hora;
+    private LocalDate dataHora;
 
     @ManyToOne
     private Empresa empresaObj;
@@ -46,5 +46,58 @@ public class Recado implements Serializable {
     @ManyToOne
     private Funcionario funcionarioObj;
 
+
+
+
+    public Recado(Integer codigo, String strStatus, String strPrioridade, String setor, String mensagem, Empresa empresaObj, Funcionario funcionarioObj) {
+        //Obs: não devo implementar codigo no construtor. Vou corrigir em breve.
+
+        switch (strStatus){
+            case "option1":
+                this.status = "Pendente";
+
+                break;
+
+            case "option2":
+                this.status = "Concluido";
+
+                break;
+
+            default:
+                this.status = "";
+                break;
+        }
+
+        switch (strPrioridade){
+            case "option3":
+                this.prioridade = "Alta";
+                break;
+
+            case "option4":
+                this.prioridade ="Média";
+
+                break;
+
+            case "option5":
+                this.prioridade = "Baixa";
+
+                break;
+
+            default:
+                this.prioridade = "";
+                break;
+        }
+
+        LocalDate agora = LocalDate.now();
+        this.dataHora = agora;
+
+        this.codigo = codigo;
+        this.status= status;
+        this.prioridade = prioridade;
+        this.setor = setor;
+        this.mensagem = mensagem;
+        this.empresaObj = empresaObj;
+        this.funcionarioObj = funcionarioObj;
+    }
 }
 

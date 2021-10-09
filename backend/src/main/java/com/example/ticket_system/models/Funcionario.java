@@ -34,7 +34,7 @@ public class Funcionario implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToMany(mappedBy = "empresaObj")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "funcionarioObj", orphanRemoval = true)
     private List<Recado> recados = new ArrayList<>();
 
     public Funcionario(Integer codigo, String nome, String cargo, String email, String telefone) {

@@ -48,10 +48,9 @@ const CriarRecadoBody: React.FC = () => {
     const [inputPrioridade, setInputPrioridade] = useState('');
     const [inputSetor, setInputSetor] = useState('');
     const [inputMensagem, setInputMensagem] = useState('');
-    const [inputData, setInputData] = useState('');
-    const [inputHora, setInputHora] = useState('');
-    const [CodigoEmp, setCodigoEmp] = useState('');
-    const [CodigoFunc, setCodigoFunc] = useState('');
+    const [prioridade, setPrioridade] = useState(0);
+    const [status, setStatus] = useState(0);
+  
     const [inputFuncionarioId, setInputFuncionarioId] = useState('');
     const [inputEmpresaId, setInputEmpresaId] = useState('');
     const [page, setPage] = useState(0);
@@ -112,61 +111,76 @@ const CriarRecadoBody: React.FC = () => {
     }, [inputEmpresaId])
 
     const postMsg = async () => {
+        
         const response = await api.post('/v1/ts/recados/', {
-            "status_rec": "teste",
-            "prioridade_rec": "teste",
-            "setor_rec": "setor",
-            "mensagem_rec": "mensagem",
-            "data_rec": "data",
-            "hora_rec": "hora",
+            "status_rec": inputStatus,
+            "prioridade_rec": inputPrioridade,
+            "setor_rec": inputSetor,
+            "mensagem_rec": inputMensagem,
             "empresaDTO": Emp,
             "funcionarioDTO": Func
         });
+        window.location.reload();
     }
     return (
         <>
             <body id='CriarRecadoBody'>
                 <ul id='CriarRecadoUl'>
                     <div id='divH1'>
-                        <h1>Status: </h1>
-                        <h1>Prioridade: </h1>
+                        <h2>Status: </h2>
+                        <h3>Prioridade: </h3>
                         <h1>Setor: </h1>
                         <h1>Mensagem: </h1>
-                        <h1>Data: </h1>
-                        <h1>Hora: </h1>
                         <h1>Empresa ID: </h1>
                         <h1>Funcionario ID: </h1>
                     </div>
                     <div id='divInput'>
                         <div id="statusRadios">
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" checked/>
+                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" onChange={e => setInputStatus(e.target.value)}/>
                             <label className="form-check-label" >
                             Pendente
                             </label>
                         </div>
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option2"/>
+                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option2" onChange={e => setInputStatus(e.target.value)}/>
                             <label className="form-check-label" >
                             Concluido
                             </label>
                         </div>
                     
                         </div>
-               
-                        <input type="text" value={inputPrioridade} onChange={e => setInputPrioridade(e.target.value)} />
+
+                        <div id="statusRadios">
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option3" onChange={e => setInputPrioridade(e.target.value)}/>
+                            <label className="form-check-label" >
+                            Alta
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option4" onChange={e => setInputPrioridade(e.target.value)}/>
+                            <label className="form-check-label" >
+                            Média
+                            </label>
+                        </div>
+
+                        <div className="form-check ">
+                            <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option5" onChange={e => setInputPrioridade(e.target.value)}/>
+                            <label className="form-check-label" >
+                            Baixa
+                            </label>
+                        </div>
+                    
+                        </div>
                         <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
                         <input type="text" value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} />
-                        <input type="text" value={inputData} onChange={e => setInputData(e.target.value)} />
-                        <input type="text" value={inputHora} onChange={e => setInputHora(e.target.value)} />
                         <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} />
                         <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} />
                     </div>
                 </ul>
-                <Link to="/">
                     <button onClick={postMsg}>Cadastrar</button>
 
-                </Link>
 
             </body>
         </>

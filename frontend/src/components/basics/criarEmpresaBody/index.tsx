@@ -22,16 +22,18 @@ const CriarEmpresaBody: React.FC = () => {
     const [inputNomeEmp, setInputNomeEmp] = useState('');
     const [inputRazaoEmp, setInputRazaoEmp] = useState('');
     const [inputCnpjEmp, setInputCnpjEmp] = useState('');
+    const [inputEmailEmp, setInputEmailEmp] = useState('');
     const [inputEnderecoEmp, setInputEnderecoEmp] = useState('');
     const [inputTelefoneEmp, setInputTelefoneEmp] = useState('');
 
 
     async function postMsg() {
 
-        const response = api.post('/v1/elx/Empresas', {
+        const response = await api.post('/v1/ts/empresas', {
             "nome": inputNomeEmp,
             "razao": inputRazaoEmp,
             "cnpj": inputCnpjEmp,
+            "email": inputEmailEmp,
             "endereco": inputEnderecoEmp,
             "telefone":  inputTelefoneEmp 
         }).then(response => response)
@@ -58,8 +60,9 @@ const CriarEmpresaBody: React.FC = () => {
                     <div id='divH1'>
                         
                 <h1>Nome: </h1> 
-                <h1>Razão: </h1> 
-                <h1>Cnpj: </h1>
+                <h1>Razão Social: </h1> 
+                <h1>CNPJ: </h1>
+                <h1>Email: </h1>
                 <h1>Endereço: </h1>
                 <h1>Telefone: </h1>
                
@@ -69,15 +72,17 @@ const CriarEmpresaBody: React.FC = () => {
                 <input type="text" value={inputNomeEmp} onChange={e => setInputNomeEmp(e.target.value)} />  
                 <input type="text" value={inputRazaoEmp} onChange={e => setInputRazaoEmp(e.target.value)} />
                 <input type="text" value={inputCnpjEmp} onChange={e => setInputCnpjEmp(e.target.value)} />
+                <input type="text" value={inputEmailEmp} onChange={e => setInputEmailEmp(e.target.value)} />
                 <input type="text" value={inputEnderecoEmp} onChange={e => setInputEnderecoEmp(e.target.value)} />
                 <input type="text" value={inputTelefoneEmp} onChange={e => setInputTelefoneEmp(e.target.value)} />
                     
                 </div>
                 
             </ul>
-            <Link id='linkButton' to='/empresas'>
+           
+                
             <button onClick={postMsg}>Cadastrar</button>
-            </Link>
+          
 
 
 

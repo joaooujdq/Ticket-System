@@ -1,16 +1,15 @@
+
+
 body thead #funcBody{
-    
     background-color: rgb(219, 219, 219);
     width: 20vw;
-    height: 20.7vh;
+    height: 24.7vh;
     list-style: none;
     margin: 5vh 5vw;
     border-radius: 8px;
     border: 4px solid rgba(127,127,127,0.16);
     box-shadow: 0 1px 4px rgba(127,127,127,0.11);
     padding: 0;
-    
-    
 }
  body thead{
     display: flex;
@@ -20,37 +19,29 @@ body thead #funcBody{
     padding: 6vh 2vw;
     margin-bottom: 20px;
 }
-
  body thead #funcBody #msgRecado{
-
     height: 15.5vh;
-  
 }
-
-
  body thead #funcBody li{
     font-size: 1.5vh;
     height: 4vh;
-    
     border: 2px solid rgba(127,127,127,0.16);
     margin:0;
     padding-top: 0.5vh;
     padding-left: 1vw;
 }
-
 body thead #funcBody #deleteButton{
     cursor: pointer;
+    text-align: center;
+    padding-left: 0;
 }
-
 #carouselBar{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     margin-bottom: 7vh;
-
 }
-
 #carouselBar #carouselIcon{
     margin: 0vh 15vw;
     width: 2.5vmax;
@@ -58,5 +49,3 @@ body thead #funcBody #deleteButton{
     color: rgb(90, 90, 90);
     cursor: pointer;
 }
-
-

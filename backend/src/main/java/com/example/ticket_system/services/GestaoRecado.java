@@ -55,10 +55,7 @@ public class GestaoRecado {
         entity.setPrioridade(obj.getPrioridade());
         entity.setSetor(obj.getSetor());
         entity.setMensagem(obj.getMensagem());
-        entity.setData(obj.getData());
-        entity.setHora(obj.getHora());
-
-
+        entity.setDataHora(obj.getDataHora());
         return new RecadoDTO(recadoDAO.save(entity));
     }
 
@@ -69,7 +66,7 @@ public class GestaoRecado {
         Optional<Funcionario> func = funcionarioDAO.findById(obj.getFuncionarioDTO().getCodigo());
 
         Recado entity = new Recado(obj.getCodigo(),obj.getStatus(),
-                obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), obj.getData(), obj.getHora(),
+                obj.getPrioridade(), obj.getSetor(), obj.getMensagem(),
                 new Empresa(
                         emp.get().getCodigo(), emp.get().getNome(), emp.get().getRazao(), emp.get().getCnpj(),
                         emp.get().getEmail(), emp.get().getEndereco(), emp.get().getTelefone()),

@@ -38,6 +38,8 @@ public class RecadoController {
             @RequestParam(value="direction", defaultValue = "asc") String direction) {
 
 
+
+
         Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
 
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));

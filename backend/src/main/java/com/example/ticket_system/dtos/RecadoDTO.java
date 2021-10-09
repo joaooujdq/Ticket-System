@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.Valid;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
 import java.io.Serializable;
-
+import java.time.LocalDate;
 
 
 @NoArgsConstructor
@@ -23,7 +24,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @JsonPropertyOrder({"codigo_rec", "status_rec", "prioridade_rec",
-"setor_rec","mensagem_rec", "data_rec", "hora_rec"})
+"setor_rec","mensagem_rec", "data_rec"})
 public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -48,15 +49,14 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
     private String mensagem;
 
     @JsonProperty("data_rec")
-    private String data;
+    private LocalDate dataHora;
 
-    @JsonProperty("hora_rec")
-    private String hora;
 
     @ConvertGroup(from = Default.class, to = ValidationsGroups.EmpresaId.class)
     @NotNull
     @Valid
     private EmpresaDTO empresaDTO;
+
 
     @ConvertGroup(from = Default.class, to = ValidationsGroups.FuncionarioId.class)
     @NotNull
@@ -69,8 +69,7 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
         prioridade = obj.getPrioridade();
         setor = obj.getSetor();
         mensagem = obj.getMensagem();
-        data = obj.getData();
-        hora = obj.getHora();
+        dataHora = obj.getDataHora();
         empresaDTO = new EmpresaDTO(obj.getEmpresaObj());
         funcionarioDTO = new FuncionarioDTO(obj.getFuncionarioObj());
     }

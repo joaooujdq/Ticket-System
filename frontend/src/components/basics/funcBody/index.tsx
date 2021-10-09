@@ -30,28 +30,29 @@ const FuncBody: React.FC = () => {
     const [page, setPage]= useState(0);
 
 
-    async function loadMsg() {
-        const response = api.get('/v1/ts/funcionarios/',{params:{page:page,limit:3}});
-        console.log(response)
-        const limit = api.get('/v1/ts/funcionarios/');
-        
-        setFunc((await response).data._embedded.funcionarioDTOList);
-        setLimit((await limit).data._embedded.funcionarioDTOList);
-
-      
-    }
-
-    async function  deleteMsg(codigo: string) {
-        setDeleteCodigo(codigo);
-        
-        const responseDelete = api.delete('/v1/ts/funcionarios/' + deleteCodigo);
-        loadMsg()
-        
-    }
-
     useEffect(()=>{
+        const loadMsg = async () => {
+            const response = api.get('/v1/ts/funcionarios/',{params:{page:page,limit:3}});
+            const limit = api.get('/v1/ts/funcionarios/');
+            
+            setFunc((await response).data._embedded.funcionarioDTOList);
+            setLimit((await limit).data._embedded.funcionarioDTOList);
+    
+          
+        }
+
         loadMsg()
     },[page]);
+
+    const deleteMsg = async(codigo: string) =>{
+        //setDeleteCodigo(codigo);
+        
+        const responseDelete = await api.delete('/v1/ts/funcionarios/' + codigo);
+        window.location.reload()
+        
+    }
+
+    
 
 
 
@@ -68,15 +69,12 @@ const FuncBody: React.FC = () => {
                         Func.map(m => (
                             
                             <ul id='funcBody'>
-                                <li>{m.codigo_func}</li>
-                                <li>{m.nome_func}</li>
-                                <li>{m.cargo_func}</li>
-                                <li>{m.email_func}</li>
-                                <li>{m.telefone_func}</li>
-                                <li id='deleteButton' onClick={() =>{
-                                    
-                                    deleteMsg(m.codigo_func.toString())
-                                }}>Excluir</li>
+                                <li>ID: {m.codigo_func}</li>
+                                <li>Nome: {m.nome_func}</li>
+                                <li>Cargo: {m.cargo_func}</li>
+                                <li>Email: {m.email_func}</li>
+                                <li>Telefone: {m.telefone_func}</li>
+                                <li id='deleteButton' onClick={() =>{deleteMsg(m.codigo_func.toString())}}><strong>EXCLUIR FUNCIONARIO</strong></li>
                             </ul>
                         ))
 

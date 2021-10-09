@@ -45,7 +45,7 @@ public class Empresa implements Serializable {
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToMany(mappedBy = "funcionarioObj")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaObj", orphanRemoval = true)
     private List<Recado> recados = new ArrayList<>();
 
     public Empresa(Integer codigo, String nome, String razao, String cnpj, String email, String endereco, String telefone) {

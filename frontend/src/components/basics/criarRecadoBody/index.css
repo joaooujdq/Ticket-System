@@ -1,109 +1,81 @@
-
  #CriarRecadoBody{
-    
     display: flex;
     flex-direction: column;
-   
     align-items: center;
     width: 100vw;
-    padding-top: 25vh;
-    height: 90vh;
-
-    padding: 0 ;
-    margin: 0;
-    
-    
-  
-    
+    height: 67vh;
 }
-
 #CriarRecadoBody #CriarRecadoUl{
     display: flex;
     flex-direction: row;
-    padding-top: 20vh;
+    padding-top: 10vh;
     justify-content: center;
     width: 100vw;
-    height: 70vh;
-     
+    height: 55vh;
  }
-
-
  #CriarRecadoBody #CriarRecadoUl #divH1 {
-     padding-top: 20vh;
     display: flex;
     flex-direction: column;
-    height: 4vh;
+    width: 10vw;
+    height: 40vh;
     justify-content: center;
     align-items: center;
-    width: 10vw;
-    margin: 1.3vh 0vw;
-    
-    
 }
-
 #CriarRecadoBody #CriarRecadoUl #divInput{
-    padding-top: 20vh;
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
     width: 10vw;
-    border-radius: 8px;
+    height: 40vh;
+    border-radius: 4px;
     border: 2px solid rgba(0, 0, 0, 0.16);
     box-shadow: 2px rgba(0, 0, 0, 0.11);
-    height: 6vh;
     border-style: none;
-    
-    
 }
-
-
-
 #CriarRecadoBody #CriarRecadoUl #divInput input{
-    padding: 0 0 2.9vh 0;
+    margin-bottom: 2.3vh;
     font-size: 2vh;
-    margin-bottom: 3vh;
-    padding-left: 5px;
-    padding-top: 5px;
     width: 10vw;
+    height: 5vw;
     border-radius: 8px;
     border: 2px solid rgba(0, 0, 0, 0.16);
     box-shadow: 2px rgba(0, 0, 0, 0.11);
-    height: 2.9vh;
     text-align: justify;
     text-justify: inherit;
     text-orientation: sideways;
-    
-    
-    
 }
-
 #CriarRecadoBody #CriarRecadoUl #divH1 h1{
-    padding: 0 0 3.5vh 0;
-    margin-top: 2vh;
-    height: 3.8vh;
+    padding: 0 0 2.3vh 0;
+    width: 10vw;
+    height: 5vw;
     font-size: 1.8vh;
-    
 }
-
+#CriarRecadoBody #CriarRecadoUl #divH1 h3{
+    padding: 0 0 2.3vh 0;
+    width: 10vw;
+    height: 15vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8vh;
+}
+#CriarRecadoBody #CriarRecadoUl #divH1 h2{
+    padding: 0 0 2.3vh 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 10vw;
+    font-size: 1.8vh;
+}   
 #CriarRecadoBody button{
     border-radius: 8px;
     padding: 0;
     width: 8vw;
     height: 4vh;
-
-
-
 }
-#CriarRecadoBody #CriarRecadoUl #divInput #statusRadios #inputRadios{
-    height: 1vh;
-    height: 1vh;
-    margin: 0;
-    border: 0;
-    
+#CriarRecadoBody #CriarRecadoUl #divInput #statusRadios #statusRadiosInput{
+    height: 2vh;
+    width: 2vh;
 }
-
-
-

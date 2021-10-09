@@ -42,13 +42,13 @@ public class BackendTsApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception{
 
 		Empresa e1 = new Empresa(1, "nome_emp", "razao_emp", "12345678901234", "email_emp", "endereco_emp", "1234567890");
-		Empresa e2 = new Empresa(2, "2nome_emp", "2razao_emp", "12345678901234", "2email_emp", "2endereco_emp", "21234567890");
+		Empresa e2 = new Empresa(2, "2nome_emp", "2razao_emp", "22345678901234", "2email_emp", "2endereco_emp", "21234567890");
 
 		Funcionario f1 = new Funcionario(1, "nome_func", "cargo_func", "email_func", "1234567990");
 		Funcionario f2 = new Funcionario(2, "2nome_func", "2cargo_func", "2email_func", "21234567890");
 
-		Recado r1 = new Recado(1,  "status", "prioridade","setor", "mensagem","data", "hora", e1, f1);
-		Recado r2 = new Recado(2,  "status", "prioridade","2setor", "2mensagem","2data", "2hora", e2, f2);
+		Recado r1 = new Recado(1,  "option1", "option5","setor", "mensagem", e1, f1);
+		Recado r2 = new Recado(2,  "option2", "option3","2setor", "2mensagem", e2, f2);
 
 
 		empresaDAO.saveAll(Arrays.asList(e1,e2));

@@ -30,28 +30,28 @@ const EmpBody: React.FC = () => {
     const [deleteCodigo, setDeleteCodigo]= useState('');
     const [page, setPage]= useState(0);
 
-
-    async function loadMsg() {
-        const response = api.get('/v1/ts/empresas/',{params:{page:page,limit:3}});
-        const limit = api.get('/v1/ts/empresas/');
-        
-        setEmp((await response).data._embedded.empresaDTOList);
-        setLimit((await limit).data._embedded.empresaDTOList);
-
-     
-    }
-
-    async function  deleteMsg(codigo: string) {
-        setDeleteCodigo(codigo);
-        
-        const responseDelete = api.delete('/v1/ts/empresas/' + deleteCodigo);
-        loadMsg()
-        
-    }
-
     useEffect(()=>{
+        const loadMsg = async() =>{
+            const response = await api.get('/v1/ts/empresas/',{params:{page:page,limit:3}});
+            const limit = await api.get('/v1/ts/empresas/');
+            
+            setEmp((response).data._embedded.empresaDTOList);
+            setLimit((limit).data._embedded.empresaDTOList);
+    
+         
+        }
         loadMsg()
-    },[ page, deleteCodigo]);
+    },[page]);
+    
+
+    const deleteMsg = async(codigo: string) => {
+        //setDeleteCodigo(codigo);
+        const responseDelete = await api.delete('/v1/ts/empresas/' + codigo);
+       window.location.reload()
+        
+    }
+
+   
 
 
 
@@ -67,14 +67,14 @@ const EmpBody: React.FC = () => {
                     {
                         Emp.map(m => (
                             <ul id='empBody'>
-                                <li>{m.codigo_emp}</li>
-                                <li>{m.nome_emp}</li>
-                                <li>{m.razao_emp}</li>
-                                <li>{m.cnpj_emp}</li>
-                                <li >{m.email_emp}</li>
-                                <li>{m.endereco_emp}</li>
-                                <li >{m.telefone_emp}</li>
-                                <li id='deleteButton'  onClick={() => { deleteMsg(m.codigo_emp.toString())  }}>Excluir</li>
+                                <li>ID: {m.codigo_emp}</li>
+                                <li>Nome: {m.nome_emp}</li>
+                                <li>Razão Social: {m.razao_emp}</li>
+                                <li>CNPJ: {m.cnpj_emp}</li>
+                                <li >Email: {m.email_emp}</li>
+                                <li>Endereço: {m.endereco_emp}</li>
+                                <li >Telefone: {m.telefone_emp}</li>
+                                <li id='deleteButton'  onClick={() => { deleteMsg(m.codigo_emp.toString())  }}><strong>EXCLUIR EMPRESA</strong></li>
                             </ul>
                         ))
 

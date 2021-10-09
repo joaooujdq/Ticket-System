@@ -50,18 +50,13 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
         email = obj.getEmail();
         endereco = obj.getEndereco();
         telefone = obj.getTelefone();
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     }
-    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public Integer getCodigo() {
         return this.codigo;
-    //</editor-fold>
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public String getNome() {
         return this.nome;
@@ -176,5 +171,4 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
         result = result * PRIME + ($codigo == null ? 43 : $codigo.hashCode());
         return result;
     }
-    //</editor-fold>
 }

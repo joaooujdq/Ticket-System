@@ -80,10 +80,8 @@ public class GestaoEmpresa {
         empresaDAO.deleteById(id);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public GestaoEmpresa(final EmpresaDAO empresaDAO) {
         this.empresaDAO = empresaDAO;
     }
-    //</editor-fold>
 }

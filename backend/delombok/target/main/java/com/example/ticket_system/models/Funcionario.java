@@ -31,7 +31,6 @@ public class Funcionario implements Serializable {
         this.telefone = telefone;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public Integer getCodigo() {
         return this.codigo;
@@ -123,5 +122,4 @@ public class Funcionario implements Serializable {
         result = result * PRIME + ($codigo == null ? 43 : $codigo.hashCode());
         return result;
     }
-    //</editor-fold>
 }

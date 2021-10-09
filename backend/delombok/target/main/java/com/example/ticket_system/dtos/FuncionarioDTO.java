@@ -1,80 +1,60 @@
 package com.example.ticket_system.dtos;
 
-import com.example.ticket_system.models.Empresa;
+import com.example.ticket_system.models.Funcionario;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import com.example.ticket_system.dtos.ValidationsGroups.EmpresaId;
+import com.example.ticket_system.dtos.ValidationsGroups.FuncionarioId;
 
-@JsonPropertyOrder({"codigo_emp", "nome_emp", "razao_emp", "cnpj_emp", "email_emp", "endereco_emp", "telefone_emp"})
-public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Serializable {
+@JsonPropertyOrder({"codigo_func", "nome_func", "cargo_func", "email_func", "telefone_func"})
+public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implements Serializable {
     private static final long serialVersionUID = 1L;
-    @NotNull(groups = EmpresaId.class)
-    @JsonProperty("codigo_emp")
+    @NotNull(groups = FuncionarioId.class)
+    @JsonProperty("codigo_func")
     private Integer codigo;
     @NotBlank
     @Size(max = 60)
-    @JsonProperty("nome_emp")
+    @JsonProperty("nome_func")
     private String nome;
     @NotBlank
     @Size(max = 60)
-    @JsonProperty("razao_emp")
-    private String razao;
-    @NotBlank
-    @JsonProperty("cnpj_emp")
-    private String cnpj;
+    @JsonProperty("cargo_func")
+    private String cargo;
     @NotBlank
     @Size(max = 255)
-    @JsonProperty("email_emp")
+    @JsonProperty("email_func")
     private String email;
-    @Size(max = 255)
-    @JsonProperty("endereco_emp")
-    private String endereco;
-    @NotBlank
     @Size(max = 11)
     @Size(min = 10)
-    @JsonProperty("telefone_emp")
+    @JsonProperty("telefone_func")
     private String telefone;
 
-    public EmpresaDTO(Empresa obj) {
-        codigo = obj.getCodigo();
-        nome = obj.getNome();
-        razao = obj.getRazao();
-        cnpj = obj.getCnpj();
-        email = obj.getEmail();
-        endereco = obj.getEndereco();
-        telefone = obj.getTelefone();
-    //<editor-fold defaultstate="collapsed" desc="delombok">
+    public FuncionarioDTO(Funcionario obj) {
+        this.codigo = obj.getCodigo();
+        this.nome = obj.getNome();
+        this.cargo = obj.getCargo();
+        this.email = obj.getEmail();
+        this.telefone = obj.getTelefone();
     }
-    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public Integer getCodigo() {
         return this.codigo;
-    //</editor-fold>
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public String getNome() {
         return this.nome;
     }
 
     @SuppressWarnings("all")
-    public String getRazao() {
-        return this.razao;
-    }
-
-    @SuppressWarnings("all")
-    public String getCnpj() {
-        return this.cnpj;
+    public String getCargo() {
+        return this.cargo;
     }
 
     @SuppressWarnings("all")
@@ -83,69 +63,50 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
     }
 
     @SuppressWarnings("all")
-    public String getEndereco() {
-        return this.endereco;
-    }
-
-    @SuppressWarnings("all")
     public String getTelefone() {
         return this.telefone;
     }
 
-    @JsonProperty("codigo_emp")
+    @JsonProperty("codigo_func")
     @SuppressWarnings("all")
     public void setCodigo(final Integer codigo) {
         this.codigo = codigo;
     }
 
-    @JsonProperty("nome_emp")
+    @JsonProperty("nome_func")
     @SuppressWarnings("all")
     public void setNome(final String nome) {
         this.nome = nome;
     }
 
-    @JsonProperty("razao_emp")
+    @JsonProperty("cargo_func")
     @SuppressWarnings("all")
-    public void setRazao(final String razao) {
-        this.razao = razao;
+    public void setCargo(final String cargo) {
+        this.cargo = cargo;
     }
 
-    @JsonProperty("cnpj_emp")
-    @SuppressWarnings("all")
-    public void setCnpj(final String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    @JsonProperty("email_emp")
+    @JsonProperty("email_func")
     @SuppressWarnings("all")
     public void setEmail(final String email) {
         this.email = email;
     }
 
-    @JsonProperty("endereco_emp")
-    @SuppressWarnings("all")
-    public void setEndereco(final String endereco) {
-        this.endereco = endereco;
-    }
-
-    @JsonProperty("telefone_emp")
+    @JsonProperty("telefone_func")
     @SuppressWarnings("all")
     public void setTelefone(final String telefone) {
         this.telefone = telefone;
     }
 
     @SuppressWarnings("all")
-    public EmpresaDTO() {
+    public FuncionarioDTO() {
     }
 
     @SuppressWarnings("all")
-    public EmpresaDTO(final Integer codigo, final String nome, final String razao, final String cnpj, final String email, final String endereco, final String telefone) {
+    public FuncionarioDTO(final Integer codigo, final String nome, final String cargo, final String email, final String telefone) {
         this.codigo = codigo;
         this.nome = nome;
-        this.razao = razao;
-        this.cnpj = cnpj;
+        this.cargo = cargo;
         this.email = email;
-        this.endereco = endereco;
         this.telefone = telefone;
     }
 
@@ -153,8 +114,8 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
     @SuppressWarnings("all")
     public boolean equals(final Object o) {
         if (o == this) return true;
-        if (!(o instanceof EmpresaDTO)) return false;
-        final EmpresaDTO other = (EmpresaDTO) o;
+        if (!(o instanceof FuncionarioDTO)) return false;
+        final FuncionarioDTO other = (FuncionarioDTO) o;
         if (!other.canEqual((Object) this)) return false;
         final Object this$codigo = this.getCodigo();
         final Object other$codigo = other.getCodigo();
@@ -164,7 +125,7 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
 
     @SuppressWarnings("all")
     protected boolean canEqual(final Object other) {
-        return other instanceof EmpresaDTO;
+        return other instanceof FuncionarioDTO;
     }
 
     @Override
@@ -176,5 +137,4 @@ public class EmpresaDTO extends RepresentationModel<EmpresaDTO> implements Seria
         result = result * PRIME + ($codigo == null ? 43 : $codigo.hashCode());
         return result;
     }
-    //</editor-fold>
 }

@@ -28,7 +28,6 @@ public class Recado implements Serializable {
 
     public Recado(Integer codigo, String strStatus, String strPrioridade, String setor, String mensagem, Empresa empresaObj, Funcionario funcionarioObj) {
         //Obs: não devo implementar codigo no construtor. Vou corrigir em breve.
-        //<editor-fold defaultstate="collapsed" desc="delombok">
         switch (strStatus) {
         case "option1": 
             this.status = "Pendente";
@@ -64,7 +63,6 @@ public class Recado implements Serializable {
         this.empresaObj = empresaObj;
         this.funcionarioObj = funcionarioObj;
     }
-        //</editor-fold>
 
     @SuppressWarnings("all")
     public Recado() {
@@ -123,21 +121,16 @@ public class Recado implements Serializable {
     @SuppressWarnings("all")
     public void setPrioridade(final String prioridade) {
         this.prioridade = prioridade;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     }
 
     @SuppressWarnings("all")
     public void setSetor(final String setor) {
-    //</editor-fold>
         this.setor = setor;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     }
 
     @SuppressWarnings("all")
     public void setMensagem(final String mensagem) {
-    //</editor-fold>
         this.mensagem = mensagem;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     }
 
     @SuppressWarnings("all")
@@ -147,18 +140,14 @@ public class Recado implements Serializable {
 
     @SuppressWarnings("all")
     public void setEmpresaObj(final Empresa empresaObj) {
-    //</editor-fold>
         this.empresaObj = empresaObj;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     }
 
     @SuppressWarnings("all")
     public void setFuncionarioObj(final Funcionario funcionarioObj) {
-    //</editor-fold>
         this.funcionarioObj = funcionarioObj;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @Override
     @SuppressWarnings("all")
     public boolean equals(final Object o) {
@@ -187,4 +176,3 @@ public class Recado implements Serializable {
         return result;
     }
 }
-    //</editor-fold>

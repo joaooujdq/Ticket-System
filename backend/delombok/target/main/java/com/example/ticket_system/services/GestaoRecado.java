@@ -61,12 +61,10 @@ public class GestaoRecado {
         recadoDAO.deleteById(id);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public GestaoRecado(final RecadoDAO recadoDAO, final FuncionarioDAO funcionarioDAO, final EmpresaDAO empresaDAO) {
         this.recadoDAO = recadoDAO;
         this.funcionarioDAO = funcionarioDAO;
         this.empresaDAO = empresaDAO;
     }
-    //</editor-fold>
 }

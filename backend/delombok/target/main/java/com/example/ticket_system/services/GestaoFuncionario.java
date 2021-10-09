@@ -65,10 +65,8 @@ public class GestaoFuncionario {
         funcionarioDAO.deleteById(id);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public GestaoFuncionario(final FuncionarioDAO funcionarioDAO) {
         this.funcionarioDAO = funcionarioDAO;
     }
-    //</editor-fold>
 }

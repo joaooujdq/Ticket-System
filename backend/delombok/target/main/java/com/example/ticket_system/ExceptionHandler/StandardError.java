@@ -16,7 +16,6 @@ public class StandardError {
         private String nome;
         private String mensagem;
 
-        //<editor-fold defaultstate="collapsed" desc="delombok">
         @SuppressWarnings("all")
         public Fields(final String nome, final String mensagem) {
             this.nome = nome;
@@ -42,10 +41,8 @@ public class StandardError {
         public String getMensagem() {
             return this.mensagem;
         }
-        //</editor-fold>
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public StandardError(final Integer codigo, final LocalDateTime momento, final String descricao, final List<Fields> campos) {
         this.codigo = codigo;
@@ -93,5 +90,4 @@ public class StandardError {
     public void setCampos(final List<Fields> campos) {
         this.campos = campos;
     }
-    //</editor-fold>
 }

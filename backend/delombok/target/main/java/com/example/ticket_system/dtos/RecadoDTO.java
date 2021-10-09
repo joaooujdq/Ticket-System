@@ -53,7 +53,6 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
         funcionarioDTO = new FuncionarioDTO(obj.getFuncionarioObj());
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public RecadoDTO() {
     }
@@ -183,5 +182,4 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
         result = result * PRIME + ($codigo == null ? 43 : $codigo.hashCode());
         return result;
     }
-    //</editor-fold>
 }

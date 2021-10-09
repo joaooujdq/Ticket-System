@@ -8,17 +8,25 @@ import com.example.ticket_system.repositories.EmpresaDAO;
 import com.example.ticket_system.repositories.FuncionarioDAO;
 import com.example.ticket_system.repositories.RecadoDAO;
 import com.example.ticket_system.services.exceptions.BusinessException;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Optional;
 
+
+@AllArgsConstructor
 @Service
 public class GestaoRecado {
+
     private RecadoDAO recadoDAO;
     private FuncionarioDAO funcionarioDAO;
     private EmpresaDAO empresaDAO;
+
 
     @Transactional(readOnly = true)
     public Page<RecadoDTO> findAll(Pageable pageable) {
@@ -28,7 +36,8 @@ public class GestaoRecado {
 
     @Transactional(readOnly = true)
     public RecadoDTO findById(Integer id) {
-        Recado result = recadoDAO.findById(id).orElseThrow(() -> new BusinessException("Registros não encontrados"));
+        Recado result  = recadoDAO.findById(id)
+                .orElseThrow(() -> new BusinessException("Registros não encontrados"));
         return new RecadoDTO(result);
     }
 
@@ -39,7 +48,9 @@ public class GestaoRecado {
 
     @Transactional
     public RecadoDTO update(RecadoDTO obj) {
-        Recado entity = recadoDAO.findById(obj.getCodigo()).orElseThrow(() -> new BusinessException("Registros não encontrados!!!"));
+        Recado entity = recadoDAO.findById(obj.getCodigo())
+                .orElseThrow(() -> new BusinessException("Registros não encontrados!!!"));
+
         entity.setStatus(obj.getStatus());
         entity.setPrioridade(obj.getPrioridade());
         entity.setSetor(obj.getSetor());
@@ -50,9 +61,20 @@ public class GestaoRecado {
 
     @Transactional
     public RecadoDTO save(RecadoDTO obj) {
+
         Optional<Empresa> emp = empresaDAO.findById(obj.getEmpresaDTO().getCodigo());
         Optional<Funcionario> func = funcionarioDAO.findById(obj.getFuncionarioDTO().getCodigo());
-        Recado entity = new Recado(obj.getCodigo(), obj.getStatus(), obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), new Empresa(emp.get().getCodigo(), emp.get().getNome(), emp.get().getRazao(), emp.get().getCnpj(), emp.get().getEmail(), emp.get().getEndereco(), emp.get().getTelefone()), new Funcionario(func.get().getCodigo(), func.get().getNome(), func.get().getCargo(), func.get().getEmail(), func.get().getTelefone()));
+
+        Recado entity = new Recado(obj.getCodigo(),obj.getStatus(),
+                obj.getPrioridade(), obj.getSetor(), obj.getMensagem(),
+                new Empresa(
+                        emp.get().getCodigo(), emp.get().getNome(), emp.get().getRazao(), emp.get().getCnpj(),
+                        emp.get().getEmail(), emp.get().getEndereco(), emp.get().getTelefone()),
+                new Funcionario(
+                        func.get().getCodigo(),func.get().getNome(),
+                        func.get().getCargo(), func.get().getEmail(), func.get().getTelefone()
+                ));
+
         return new RecadoDTO(recadoDAO.save(entity));
     }
 
@@ -61,12 +83,4 @@ public class GestaoRecado {
         recadoDAO.deleteById(id);
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
-    @SuppressWarnings("all")
-    public GestaoRecado(final RecadoDAO recadoDAO, final FuncionarioDAO funcionarioDAO, final EmpresaDAO empresaDAO) {
-        this.recadoDAO = recadoDAO;
-        this.funcionarioDAO = funcionarioDAO;
-        this.empresaDAO = empresaDAO;
-    }
-    //</editor-fold>
 }

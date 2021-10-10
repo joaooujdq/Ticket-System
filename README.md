@@ -3,20 +3,19 @@
 # Sistema de Recados
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/joaooujdq/Ticket-System/blob/main/LICENSE) 
 
-# Sobre o projeto
+# :pencil2: Sobre o projeto
 
 Sistema de Recados é uma aplicação full stack web parcialmente construída durante a disciplina de Desenvolvimento Web, do curso de Ciência da Computação na Universidade Federal de Jataí. Após a conclusão da disciplina, eu tomei a iniciativa de implementar novas funcionalidades e corrigir os bugs que restavam. O planejamento e desenvolvimento da aplicação é de minha autoria.
 
 A aplicação consiste em um sistema para salvar recados, funcionários e empresas. Representados como entidades. A entidade funcionário e empresa são independentes, elas não precisam de um recado para existir. A entidade recado exige como que o ID de um funcionario e de uma empresa sejam passados como parâmetro. **Quando o funcionario, ou empresa, é excluido, o recado que possui uma relação com ele também é excluído.**
 
-# Apresentação
+# :camera: Apresentação
 
-![Desktop 1](https://github.com/joaooujdq/assets-ticket-system/blob/main/1.png)
-![Desktop 2](https://github.com/joaooujdq/assets-ticket-system/blob/main/3.png)
-![Desktop 1](https://github.com/joaooujdq/assets-ticket-system/blob/main/4.png) 
-![Desktop 2](https://github.com/joaooujdq/assets-ticket-system/blob/main/5.png)
 (https://youtu.be/kspNufinFw0)
-# Tecnologias utilizadas
+![Desktop 1](https://github.com/joaooujdq/assets-ticket-system/blob/main/5.png)
+![Desktop 2](https://github.com/joaooujdq/assets-ticket-system/blob/main/6.png)
+
+# :rocket: Tecnologias utilizadas
 ## Back end
 - Java
 - Spring Boot

@@ -11,9 +11,11 @@ A aplicação consiste em um sistema para salvar recados, funcionários e empres
 
 # :camera: Apresentação
 
-(https://youtu.be/kspNufinFw0)
+ **Aprensentação da aplicação no Youtube:**   
+ https://youtu.be/kspNufinFw0
+ 
+ 
 ![Desktop 1](https://github.com/joaooujdq/assets-ticket-system/blob/main/5.png)
-![Desktop 2](https://github.com/joaooujdq/assets-ticket-system/blob/main/6.png)
 
 # :rocket: Tecnologias utilizadas
 ## Back end

@@ -12,6 +12,6 @@ public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer> {
     Optional<Funcionario> findByNome(String nome);
     Optional<Funcionario> findByTelefone(String telefone);
     Optional<Funcionario> findByEmail(String email);
-    static Page<Funcionario> queryByNomeLike(String name);
+     Page<Funcionario> queryByNomeLike(String name);
 
 }

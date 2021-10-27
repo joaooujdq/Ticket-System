@@ -45,7 +45,7 @@ public class Empresa implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public Integer getCodigo() {
-        return this.codigo;
+        return this.id;
     }
     //</editor-fold>
 
@@ -87,7 +87,7 @@ public class Empresa implements Serializable {
 
     @SuppressWarnings("all")
     public void setCodigo(final Integer codigo) {
-        this.codigo = codigo;
+        this.id = codigo;
     }
 
     @SuppressWarnings("all")

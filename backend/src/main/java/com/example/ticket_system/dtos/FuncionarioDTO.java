@@ -21,7 +21,7 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implemen
     @Size(max = 60)
     @JsonProperty("nome_func")
     private String nome;
-    @NotBlank
+
     @Size(max = 60)
     @JsonProperty("cargo_func")
     private String cargo;

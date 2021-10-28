@@ -24,6 +24,7 @@ A aplicação consiste em um sistema para salvar recados, funcionários e empres
 - JPA / Hibernate
 - Maven
 - MySQL
+- Swagger
 
 ## Front end
 - HTML / CSS / JS / TypeScript

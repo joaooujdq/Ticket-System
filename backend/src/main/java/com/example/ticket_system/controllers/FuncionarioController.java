@@ -54,6 +54,32 @@ public class FuncionarioController {
         return ResponseEntity.ok(CollectionModel.of(pages));
     }
 
+    @GetMapping("/nome/{nome}")
+    @Operation(summary = "Busca funcionarios pelo nome")
+    public ResponseEntity<CollectionModel<FuncionarioDTO>> queryByName(
+            @RequestParam(value="page", defaultValue = "0") int page,
+            @RequestParam(value="limit", defaultValue = "12") int limit,
+            @RequestParam(value="direction", defaultValue = "asc") String direction,
+            @RequestParam(name="nome", required = true) String nome) {
+
+
+        Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+
+        Page<FuncionarioDTO> pages = service.queryByName(nome);
+        pages
+                .stream()
+                .forEach(p -> p.add(
+                                linkTo(methodOn(FuncionarioController.class).buscarUm(p.getCodigo())).withSelfRel()
+                        )
+                );
+
+
+        return ResponseEntity.ok(CollectionModel.of(pages));
+    }
+
+
 
     @GetMapping("/{id}")
     @Operation(summary = "Busca por Id")

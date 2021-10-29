@@ -11,24 +11,23 @@ import java.util.List;
 public class Empresa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codigo;
-    @Column(name = "nome", nullable = false)
+    private Integer id;
+    @Column(nullable = false)
     private String nome;
-    @Column(name = "razao", nullable = false)
+    @Column(nullable = false)
     private String razao;
-    @Column(name = "cnpj", nullable = false, length = 14)
+    @Column( nullable = false)
     private String cnpj;
-    @Column(name = "email", nullable = false)
+    @Column(nullable = false)
     private String email;
-    @Column(name = "endereco", nullable = false)
+    @Column(nullable = false)
     private String endereco;
-    @Column(name = "telefone")
     private String telefone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaObj", orphanRemoval = true)
     private List<Recado> recados = new ArrayList<>();
 
     public Empresa(Integer codigo, String nome, String razao, String cnpj, String email, String endereco, String telefone) {
-        this.codigo = codigo;
+        this.id = codigo;
         this.nome = nome;
         this.razao = razao;
         this.cnpj = cnpj;
@@ -46,7 +45,7 @@ public class Empresa implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public Integer getCodigo() {
-        return this.codigo;
+        return this.id;
     }
     //</editor-fold>
 
@@ -88,7 +87,7 @@ public class Empresa implements Serializable {
 
     @SuppressWarnings("all")
     public void setCodigo(final Integer codigo) {
-        this.codigo = codigo;
+        this.id = codigo;
     }
 
     @SuppressWarnings("all")

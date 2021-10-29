@@ -14,6 +14,12 @@ import com.example.ticket_system.dtos.ValidationsGroups.FuncionarioId;
 public class FuncionarioDTO {
     @NotBlank
     private String nome;
+<<<<<<< HEAD
+=======
+    @NotBlank
+    @Size(max = 60)
+    @JsonProperty("cargo_func")
+>>>>>>> parent of aa41400 (criando as primeiras migrations para adicionar o postgresql)
     private String cargo;
     @NotBlank
     private String email;

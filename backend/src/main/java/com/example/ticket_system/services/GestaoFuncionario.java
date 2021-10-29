@@ -11,9 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class GestaoFuncionario {
     private FuncionarioDAO funcionarioDAO;
@@ -68,10 +65,6 @@ public class GestaoFuncionario {
         funcionarioDAO.deleteById(id);
     }
 
-    public Page<FuncionarioDTO> queryByName(String name){
-        Page<Funcionario> funcionarios = FuncionarioDAO.queryByNomeLike(name);
-        return funcionarios.map(obj -> new FuncionarioDTO(obj));
-    }
     //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public GestaoFuncionario(final FuncionarioDAO funcionarioDAO) {

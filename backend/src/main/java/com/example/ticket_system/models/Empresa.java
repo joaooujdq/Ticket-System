@@ -11,23 +11,24 @@ import java.util.List;
 public class Empresa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(nullable = false)
+    private Integer codigo;
+    @Column(name = "nome", nullable = false)
     private String nome;
-    @Column(nullable = false)
+    @Column(name = "razao", nullable = false)
     private String razao;
-    @Column( nullable = false)
+    @Column(name = "cnpj", nullable = false, length = 14)
     private String cnpj;
-    @Column(nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
-    @Column(nullable = false)
+    @Column(name = "endereco", nullable = false)
     private String endereco;
+    @Column(name = "telefone")
     private String telefone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresaObj", orphanRemoval = true)
     private List<Recado> recados = new ArrayList<>();
 
     public Empresa(Integer codigo, String nome, String razao, String cnpj, String email, String endereco, String telefone) {
-        this.id = codigo;
+        this.codigo = codigo;
         this.nome = nome;
         this.razao = razao;
         this.cnpj = cnpj;

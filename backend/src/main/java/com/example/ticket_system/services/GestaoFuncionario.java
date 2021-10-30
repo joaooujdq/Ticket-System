@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class GestaoFuncionario {
     private FuncionarioDAO funcionarioDAO;
@@ -69,6 +71,12 @@ public class GestaoFuncionario {
     @SuppressWarnings("all")
     public GestaoFuncionario(final FuncionarioDAO funcionarioDAO) {
         this.funcionarioDAO = funcionarioDAO;
+    }
+
+    public Page<FuncionarioDTO> findByNomeContains(String nome, Pageable pageable) {
+            Page<Funcionario> result = funcionarioDAO.findByNomeContains(nome, pageable);
+
+            return result.map(obj -> new FuncionarioDTO(obj));
     }
     //</editor-fold>
 }

@@ -92,17 +92,20 @@ const CriarRecadoBody: React.FC = () => {
     return (
         <>
             <body id='CriarRecadoBody'>
+            <h2 id='TitleBar'>Cadastro de Recado</h2>
                 <ul id='CriarRecadoUl'>
+                <div id='CriarRecadoForm'>
                     <div id='divH1'>
-                        <h2>Status: </h2>
-                        <h3>Prioridade: </h3>
+                        <h1>Status: </h1>
+                        <h1>Prioridade: </h1>
                         <h1>Setor: </h1>
-                        <h1>Mensagem: </h1>
+                        <h2>Mensagem: </h2>
                         <h1>Empresa ID: </h1>
                         <h1>Funcionario ID: </h1>
                     </div>
                     <div id='divInput'>
-                        <div id="statusRadios">
+                        <div id='divRadios'>
+                        <div className="radios">
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" onChange={e => setInputStatus(e.target.value)}/>
                             <label className="form-check-label" >
@@ -118,7 +121,7 @@ const CriarRecadoBody: React.FC = () => {
                     
                         </div>
 
-                        <div id="statusRadios">
+                        <div className="radios">
                         <div className="form-check">
                             <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option3" onChange={e => setInputPrioridade(e.target.value)}/>
                             <label className="form-check-label" >
@@ -138,15 +141,17 @@ const CriarRecadoBody: React.FC = () => {
                             Baixa
                             </label>
                         </div>
-                    
+                    </div>
                         </div>
                         <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
-                        <input type="text" value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} />
+                        <textarea  value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} />
                         <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} />
                         <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} />
                     </div>
-                </ul>
+                    </div>
                     <button onClick={postMsg}>Cadastrar</button>
+                </ul>
+                    
 
 
             </body>

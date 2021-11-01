@@ -1,81 +1,141 @@
- #CriarRecadoBody{
+#CriarRecadoBody{
+    width: 100vw;
+    height: 70vh;
+    padding: 0 10vh 0 10vh;
+    margin: 0;
+    position: static;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vw;
-    height: 67vh;
+    justify-content: center;
+}
+#CriarRecadoBody #TitleBar{
+   border-radius: 8px 8px 0px 0px;
+   width: 30vw;
+    height: 2vw;
+    background-color:  #C4C4C4;
+    font-size: 18px;
+    padding: 10px 0px 0px 20px;
+    margin: 0;
 }
 #CriarRecadoBody #CriarRecadoUl{
+    width: 30vw;
+    height: 55vh;
+    margin: 0;
+    padding: 0;
+    border-radius: 0px 0px 8px 8px;
+    border: 3px solid #C4C4C4;
+    box-shadow: 3px rgba(0, 0, 0, 0.527);
+}
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm{
     display: flex;
     flex-direction: row;
-    padding-top: 10vh;
+    padding: 0;
+    margin: 0;
     justify-content: center;
-    width: 100vw;
+    width: 30vw;
     height: 55vh;
+    border-radius: 0px 0px 4px 4px;
  }
- #CriarRecadoBody #CriarRecadoUl #divH1 {
+ #CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divH1 {
     display: flex;
     flex-direction: column;
-    width: 10vw;
-    height: 40vh;
+    height: 45vh;
     justify-content: center;
     align-items: center;
+    width: 14vw;
+    margin: 1.3vh 0vw;
+    padding-top: 18px;
+    
 }
-#CriarRecadoBody #CriarRecadoUl #divInput{
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 10vw;
-    height: 40vh;
-    border-radius: 4px;
-    border: 2px solid rgba(0, 0, 0, 0.16);
-    box-shadow: 2px rgba(0, 0, 0, 0.11);
+    height: 45vh;
+    width: 14vw;
+    border-radius: 8px;
     border-style: none;
 }
-#CriarRecadoBody #CriarRecadoUl #divInput input{
-    margin-bottom: 2.3vh;
-    font-size: 2vh;
+
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput #divRadios{
+    padding-top: 0px;
+    padding-bottom: 10px;
+    
+}
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput #divRadios .radios{
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    padding: 30px 0 20px 0;
+
+    
+}
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput #divRadios .radios .form-check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 20px;
+}
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput #divRadios .radios input{
+    height: 15px;
+    width: 15px;
+    margin: 0;
+    padding: 0;
+    margin-right: 5px;
+}
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput #divRadios .radios label{
+    font-size: 15px;
+}
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput input, textarea{
+    padding: 10px 0 15px 5px;
+  
+
+    margin-top: 20px;
+    margin-right: 3vh;
     width: 10vw;
-    height: 5vw;
     border-radius: 8px;
     border: 2px solid rgba(0, 0, 0, 0.16);
     box-shadow: 2px rgba(0, 0, 0, 0.11);
+    height: 15px;
     text-align: justify;
     text-justify: inherit;
     text-orientation: sideways;
 }
-#CriarRecadoBody #CriarRecadoUl #divH1 h1{
-    padding: 0 0 2.3vh 0;
-    width: 10vw;
-    height: 5vw;
-    font-size: 1.8vh;
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divInput textarea{
+    padding-left: 5px;
+    margin-bottom: 0vh;
+    margin-right: 3vh;
+   
+    margin-top: 20px;
+    height: 100px;
+
 }
-#CriarRecadoBody #CriarRecadoUl #divH1 h3{
-    padding: 0 0 2.3vh 0;
-    width: 10vw;
-    height: 15vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.8vh;
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divH1 h1, h2{
+    padding: 5px 0 10px 0;
+    height: 40px;
+    width: 12.5vw;
+    font-size: 16px;
+
 }
-#CriarRecadoBody #CriarRecadoUl #divH1 h2{
-    padding: 0 0 2.3vh 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 10vw;
-    height: 10vw;
-    font-size: 1.8vh;
-}   
-#CriarRecadoBody button{
+
+#CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divH1 h2{
+
+    height: 120px;
+    text-align: center;
+
+}
+
+
+
+
+#CriarRecadoBody  #CriarRecadoUl button{
+    margin: 0 0 60px 0;
+    position: absolute;
     border-radius: 8px;
-    padding: 0;
+    left:45vw;
+    bottom: 0vh;
     width: 8vw;
     height: 4vh;
-}
-#CriarRecadoBody #CriarRecadoUl #divInput #statusRadios #statusRadiosInput{
-    height: 2vh;
-    width: 2vh;
 }

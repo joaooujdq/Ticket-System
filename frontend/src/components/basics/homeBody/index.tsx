@@ -67,6 +67,27 @@ const HomeBody: React.FC = () => {
 
     return (
         <>
+        <div id='searchBar'>
+            <div id='search'>
+            <h3>Procurar por: </h3>
+                <input type="text" />
+                <select id="dropdownSearch">
+                <option value="1" selected>Nome de Funcionário</option>
+                <option value="2">Nome de Empresa</option>
+                <option value="3">Setor</option>
+                </select>
+                <button>Buscar</button>
+            </div>
+                <div id='ordenation' >
+                <h3>Ordernar por: </h3>
+                <select id='dropdownOrdenation'>
+                <option value='1' selected>ID</option>
+                <option value='2' >Status</option>
+                <option value='3' >Prioridade</option>
+                 </select>
+
+                </div>
+            </div>
             <body>
                 <thead>
                     {

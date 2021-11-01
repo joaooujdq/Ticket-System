@@ -21,6 +21,7 @@ const CriarFuncionarioBody: React.FC = () => {
     const [inputEmailFunc, setInputEmailFunc] = useState('');
     const [inputTelefoneFunc, setInputTelefoneFunc] = useState('');
     const [inputSenhaFunc, setInputSenhaFunc] = useState('');
+    const [inputConfSenhaFunc, setInputConfSenhaFunc] = useState('');
     const [inputAdminFunc, setInputAdminFunc] = useState(false);
     const [adminFunc, setAdminFunc] = useState('0');
 
@@ -49,6 +50,16 @@ const CriarFuncionarioBody: React.FC = () => {
             setAdminFunc('1')
         }
     }, [inputAdminFunc])
+
+    useEffect(() => {
+        
+        
+        if(inputSenhaFunc == inputConfSenhaFunc){
+            console.log("igual")
+        }else{
+            console.log("diferente")
+        }
+    }, [inputConfSenhaFunc, inputSenhaFunc])
     
 
 
@@ -56,6 +67,7 @@ const CriarFuncionarioBody: React.FC = () => {
 
     return (
         <>
+            
             <body id='CriarFuncionarioBody'>
             <h2 id='TitleBar'>Cadastro de Funcionario</h2>
                 <ul id='CriarFuncionarioUl'>
@@ -66,6 +78,7 @@ const CriarFuncionarioBody: React.FC = () => {
                         <h1>Telefone: </h1>
                         <h1>Email: </h1>
                         <h1>Senha: </h1>
+                        <h1>Confirmar senha: </h1>
                         <h1>Admin: </h1>
                         
                     </div>
@@ -75,6 +88,7 @@ const CriarFuncionarioBody: React.FC = () => {
                         <input type="text" value={inputTelefoneFunc} onChange={e => setInputTelefoneFunc(e.target.value)} />
                         <input type="text" value={inputEmailFunc} onChange={e => setInputEmailFunc(e.target.value)} />
                         <input type="text" value={inputSenhaFunc} onChange={e => setInputSenhaFunc(e.target.value)} />
+                        <input type="text" value={inputConfSenhaFunc} onChange={e => setInputConfSenhaFunc(e.target.value)} />
                         <div id='checkAdmin'>
                         <input type="checkbox" id="scales" name="scales"  onChange={e => setInputAdminFunc(!inputAdminFunc)} />
                         <h3>É administrador(a)?</h3>

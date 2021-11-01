@@ -20,7 +20,7 @@
 }
 #CriarFuncionarioBody #CriarFuncionarioUl{
     width: 25vw;
-    height: 52vh;
+    height: 55vh;
     margin: 0;
     padding: 0;
     border-radius: 0px 0px 8px 8px;
@@ -34,13 +34,13 @@
     margin: 0;
     justify-content: center;
     width: 25vw;
-    height: 43vh;
+    height: 55vh;
     border-radius: 0px 0px 4px 4px;
  }
  #CriarFuncionarioBody #CriarFuncionarioUl #CriarFuncionarioForm #divH1 {
     display: flex;
     flex-direction: column;
-    height: 45vh;
+    height: 47vh;
     justify-content: center;
     align-items: center;
     width: 14vw;
@@ -51,7 +51,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 45vh;
+    height: 47vh;
     width: 14vw;
     border-radius: 8px;
     border-style: none;
@@ -98,10 +98,11 @@
     font-size: 16px;
 }
 #CriarFuncionarioBody  #CriarFuncionarioUl button{
-    margin: 0 0 60px 0;
+    margin: 0 0 50px 0;
     position: absolute;
     border-radius: 8px;
     left:45vw;
     width: 8vw;
     height: 4vh;
+    bottom: 0vh;
 }

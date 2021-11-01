@@ -91,6 +91,7 @@ const CriarRecadoBody: React.FC = () => {
     }
     return (
         <>
+            
             <body id='CriarRecadoBody'>
             <h2 id='TitleBar'>Cadastro de Recado</h2>
                 <ul id='CriarRecadoUl'>

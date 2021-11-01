@@ -1,20 +1,62 @@
-#filter{
+#searchBar {
     display: flex;
     flex-direction: row;
-    padding-top: 5vh;
-    padding-left: 9vw;
+    align-items: center;
 }
 
-#filter h2{
-    font-size: 2.5vh;
+#searchBar #search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 20px;
 }
 
-#filter #filterInput{
-    padding-left: 5px;
-    margin-left: 2vw;
-    width: 15vw;
+#searchBar #search input{
+    border-radius: 4px 0px 0px 4px;
+    border: 2px solid rgba(0, 0, 0, 0.479);
+    box-shadow: 2px rgba(0, 0, 0, 0.596);
 }
 
+#searchBar #search button{
+    border-radius: 4px;
+    margin-left: 20px;
+    height: 35px;
+    width: 80px;
+}
+
+#searchBar #search #dropdownSearch{
+    height: 30px;
+    border-radius: 0px 4px 4px 0px;
+    border: 2px solid rgba(0, 0, 0, 0.479);
+    box-shadow: 2px rgba(0, 0, 0, 0.596);
+}
+
+#searchBar #search h3{
+    font-size: 25px;
+    padding: 0px 20px 0px 180px;
+    
+}
+
+#searchBar #ordenation{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 20px;
+    padding-left: 400px; 
+}
+
+#searchBar #ordenation h3{
+    font-size: 20px;
+    padding-right: 20px;
+    
+}
+
+#searchBar #ordenation #dropdownOrdenation{
+    height: 30px;
+    border-radius: 4px;
+    border: 2px solid rgba(0, 0, 0, 0.479);
+    box-shadow: 2px rgba(0, 0, 0, 0.596);
+}
 
 
 body thead #homeBody{

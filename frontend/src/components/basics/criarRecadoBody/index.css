@@ -1,3 +1,4 @@
+
 #CriarRecadoBody{
     width: 100vw;
     height: 70vh;
@@ -121,7 +122,7 @@
 }
 
 #CriarRecadoBody #CriarRecadoUl #CriarRecadoForm #divH1 h2{
-
+    font-size: 16px;
     height: 120px;
     text-align: center;
 

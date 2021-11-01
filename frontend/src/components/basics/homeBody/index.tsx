@@ -81,9 +81,12 @@ const HomeBody: React.FC = () => {
                 <div id='ordenation' >
                 <h3>Ordernar por: </h3>
                 <select id='dropdownOrdenation'>
-                <option value='1' selected>ID</option>
-                <option value='2' >Status</option>
-                <option value='3' >Prioridade</option>
+                <option value='1' selected>ID | Decrescente</option>
+                <option value='2' >ID | Crescente</option>
+                <option value='3' >Status | Decrescente</option>
+                <option value='4' >Status | Crescente</option>
+                <option value='5' >Prioridade | Decrescente</option>
+                <option value='6' >Prioridade | Crescente</option>
                  </select>
 
                 </div>

@@ -58,40 +58,7 @@ const CriarRecadoBody: React.FC = () => {
     const [Func, setFunc] = useState<ifuncionario[]>([]);
     const [Msg, setMsg] = useState<imensagem[]>([]);
 
-    /*
-    "status_rec": inputStatus,
-    "prioridade_rec": inputPrioridade,
-    "setor_rec": inputSetor,
-    "mensagem_rec": inputMensagem,
-    "data_rec": inputData,
-    "hora_rec": inputHora,
-    "empresaDTO": Emp,
-    "funcionarioDTO": Func
-{
-        "status_rec": "teste",
-        "prioridade_rec": "teste",
-        "setor_rec": "setor",
-        "mensagem_rec": "mensagem",
-        "data_rec": "data",
-        "hora_rec": "hora",
-        "empresaDTO": {
-            "codigo_emp": 1,
-            "nome_emp": "nome_emp",
-            "razao_emp": "razao_emp",
-            "cnpj_emp": "12345678901234",
-            "email_emp": "email_emp",
-            "endereco_emp": "endereco_emp",
-            "telefone_emp": "1234567890"
-        },
-        "funcionarioDTO": {
-            "codigo_func": 1,
-            "nome_func": "nome_func",
-            "cargo_func": "cargo_func",
-            "email_func": "email_func",
-            "telefone_func": "1234567990"
-        }
-        }
-*/
+
     useEffect(() => {
         const findFuncionarioById = async () => {
             const response = await api.get('/v1/ts/funcionarios/' + inputFuncionarioId)

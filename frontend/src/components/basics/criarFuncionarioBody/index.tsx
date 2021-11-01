@@ -13,12 +13,16 @@ interface ifuncionario {
     telefone: string;
 }
 
+
 const CriarFuncionarioBody: React.FC = () => {
     const [Msg, setMsg] = useState<ifuncionario[]>([]);
     const [inputNomeFunc, setInputNomeFunc] = useState('');
     const [inputCargoFunc, setInputCargoFunc] = useState('');
     const [inputEmailFunc, setInputEmailFunc] = useState('');
     const [inputTelefoneFunc, setInputTelefoneFunc] = useState('');
+    const [inputSenhaFunc, setInputSenhaFunc] = useState('');
+    const [inputAdminFunc, setInputAdminFunc] = useState(false);
+    const [adminFunc, setAdminFunc] = useState('0');
 
 
 
@@ -36,6 +40,16 @@ const CriarFuncionarioBody: React.FC = () => {
             window.location.reload();
     }
 
+    useEffect(() => {
+        console.log(adminFunc)
+        console.log(inputAdminFunc)
+        if(inputAdminFunc == true){
+            setAdminFunc('0')
+        }else{
+            setAdminFunc('1')
+        }
+    }, [inputAdminFunc])
+    
 
 
 
@@ -43,24 +57,37 @@ const CriarFuncionarioBody: React.FC = () => {
     return (
         <>
             <body id='CriarFuncionarioBody'>
+            <h2 id='TitleBar'>Cadastro de Funcionario</h2>
                 <ul id='CriarFuncionarioUl'>
+                <div id='CriarFuncionarioForm'>
                     <div id='divH1'>
                         <h1>Nome: </h1>
                         <h1>Cargo: </h1>
-                        <h1>Email: </h1>
                         <h1>Telefone: </h1>
+                        <h1>Email: </h1>
+                        <h1>Senha: </h1>
+                        <h1>Admin: </h1>
                         
                     </div>
                     <div id='divInput'>
                         <input type="text" value={inputNomeFunc} onChange={e => setInputNomeFunc(e.target.value)} />
                         <input type="text" value={inputCargoFunc} onChange={e => setInputCargoFunc(e.target.value)} />
-                        <input type="text" value={inputEmailFunc} onChange={e => setInputEmailFunc(e.target.value)} />
                         <input type="text" value={inputTelefoneFunc} onChange={e => setInputTelefoneFunc(e.target.value)} />
+                        <input type="text" value={inputEmailFunc} onChange={e => setInputEmailFunc(e.target.value)} />
+                        <input type="text" value={inputSenhaFunc} onChange={e => setInputSenhaFunc(e.target.value)} />
+                        <div id='checkAdmin'>
+                        <input type="checkbox" id="scales" name="scales"  onChange={e => setInputAdminFunc(!inputAdminFunc)} />
+                        <h3>É administrador(a)?</h3>
+                        </div>
+                        
+                       
                         
                     </div>
+                    </div>
+                    <button onClick={postMsg}>Cadastrar</button>
                 </ul>
 
-                <button onClick={postMsg}>Cadastrar</button>
+                
 
             </body>
         </>

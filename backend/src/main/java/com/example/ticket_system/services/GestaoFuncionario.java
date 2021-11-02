@@ -78,5 +78,11 @@ public class GestaoFuncionario {
 
             return result.map(obj -> new FuncionarioDTO(obj));
     }
+
+    public Page<FuncionarioDTO> findByCargoContains(String cargo, Pageable pageable) {
+        Page<Funcionario> result = funcionarioDAO.findByCargoContains(cargo, pageable);
+
+        return result.map(obj -> new FuncionarioDTO(obj));
+    }
     //</editor-fold>
 }

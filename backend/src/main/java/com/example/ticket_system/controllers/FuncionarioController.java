@@ -54,7 +54,7 @@ public class FuncionarioController {
         return ResponseEntity.ok(CollectionModel.of(pages));
     }
 
-    @GetMapping("/nomes/{nomes}")
+    @GetMapping("/nomes")
     @Operation(summary = "Busca pelo nome")
     public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarPeloNome(
             @RequestParam(value="page", defaultValue = "0") int page,
@@ -68,6 +68,30 @@ public class FuncionarioController {
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
 
         Page<FuncionarioDTO> pages = service.findByNomeContains(nomes, pageable);
+        pages
+                .stream()
+                .forEach(p -> p.add(
+                                linkTo(methodOn(FuncionarioController.class).buscarUm(p.getCodigo())).withSelfRel()
+                        )
+                );
+
+        return ResponseEntity.ok(CollectionModel.of(pages));
+    }
+
+    @GetMapping("/cargo")
+    @Operation(summary = "Busca pelo cargo")
+    public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarPeloCargo(
+            @RequestParam(value="page", defaultValue = "0") int page,
+            @RequestParam(value="limit", defaultValue = "12") int limit,
+            @RequestParam(value="direction", defaultValue = "asc") String direction,
+            String cargo){
+
+
+        Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+
+        Page<FuncionarioDTO> pages = service.findByCargoContains(cargo, pageable);
         pages
                 .stream()
                 .forEach(p -> p.add(

@@ -19,6 +19,7 @@ public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer> {
 
 
     Page<Funcionario> findByNomeContains(String searchTerm, Pageable pageable);
+    Page<Funcionario> findByCargoContains(String searchTerm, Pageable pageable);
 
     Optional<Funcionario> findByNome(String nome);
     Optional<Funcionario> findByTelefone(String telefone);

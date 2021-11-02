@@ -1,4 +1,63 @@
+#searchBar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
+#searchBar #search{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 20px;
+}
+
+#searchBar #search input{
+    border-radius: 4px 0px 0px 4px;
+    border: 2px solid rgba(0, 0, 0, 0.479);
+    box-shadow: 2px rgba(0, 0, 0, 0.596);
+   
+}
+
+
+#searchBar #search #dropdownSearch{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    border-radius: 0px 4px 4px 0px;
+    border: 2px solid rgba(0, 0, 0, 0.479);
+    box-shadow: 2px rgba(0, 0, 0, 0.596);
+    padding: 0px 5px 0px 5px;
+}
+
+
+
+#searchBar #search h3{
+    font-size: 18px;
+    padding: 0px 20px 0px 180px;
+    
+}
+
+#searchBar #ordenation{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 20px;
+    padding-left: 585px; 
+}
+
+#searchBar #ordenation h3{
+    font-size: 18px;
+    padding-right: 20px;
+    
+}
+
+#searchBar #ordenation #dropdownOrdenation{
+    height: 30px;
+    padding-bottom: 5px;
+    border-radius: 4px;
+    border: 2px solid rgba(0, 0, 0, 0.479);
+    box-shadow: 2px rgba(0, 0, 0, 0.596);
+}
 
 body thead #funcBody{
     background-color: rgb(219, 219, 219);
@@ -16,7 +75,7 @@ body thead #funcBody{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 6vh 2vw;
+    padding: 4vh 2vw;
     margin-bottom: 20px;
 }
  body thead #funcBody #msgRecado{

@@ -45,6 +45,7 @@ interface iself {
 const HomeBody: React.FC = () => {
     const [Msg, setMsg] = useState<imensagem[]>([]);
     const [Limit, setLimit] = useState<imensagem[]>([]);
+    const [inputBuscar, setInputBuscar] = useState('');
     const [page, setPage] = useState(0);
     useEffect(() => {
         const loadMsg = async () => {
@@ -56,6 +57,17 @@ const HomeBody: React.FC = () => {
         loadMsg()
     }, [page]);
 
+    /* useEffect(() => {
+        const buscarMsg = async () => {
+   
+            //setDeleteCodigo(codigo);
+            const response = await api.get('/v1/ts/funcionarios/nomes/:nomes?page=0&limit=12&direction=asc&nomes='+ inputBuscar, { params: { page: page, limit: 3 } });
+            setMsg(response.data._embedded.recadoDTOList);
+            //window.location.reload()
+        }
+        buscarMsg()
+    }, [inputBuscar]);
+ */
 
     const deleteMsg = async (codigo: string) => {
    
@@ -64,6 +76,9 @@ const HomeBody: React.FC = () => {
         window.location.reload()
     }
 
+    
+
+    
 
     return (
         <>

@@ -80,6 +80,21 @@ public class GestaoEmpresa {
         empresaDAO.deleteById(id);
     }
 
+    public Page<EmpresaDTO> findByNomeContains(String nome, Pageable pageable) {
+        Page<Empresa> result = empresaDAO.findByNomeContains(nome, pageable);
+        return result.map(obj -> new EmpresaDTO(obj));
+    }
+
+    public Page<EmpresaDTO> findByRazaoContains(String razao, Pageable pageable) {
+        Page<Empresa> result = empresaDAO.findByRazaoContains(razao, pageable);
+        return result.map(obj -> new EmpresaDTO(obj));
+    }
+
+    public Page<EmpresaDTO> findByEnderecoContains(String endereco, Pageable pageable) {
+        Page<Empresa> result = empresaDAO.findByEnderecoContains(endereco, pageable);
+        return result.map(obj -> new EmpresaDTO(obj));
+    }
+
     //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
     public GestaoEmpresa(final EmpresaDAO empresaDAO) {

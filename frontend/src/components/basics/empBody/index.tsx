@@ -2,6 +2,7 @@
 import {  useEffect, useState } from "react";
 import api from "../../../services/api";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { Form } from "react-bootstrap";
 import '../empBody/index.css'
 
 
@@ -27,6 +28,9 @@ interface iself {
 const EmpBody: React.FC = () => {
     const [Emp, setEmp] = useState<iempresa[]>([]);
     const [Limit, setLimit] = useState<iempresa[]>([]);
+    const [inputBuscar, setInputBuscar] = useState('');
+    const [buscarCategoria, setBuscarCategoria] = useState('1');
+    const [ordenarCategoria, setOrdenarCategoria] = useState('1');
     const [deleteCodigo, setDeleteCodigo]= useState('');
     const [page, setPage]= useState(0);
 
@@ -50,7 +54,48 @@ const EmpBody: React.FC = () => {
        window.location.reload()
         
     }
-
+    useEffect(() => {
+        const buscarMsg = async () => {
+            if (buscarCategoria == "1") {
+                const response = await api.get('/v1/ts/empresas/nomes', { params: { page: page, limit: 3, nomes: inputBuscar } });
+                if (Object.keys(response.data).length) {
+                    setEmp(response.data._embedded.empresaDTOList);
+                } else {
+                    setEmp([]);
+                }
+            }
+            if (buscarCategoria == "2") {
+                const response = await api.get('/v1/ts/empresas/razao', { params: { page: page, limit: 3, razao: inputBuscar } });
+                if (Object.keys(response.data).length) {
+                    setEmp(response.data._embedded.empresaDTOList);
+                } else {
+                    setEmp([]);
+                }
+            }
+            if (buscarCategoria == "3") {
+                const response = await api.get('/v1/ts/empresas/endereco', { params: { page: page, limit: 3, endereco: inputBuscar } });
+                if (Object.keys(response.data).length) {
+                    setEmp(response.data._embedded.empresaDTOList);
+                } else {
+                    setEmp([]);
+                }
+            }
+        }
+        buscarMsg()
+    }, [inputBuscar]);
+    useEffect(() => {
+        const ordenarMsg = async () => {
+            if (ordenarCategoria == '1') {
+                const response = await api.get('/v1/ts/empresas/', { params: { page: page, limit: 3, direction: 'desc' } });
+                setEmp(response.data._embedded.empresaDTOList);
+            }
+            if (ordenarCategoria == '2') {
+                const response = await api.get('/v1/ts/empresas/', { params: { page: page, limit: 3, direction: 'asc' } });
+                setEmp(response.data._embedded.empresaDTOList);
+            }
+        }
+        ordenarMsg()
+    }, [ordenarCategoria]);
    
 
 
@@ -58,7 +103,35 @@ const EmpBody: React.FC = () => {
     return (
 
         <>
-          
+          <div id='searchBarEmp'>
+                <div id='search'>
+                    <h3>Selecione a categoria que deseja pesquisar: </h3>
+                    <input type="text" value={inputBuscar} onChange={e => setInputBuscar(e.target.value)} />
+                    <Form.Group controlId="dropdownSearch" >
+                        <Form.Control
+                            as="select"
+                            value={buscarCategoria}
+                            onChange={e => { setBuscarCategoria(e.target.value) }} >
+                            <option value="1" selected>Nome</option>
+                            <option value="2">Razão Social</option>
+                            <option value="3">Endereço</option>
+                        </Form.Control>
+                    </Form.Group>
+                </div>
+                <div id='ordenation' >
+                    <h3>Selecione a ordenação: </h3>
+                    <Form.Group controlId="dropdownOrdenation" >
+                        <Form.Control
+                            as="select"
+                            value={ordenarCategoria}
+                            onChange={e => { setOrdenarCategoria(e.target.value) }} >
+                            <option value='1' selected>ID | Decrescente</option>
+                            <option value='2' >ID | Crescente</option>
+                        </Form.Control>
+                    </Form.Group>
+                </div>
+            </div>
+            
           <body>
               
           

@@ -36,12 +36,13 @@ public class FuncionarioController {
     public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarTodos(
             @RequestParam(value="page", defaultValue = "0") int page,
             @RequestParam(value="limit", defaultValue = "12") int limit,
-            @RequestParam(value="direction", defaultValue = "asc") String direction) {
+            @RequestParam(value="direction", defaultValue = "desc") String direction,
+            @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation) {
 
 
         Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
 
         Page<FuncionarioDTO> pages = service.findAll(pageable);
         pages
@@ -59,13 +60,14 @@ public class FuncionarioController {
     public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarPeloNome(
             @RequestParam(value="page", defaultValue = "0") int page,
             @RequestParam(value="limit", defaultValue = "12") int limit,
-            @RequestParam(value="direction", defaultValue = "asc") String direction,
+            @RequestParam(value="direction", defaultValue = "desc") String direction,
+            @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation,
              String nomes){
 
 
         Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
 
         Page<FuncionarioDTO> pages = service.findByNomeContains(nomes, pageable);
         pages
@@ -83,13 +85,14 @@ public class FuncionarioController {
     public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarPeloCargo(
             @RequestParam(value="page", defaultValue = "0") int page,
             @RequestParam(value="limit", defaultValue = "12") int limit,
-            @RequestParam(value="direction", defaultValue = "asc") String direction,
+            @RequestParam(value="direction", defaultValue = "desc") String direction,
+            @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation,
             String cargo){
 
 
         Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
 
         Page<FuncionarioDTO> pages = service.findByCargoContains(cargo, pageable);
         pages
@@ -111,13 +114,13 @@ public class FuncionarioController {
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/nome/{nome}")
+    /*@GetMapping("/nome/{nome}")
     @Operation(summary = "Busca pelo Nome")
     public ResponseEntity<FuncionarioDTO> buscarFuncionario(@PathVariable String empresa) {
         FuncionarioDTO objDTO = service.findByNome(empresa);
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarFuncionario(empresa)).withSelfRel());
         return ResponseEntity.ok(objDTO);
-    }
+    }*/
 
     @PutMapping
     @Operation(summary = "Atualiza um funcionario")

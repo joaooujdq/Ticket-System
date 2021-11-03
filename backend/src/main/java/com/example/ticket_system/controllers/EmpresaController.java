@@ -36,14 +36,90 @@ public class EmpresaController {
     public ResponseEntity<CollectionModel<EmpresaDTO>> buscarTodos(
             @RequestParam(value="page", defaultValue = "0") int page,
             @RequestParam(value="limit", defaultValue = "12") int limit,
-            @RequestParam(value="direction", defaultValue = "asc") String direction) {
+            @RequestParam(value="direction", defaultValue = "desc") String direction,
+            @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation) {
 
 
         Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
 
         Page<EmpresaDTO> pages = service.findAll(pageable);
+        pages
+                .stream()
+                .forEach(p -> p.add(
+                                linkTo(methodOn(EmpresaController.class).buscarUm(p.getCodigo())).withSelfRel()
+                        )
+                );
+
+        return ResponseEntity.ok(CollectionModel.of(pages));
+    }
+
+    @GetMapping("/nomes")
+    @Operation(summary = "Busca pelo nome")
+    public ResponseEntity<CollectionModel<EmpresaDTO>> buscarPeloNome(
+            @RequestParam(value="page", defaultValue = "0") int page,
+            @RequestParam(value="limit", defaultValue = "12") int limit,
+            @RequestParam(value="direction", defaultValue = "desc") String direction,
+            @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation,
+            String nomes) {
+
+
+        Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
+
+        Page<EmpresaDTO> pages = service.findByNomeContains(nomes, pageable);
+        pages
+                .stream()
+                .forEach(p -> p.add(
+                                linkTo(methodOn(EmpresaController.class).buscarUm(p.getCodigo())).withSelfRel()
+                        )
+                );
+
+        return ResponseEntity.ok(CollectionModel.of(pages));
+    }
+
+    @GetMapping("/razao")
+    @Operation(summary = "Busca pela razao")
+    public ResponseEntity<CollectionModel<EmpresaDTO>> buscarPelaRazao(
+            @RequestParam(value="page", defaultValue = "0") int page,
+            @RequestParam(value="limit", defaultValue = "12") int limit,
+            @RequestParam(value="direction", defaultValue = "desc") String direction,
+            @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation,
+            String razao) {
+
+
+        Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
+
+        Page<EmpresaDTO> pages = service.findByRazaoContains(razao, pageable);
+        pages
+                .stream()
+                .forEach(p -> p.add(
+                                linkTo(methodOn(EmpresaController.class).buscarUm(p.getCodigo())).withSelfRel()
+                        )
+                );
+
+        return ResponseEntity.ok(CollectionModel.of(pages));
+    }
+
+    @GetMapping("/endereco")
+    @Operation(summary = "Busca pelo endereco")
+    public ResponseEntity<CollectionModel<EmpresaDTO>> buscarPeloEndereco(
+            @RequestParam(value="page", defaultValue = "0") int page,
+            @RequestParam(value="limit", defaultValue = "12") int limit,
+            @RequestParam(value="direction", defaultValue = "desc") String direction,
+            @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation,
+            String endereco) {
+
+
+        Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
+
+        Page<EmpresaDTO> pages = service.findByEnderecoContains(endereco, pageable);
         pages
                 .stream()
                 .forEach(p -> p.add(
@@ -65,13 +141,13 @@ public class EmpresaController {
         return ResponseEntity.ok(objDTO);
     }
 
-    @GetMapping("/nome/{nome}")
+/*    @GetMapping("/nome/{nome}")
     @Operation(summary = "Busca pelo Nome")
     public ResponseEntity<EmpresaDTO> buscarEmpresa(@PathVariable String empresa) {
         EmpresaDTO objDTO = service.findByNome(empresa);
         objDTO.add(linkTo(methodOn(EmpresaController.class).buscarEmpresa(empresa)).withSelfRel());
         return ResponseEntity.ok(objDTO);
-    }
+    }*/
 
     @PutMapping
     @Operation(summary = "Atualiza uma Empresa")

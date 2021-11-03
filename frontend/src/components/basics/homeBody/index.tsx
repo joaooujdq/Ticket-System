@@ -1,10 +1,9 @@
 import { SetStateAction, useEffect, useState } from "react";
 import api from "../../../services/api";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import { FiSearch } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Form } from "react-bootstrap";
 import './index.css'
-import { idText } from "typescript";
+
 
 
 interface imensagem {
@@ -46,6 +45,8 @@ const HomeBody: React.FC = () => {
     const [Msg, setMsg] = useState<imensagem[]>([]);
     const [Limit, setLimit] = useState<imensagem[]>([]);
     const [inputBuscar, setInputBuscar] = useState('');
+    const [buscarCategoria, setBuscarCategoria] = useState('1');
+    const [ordenarCategoria, setOrdenarCategoria] = useState('1');
     const [page, setPage] = useState(0);
     useEffect(() => {
         const loadMsg = async () => {
@@ -76,36 +77,83 @@ const HomeBody: React.FC = () => {
         window.location.reload()
     }
 
-    
+    useEffect(() => {
+        const buscarMsg = async () => {
+            if (buscarCategoria == "1") {
+                const response = await api.get('/v1/ts/recados/funcionario', { params: { page: page, limit: 3, funcionario: inputBuscar } });
+                if (Object.keys(response.data).length) {
+                    setMsg(response.data._embedded.recadoDTOList);
+                } else {
+                    setMsg([]);
+                }
+            }
+            if (buscarCategoria == "2") {
+                const response = await api.get('/v1/ts/recados/empresa', { params: { page: page, limit: 3, empresa: inputBuscar } });
+                if (Object.keys(response.data).length) {
+                    setMsg(response.data._embedded.recadoDTOList);
+                } else {
+                    setMsg([]);
+                }
+            }
+            if (buscarCategoria == "3") {
+                const response = await api.get('/v1/ts/recados/setor', { params: { page: page, limit: 3, setor: inputBuscar } });
+                if (Object.keys(response.data).length) {
+                    setMsg(response.data._embedded.recadoDTOList);
+                } else {
+                    setMsg([]);
+                }
+            }
+        }
+        buscarMsg()
+    }, [inputBuscar]);
+    useEffect(() => {
+        const ordenarMsg = async () => {
+            if (ordenarCategoria == '1') {
+                const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'desc' } });
+                setMsg(response.data._embedded.recadoDTOList);
+            }
+            if (ordenarCategoria == '2') {
+                const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc' } });
+                setMsg(response.data._embedded.recadoDTOList);
+            }
+        }
+        ordenarMsg()
+    }, [ordenarCategoria]);
 
     
 
     return (
         <>
-        <div id='searchBar'>
-            <div id='search'>
-            <h3>Procurar por: </h3>
-                <input type="text" />
-                <select id="dropdownSearch">
-                <option value="1" selected>Nome de Funcionário</option>
-                <option value="2">Nome de Empresa</option>
-                <option value="3">Setor</option>
-                </select>
-                <button>Buscar</button>
-            </div>
-                <div id='ordenation' >
-                <h3>Ordernar por: </h3>
-                <select id='dropdownOrdenation'>
-                <option value='1' selected>ID | Decrescente</option>
-                <option value='2' >ID | Crescente</option>
-                <option value='3' >Status | Decrescente</option>
-                <option value='4' >Status | Crescente</option>
-                <option value='5' >Prioridade | Decrescente</option>
-                <option value='6' >Prioridade | Crescente</option>
-                 </select>
 
+            <div id='searchBarRecado'>
+                <div id='search'>
+                    <h3>Selecione a categoria que deseja pesquisar: </h3>
+                    <input type="text" value={inputBuscar} onChange={e => setInputBuscar(e.target.value)} />
+                    <Form.Group controlId="dropdownSearch" >
+                        <Form.Control
+                            as="select"
+                            value={buscarCategoria}
+                            onChange={e => { setBuscarCategoria(e.target.value) }} >
+                            <option value="1" selected>Nome de Funcionário</option>
+                            <option value="2">Nome de Empresa</option>
+                            <option value="3">Setor</option>
+                        </Form.Control>
+                    </Form.Group>
+                </div>
+                <div id='ordenation' >
+                    <h3>Selecione a ordenação: </h3>
+                    <Form.Group controlId="dropdownOrdenation" >
+                        <Form.Control
+                            as="select"
+                            value={ordenarCategoria}
+                            onChange={e => { setOrdenarCategoria(e.target.value) }} >
+                            <option value='1' selected>ID | Decrescente</option>
+                            <option value='2' >ID | Crescente</option>
+                        </Form.Control>
+                    </Form.Group>
                 </div>
             </div>
+
             <body>
                 <thead>
                     {

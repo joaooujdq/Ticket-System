@@ -11,6 +11,10 @@ public class Recado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
+    @Column(name="numStatus")
+    private Integer numStatus;
+    @Column(name="numPrioridade")
+    private Integer numPrioridade;
     @Column(name = "status", nullable = false)
     private String status;
     @Column(name = "prioridade")
@@ -32,26 +36,33 @@ public class Recado implements Serializable {
         switch (strStatus) {
         case "option1": 
             this.status = "Pendente";
+            this.numStatus = 1;
             break;
         case "option2": 
             this.status = "Concluido";
+            this.numStatus = 2;
             break;
         default: 
             this.status = "";
+            this.numStatus = 3;
             break;
         }
         switch (strPrioridade) {
         case "option3": 
             this.prioridade = "Alta";
+            this.numPrioridade = 1;
             break;
         case "option4": 
             this.prioridade = "Média";
+            this.numPrioridade = 2;
             break;
         case "option5": 
             this.prioridade = "Baixa";
+            this.numPrioridade = 3;
             break;
         default: 
             this.prioridade = "";
+            this.numPrioridade = 4;
             break;
         }
         LocalDate agora = LocalDate.now();
@@ -156,6 +167,22 @@ public class Recado implements Serializable {
     public void setFuncionarioObj(final Funcionario funcionarioObj) {
     //</editor-fold>
         this.funcionarioObj = funcionarioObj;
+    }
+
+    public Integer getNumStatus() {
+        return numStatus;
+    }
+
+    public void setNumStatus(Integer numStatus) {
+        this.numStatus = numStatus;
+    }
+
+    public Integer getNumPrioridade() {
+        return numPrioridade;
+    }
+
+    public void setNumPrioridade(Integer numPrioridade) {
+        this.numPrioridade = numPrioridade;
     }
 
     //<editor-fold defaultstate="collapsed" desc="delombok">

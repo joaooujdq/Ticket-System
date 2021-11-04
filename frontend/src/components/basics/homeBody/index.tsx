@@ -116,6 +116,22 @@ const HomeBody: React.FC = () => {
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc' } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
+            if (ordenarCategoria == '3') {
+                const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'desc', ordenation: "numStatus" } });
+                setMsg(response.data._embedded.recadoDTOList);
+            }
+            if (ordenarCategoria == '4') {
+                const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc', ordenation: "numStatus" } });
+                setMsg(response.data._embedded.recadoDTOList);
+            }
+            if (ordenarCategoria == '5') {
+                const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc', ordenation: "numPrioridade" } });
+                setMsg(response.data._embedded.recadoDTOList);
+            }
+            if (ordenarCategoria == '6') {
+                const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'desc', ordenation: "numPrioridade" } });
+                setMsg(response.data._embedded.recadoDTOList);
+            }
         }
         ordenarMsg()
     }, [ordenarCategoria]);
@@ -149,6 +165,10 @@ const HomeBody: React.FC = () => {
                             onChange={e => { setOrdenarCategoria(e.target.value) }} >
                             <option value='1' selected>ID | Decrescente</option>
                             <option value='2' >ID | Crescente</option>
+                            <option value='3' >Status | Decrescente</option>
+                            <option value='4' >Status | Crescente</option>
+                            <option value='5' >Prioridade | Decrescente</option>
+                            <option value='6' >Prioridade | Crescente</option>
                         </Form.Control>
                     </Form.Group>
                 </div>

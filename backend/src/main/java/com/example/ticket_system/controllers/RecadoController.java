@@ -27,9 +27,10 @@ public class RecadoController {
     public ResponseEntity<CollectionModel<RecadoDTO>> buscarTodos(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "limit", defaultValue = "12") int limit,
-            @RequestParam(value = "direction", defaultValue = "desc") String direction) {
+            @RequestParam(value = "direction", defaultValue = "desc") String direction,
+            @RequestParam(value = "ordenation", defaultValue = "codigo") String ordenation) {
         Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
-        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "codigo"));
+        Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
         Page<RecadoDTO> pages = service.findAll(pageable);
         pages
                 .stream()

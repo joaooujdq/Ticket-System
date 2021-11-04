@@ -94,7 +94,7 @@ const CriarRecadoBody: React.FC = () => {
             
             <body id='CriarRecadoBody'>
             <h2 id='TitleBar'>Cadastro de Recado</h2>
-                <ul id='CriarRecadoUl'>
+                <form id='CriarRecadoUl'>
                 <div id='CriarRecadoForm'>
                     <div id='divH1'>
                         <h1>Status: </h1>
@@ -108,13 +108,13 @@ const CriarRecadoBody: React.FC = () => {
                         <div id='divRadios'>
                         <div className="radios">
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" onChange={e => setInputStatus(e.target.value)}/>
+                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" onChange={e => setInputStatus(e.target.value)} />
                             <label className="form-check-label" >
                             Pendente
                             </label>
                         </div>
                         <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option2" onChange={e => setInputStatus(e.target.value)}/>
+                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option2" onChange={e => setInputStatus(e.target.value)} />
                             <label className="form-check-label" >
                             Concluido
                             </label>
@@ -145,13 +145,13 @@ const CriarRecadoBody: React.FC = () => {
                     </div>
                         </div>
                         <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
-                        <textarea  value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} />
-                        <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} />
-                        <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} />
+                        <textarea  value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} required/>
+                        <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} required/>
+                        <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} required/>
                     </div>
                     </div>
-                    <button onClick={postMsg}>Cadastrar</button>
-                </ul>
+                    <button type="submit" onClick={postMsg}>Cadastrar</button>
+                </form>
                     
 
 

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.springframework.hateoas.RepresentationModel;
+
+import javax.persistence.Column;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -15,20 +17,25 @@ import javax.validation.groups.Default;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-@JsonPropertyOrder({"codigo_rec", "status_rec", "prioridade_rec", "setor_rec", "mensagem_rec", "data_rec"})
+@JsonPropertyOrder({"codigo_rec", "numStatus_rec", "numPrioridade_rec", "status_rec", "prioridade_rec", "setor_rec", "mensagem_rec", "data_rec"})
 public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Serializable {
     private static final long serialVersionUID = 1L;
     //as classes DTOS permitem a navegação de dados sem que eles acessem diretamente o banco de dados
     @JsonProperty("codigo_rec")
     private Integer codigo;
+    @JsonProperty("numStatus_rec")
+    private Integer numStatus;
+    @JsonProperty("numPrioridade_rec")
+    private Integer numPrioridade;
     @JsonProperty("status_rec")
     private String status;
     @JsonProperty("prioridade_rec")
     private String prioridade;
     @JsonProperty("setor_rec")
     private String setor;
-    @NotBlank
+    @NotNull
     @Size(max = 255)
+    @Valid
     @JsonProperty("mensagem_rec")
     private String mensagem;
     @JsonProperty("data_rec")
@@ -44,6 +51,8 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
 
     public RecadoDTO(Recado obj) {
         codigo = obj.getCodigo();
+        numStatus = obj.getNumStatus();
+        numPrioridade = obj.getNumPrioridade();
         status = obj.getStatus();
         prioridade = obj.getPrioridade();
         setor = obj.getSetor();
@@ -154,6 +163,22 @@ public class RecadoDTO extends RepresentationModel<RecadoDTO> implements Seriali
     @SuppressWarnings("all")
     public void setFuncionarioDTO(final FuncionarioDTO funcionarioDTO) {
         this.funcionarioDTO = funcionarioDTO;
+    }
+
+    public Integer getNumStatus() {
+        return numStatus;
+    }
+
+    public void setNumStatus(Integer numStatus) {
+        this.numStatus = numStatus;
+    }
+
+    public Integer getNumPrioridade() {
+        return numPrioridade;
+    }
+
+    public void setNumPrioridade(Integer numPrioridade) {
+        this.numPrioridade = numPrioridade;
     }
 
     @Override

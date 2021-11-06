@@ -1,4 +1,19 @@
-
+.alert-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    
+    height: 260px;
+    width: 400px;
+    left: 39%;
+    border-radius: 8px;
+}
+.alert-container .alert-button{
+    height: 40px;
+    width: 80px;
+}
 #CriarRecadoBody{
     width: 100vw;
     height: 70vh;

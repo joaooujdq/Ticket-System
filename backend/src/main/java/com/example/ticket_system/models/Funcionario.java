@@ -25,7 +25,7 @@ public class Funcionario implements Serializable {
     private String nome;
 
 
-    @Column(name = "cargo", nullable = false)
+    @Column(name = "cargo")
     private String cargo;
 
     @Column(name = "email", nullable = false)

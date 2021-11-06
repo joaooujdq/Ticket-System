@@ -1,21 +1,23 @@
-
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
-import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import React from 'react'
+import Alert from 'react-popup-alert'
 import '../criarFuncionarioBody/index.css'
 import { Link } from "react-router-dom";
-
-
+interface ierror{
+    codigo: number;
+    momento: string;
+    descricao:string;
+}
 interface ifuncionario {
     nome: string;
     cargo: string;
     email: string;
     telefone: string;
 }
-
-
 const CriarFuncionarioBody: React.FC = () => {
     const [Msg, setMsg] = useState<ifuncionario[]>([]);
+    const [Erro, setErro] = useState<ierror>();
     const [inputNomeFunc, setInputNomeFunc] = useState('');
     const [inputCargoFunc, setInputCargoFunc] = useState('');
     const [inputEmailFunc, setInputEmailFunc] = useState('');
@@ -24,23 +26,26 @@ const CriarFuncionarioBody: React.FC = () => {
     const [inputConfSenhaFunc, setInputConfSenhaFunc] = useState('');
     const [inputAdminFunc, setInputAdminFunc] = useState(false);
     const [adminFunc, setAdminFunc] = useState('0');
-
-
-
     async function postMsg() {
 
-        const response = await api.post('/v1/ts/funcionarios', {
-            "nome": inputNomeFunc,
-            "cargo": inputCargoFunc,
-            "email": inputEmailFunc,
-            "telefone": inputTelefoneFunc,
-        }).then(response => response)
+         
+            const response = await api.post('/v1/ts/funcionarios', {
+                "nome": inputNomeFunc,
+                "cargo": inputCargoFunc,
+                "email": inputEmailFunc,
+                "telefone": inputTelefoneFunc,
+            }).then(response => response.data)
             .catch(error => {
-                console.log(error.response)
-            });
-            window.location.reload();
-    }
-
+                if (error.response) {
+                  console.log(error.response.data);
+                }
+              });
+        
+         
+            
+    
+        }
+    
     useEffect(() => {
         console.log(adminFunc)
         console.log(inputAdminFunc)
@@ -50,24 +55,49 @@ const CriarFuncionarioBody: React.FC = () => {
             setAdminFunc('1')
         }
     }, [inputAdminFunc])
-
     useEffect(() => {
-        
-        
         if(inputSenhaFunc == inputConfSenhaFunc){
             console.log("igual")
         }else{
             console.log("diferente")
         }
     }, [inputConfSenhaFunc, inputSenhaFunc])
-    
-
-
-
-
+    const [alert, setAlert] = React.useState({
+        type: 'error',
+        text: 'This is a alert message',
+        show: false
+      })
+      function onCloseAlert() {
+        setAlert({
+          type: '',
+          text: '',
+          show: false
+        })
+      }
+      function onShowAlert(type:string) {
+        setAlert({
+          type: type,
+          text: 'Demo alert',
+          show: true
+        })
+      }
     return (
-        <>
-            
+            <>
+          <Alert  
+        header={'Header'}
+        btnText={'Close'}
+        text={alert.text}
+        type={alert.type}
+        show={alert.show}
+        onClosePress={onCloseAlert}
+        pressCloseOnOutsideClick={true}
+        showBorderBottom={true}
+        alertStyles={{"background-color": "rgb(40, 167, 69)",
+                    "width": "300px"}}
+        headerStyles={{}}
+        textStyles={{}}
+        buttonStyles={{}}
+      />
             <body id='CriarFuncionarioBody'>
             <h2 id='TitleBar'>Cadastro de Funcionario</h2>
                 <ul id='CriarFuncionarioUl'>
@@ -80,7 +110,6 @@ const CriarFuncionarioBody: React.FC = () => {
                         <h1>Senha: </h1>
                         <h1>Confirmar senha: </h1>
                         <h1>Admin: </h1>
-                        
                     </div>
                     <div id='divInput'>
                         <input type="text" value={inputNomeFunc} onChange={e => setInputNomeFunc(e.target.value)} />
@@ -93,20 +122,12 @@ const CriarFuncionarioBody: React.FC = () => {
                         <input type="checkbox" id="scales" name="scales"  onChange={e => setInputAdminFunc(!inputAdminFunc)} />
                         <h3>É administrador(a)?</h3>
                         </div>
-                        
-                       
-                        
                     </div>
                     </div>
                     <button onClick={postMsg}>Cadastrar</button>
                 </ul>
-
-                
-
             </body>
         </>
     );
 }
-
 export default CriarFuncionarioBody;
-

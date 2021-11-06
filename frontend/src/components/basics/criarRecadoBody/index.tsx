@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 import api from "../../../services/api";
-import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import React from 'react'
+import Alert from 'react-popup-alert'
 import '../criarRecadoBody/index.css'
 import { Link } from "react-router-dom";
+
+interface ierror{
+    codigo: number;
+    momento: string;
+    descricao:string;
+}
 
 interface imensagem {
     status_rec: boolean,
@@ -14,6 +21,7 @@ interface imensagem {
     empresaDTO: iempresa,
     funcionarioDTO: ifuncionario,
 }
+
 
 interface ifuncionario {
     codigo_func: number;
@@ -50,7 +58,7 @@ const CriarRecadoBody: React.FC = () => {
     const [inputMensagem, setInputMensagem] = useState('');
     const [prioridade, setPrioridade] = useState(0);
     const [status, setStatus] = useState(0);
-  
+
     const [inputFuncionarioId, setInputFuncionarioId] = useState('');
     const [inputEmpresaId, setInputEmpresaId] = useState('');
     const [page, setPage] = useState(0);
@@ -77,8 +85,32 @@ const CriarRecadoBody: React.FC = () => {
         findEmpresaById()
     }, [inputEmpresaId])
 
+    const [alert, setAlert] = React.useState({
+        type: 'error',
+        text: 'This is a alert message',
+        show: false
+      })
+    
+      function onCloseAlert() {
+        setAlert({
+          type: '',
+          text: '',
+          show: false
+        })
+      }
+    
+      function onShowAlert(type:string) {
+        setAlert({
+          type: type,
+          text: 'Demo alert',
+          show: true
+        })
+      }
+
+      
+
     const postMsg = async () => {
-        
+        onShowAlert('success');
         const response = await api.post('/v1/ts/recados/', {
             "status_rec": inputStatus,
             "prioridade_rec": inputPrioridade,
@@ -87,75 +119,94 @@ const CriarRecadoBody: React.FC = () => {
             "empresaDTO": Emp,
             "funcionarioDTO": Func
         });
+        
         window.location.reload();
+        
     }
     return (
         <>
-            
+          <Alert  
+        header={'Header'}
+        btnText={'Close'}
+        text={alert.text}
+        type={alert.type}
+        show={alert.show}
+        onClosePress={onCloseAlert}
+        pressCloseOnOutsideClick={true}
+        showBorderBottom={true}
+        alertStyles={{"background-color": "rgb(40, 167, 69)",
+                    "width": "300px"}}
+        headerStyles={{}}
+        textStyles={{}}
+        buttonStyles={{}}
+      />
             <body id='CriarRecadoBody'>
-            <h2 id='TitleBar'>Cadastro de Recado</h2>
+                <h2 id='TitleBar'>Cadastro de Recado</h2>
                 <form id='CriarRecadoUl'>
-                <div id='CriarRecadoForm'>
-                    <div id='divH1'>
-                        <h1>Status: </h1>
-                        <h1>Prioridade: </h1>
-                        <h1>Setor: </h1>
-                        <h2>Mensagem: </h2>
-                        <h1>Empresa ID: </h1>
-                        <h1>Funcionario ID: </h1>
-                    </div>
-                    <div id='divInput'>
-                        <div id='divRadios'>
-                        <div className="radios">
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" onChange={e => setInputStatus(e.target.value)} />
-                            <label className="form-check-label" >
-                            Pendente
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option2" onChange={e => setInputStatus(e.target.value)} />
-                            <label className="form-check-label" >
-                            Concluido
-                            </label>
-                        </div>
+                    <div id='CriarRecadoForm'>
                     
+                        <div id='divH1'>
+                            <h1>Status: </h1>
+                            <h1>Prioridade: </h1>
+                            <h1>Setor: </h1>
+                            <h2>Mensagem: </h2>
+                            <h1>Empresa ID: </h1>
+                            <h1>Funcionario ID: </h1>
                         </div>
+                        <div id='divInput'>
+                            <div id='divRadios'>
+                                <div className="radios">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option1" onChange={e => setInputStatus(e.target.value)} />
+                                        <label className="form-check-label" >
+                                            Pendente
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="exampleRadios" id="statusRadiosInput" value="option2" onChange={e => setInputStatus(e.target.value)} />
+                                        <label className="form-check-label" >
+                                            Concluido
+                                        </label>
+                                    </div>
 
-                        <div className="radios">
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option3" onChange={e => setInputPrioridade(e.target.value)}/>
-                            <label className="form-check-label" >
-                            Alta
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option4" onChange={e => setInputPrioridade(e.target.value)}/>
-                            <label className="form-check-label" >
-                            Média
-                            </label>
-                        </div>
+                                </div>
 
-                        <div className="form-check ">
-                            <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option5" onChange={e => setInputPrioridade(e.target.value)}/>
-                            <label className="form-check-label" >
-                            Baixa
-                            </label>
+                                <div className="radios">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option3" onChange={e => setInputPrioridade(e.target.value)} />
+                                        <label className="form-check-label" >
+                                            Alta
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option4" onChange={e => setInputPrioridade(e.target.value)} />
+                                        <label className="form-check-label" >
+                                            Média
+                                        </label>
+                                    </div>
+
+                                    <div className="form-check ">
+                                        <input className="form-check-input" type="radio" name="exampleRadios1" id="statusRadiosInput" value="option5" onChange={e => setInputPrioridade(e.target.value)} />
+                                        <label className="form-check-label" >
+                                            Baixa
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
+                            <textarea value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} required />
+                            <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} required />
+                            <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} required />
                         </div>
                     </div>
-                        </div>
-                        <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
-                        <textarea  value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} required/>
-                        <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} required/>
-                        <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} required/>
-                    </div>
-                    </div>
-                    <button type="submit" onClick={postMsg}>Cadastrar</button>
+                    <button type="submit" onClick={postMsg}  >Cadastrar</button>
                 </form>
-                    
 
+
+                
 
             </body>
+
         </>
     );
 }

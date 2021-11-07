@@ -47,6 +47,8 @@ public class GestaoFuncionario {
         entity.setCargo(obj.getCargo());
         entity.setEmail(obj.getEmail());
         entity.setTelefone(obj.getTelefone());
+        entity.setSenha(obj.getSenha());
+
         return new FuncionarioDTO(funcionarioDAO.save(entity));
     }
 
@@ -54,7 +56,10 @@ public class GestaoFuncionario {
     public FuncionarioDTO save(Funcionario obj) {
         boolean telefoneExists = funcionarioDAO.findByTelefone(obj.getTelefone()).stream().anyMatch(objResult -> !objResult.equals(obj));
         boolean emailExists = funcionarioDAO.findByEmail(obj.getEmail()).stream().anyMatch(objResult -> !objResult.equals(obj));
-        if (telefoneExists) {
+        if(obj.getNome() == "" || obj.getEmail() == "" || obj.getSenha() == ""){
+            throw new BusinessException("Os campos com * são obrigatórios!");
+        }
+        else if (telefoneExists) {
             throw new BusinessException("Telefone já existente!");
         } else if (emailExists) {
             throw new BusinessException("Email já existente!");

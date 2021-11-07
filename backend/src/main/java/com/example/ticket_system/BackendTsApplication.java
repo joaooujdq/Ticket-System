@@ -46,10 +46,10 @@ public class BackendTsApplication implements CommandLineRunner {
 		Empresa e3 = new Empresa(3, "Amazon", "Amazon", "12345678901237", "amazon2@hotmail.com", "Rua 22, Setor Antena, Numero 127", "61 99837634");
 		Empresa e4 = new Empresa(4, "Facebook", "Facebook", "12345678901238", "facebook2@hotmail.com", "Rua 20, Setor Sul, Numero 721", "61 99267678");
 
-		Funcionario f1 = new Funcionario(1, "João Marcelo", "Desenvolvedor", "joaomarcelo@hormail.com", "61 99667620");
-		Funcionario f2 = new Funcionario(2, "Gabriel", "Desenvoldedor", "gabriel@hotmail.com", "61 99667630");
-		Funcionario f3 = new Funcionario(3, "João Marcelo", "Desenvolvedor", "joaomarcelo2@hormail.com", "61 99667320");
-		Funcionario f4 = new Funcionario(4, "Gabriel", "Desenvoldedor", "gabriel2@hotmail.com", "61 99668630");
+		Funcionario f1 = new Funcionario(1, "João Marcelo", "Desenvolvedor", "joaomarcelo@hormail.com", "61 99667620", "123");
+		Funcionario f2 = new Funcionario(2, "Gabriel", "Desenvoldedor", "gabriel@hotmail.com", "61 99667630", "123");
+		Funcionario f3 = new Funcionario(3, "João Marcelo", "Desenvolvedor", "joaomarcelo2@hormail.com", "61 99667320", "123");
+		Funcionario f4 = new Funcionario(4, "Gabriel", "Desenvoldedor", "gabriel2@hotmail.com", "61 99668630", "123");
 
 		Recado r1 = new Recado(1,  "option1", "option5","Programação", "Planejar a próxima aplicação da empresa.", e1, f1);
 		Recado r2 = new Recado(2,  "option2", "option3","Programação", "Testar a próxima aplicação da empresa.", e2, f2);

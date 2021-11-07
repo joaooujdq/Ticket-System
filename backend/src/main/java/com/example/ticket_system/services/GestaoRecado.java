@@ -49,7 +49,7 @@ public class GestaoRecado {
 
         Optional<Empresa> emp = empresaDAO.findById(obj.getEmpresaDTO().getCodigo());
         Optional<Funcionario> func = funcionarioDAO.findById(obj.getFuncionarioDTO().getCodigo());
-        Recado entity = new Recado(obj.getCodigo() ,obj.getStatus(), obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), new Empresa(emp.get().getCodigo(), emp.get().getNome(), emp.get().getRazao(), emp.get().getCnpj(), emp.get().getEmail(), emp.get().getEndereco(), emp.get().getTelefone()), new Funcionario(func.get().getCodigo(), func.get().getNome(), func.get().getCargo(), func.get().getEmail(), func.get().getTelefone()));
+        Recado entity = new Recado(obj.getCodigo() ,obj.getStatus(), obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), new Empresa(emp.get().getCodigo(), emp.get().getNome(), emp.get().getRazao(), emp.get().getCnpj(), emp.get().getEmail(), emp.get().getEndereco(), emp.get().getTelefone()), new Funcionario(func.get().getCodigo(), func.get().getNome(), func.get().getCargo(), func.get().getEmail(), func.get().getTelefone(), func.get().getSenha()));
         if(entity.getMensagem() ==""){
             throw new BusinessException("mensagem vazia!");
         }

@@ -5,19 +5,23 @@ import Alert from 'react-popup-alert'
 import '../criarFuncionarioBody/index.css'
 import { Link } from "react-router-dom";
 interface ierror{
-    codigo: number;
-    momento: string;
-    descricao:string;
+    codigo: number,
+    momento: string,
+    descricao:string
 }
 interface ifuncionario {
-    nome: string;
-    cargo: string;
-    email: string;
-    telefone: string;
+    nome: string,
+    cargo: string,
+    email: string,
+    telefone: string,
 }
 const CriarFuncionarioBody: React.FC = () => {
     const [Msg, setMsg] = useState<ifuncionario[]>([]);
-    const [Erro, setErro] = useState<ierror>();
+    const [Erro, setErro] = useState<ierror[]>([]);
+    const [codigo, setCodigo] = useState(0);
+    const [momento, setMomento] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [post, setPost] = useState(false);
     const [inputNomeFunc, setInputNomeFunc] = useState('');
     const [inputCargoFunc, setInputCargoFunc] = useState('');
     const [inputEmailFunc, setInputEmailFunc] = useState('');
@@ -26,26 +30,30 @@ const CriarFuncionarioBody: React.FC = () => {
     const [inputConfSenhaFunc, setInputConfSenhaFunc] = useState('');
     const [inputAdminFunc, setInputAdminFunc] = useState(false);
     const [adminFunc, setAdminFunc] = useState('0');
-    async function postMsg() {
-
-         
-            const response = await api.post('/v1/ts/funcionarios', {
-                "nome": inputNomeFunc,
-                "cargo": inputCargoFunc,
-                "email": inputEmailFunc,
-                "telefone": inputTelefoneFunc,
-            }).then(response => response.data)
-            .catch(error => {
-                if (error.response) {
-                  console.log(error.response.data);
-                }
-              });
-        
-         
-            
-    
+      const postMsg = async () => {
+          const response =  await api.post('/v1/ts/funcionarios', {
+            "nome": inputNomeFunc,
+            "cargo": inputCargoFunc,
+            "email": inputEmailFunc,
+            "telefone": inputTelefoneFunc,
+        }).then( response =>  response.data)
+        .catch(  async error => {
+            if (error.response) {
+                await setDescricao(error.response.data.descricao)
+                setPost(!post)
+                
+                
+            }
+          });
+          
         }
-    
+    useEffect(()=>{
+      console.log(post)
+      console.log(codigo + momento+ descricao)
+        if(post){
+          onShowAlert('error')
+        }
+    },[post])
     useEffect(() => {
         console.log(adminFunc)
         console.log(inputAdminFunc)
@@ -64,51 +72,82 @@ const CriarFuncionarioBody: React.FC = () => {
     }, [inputConfSenhaFunc, inputSenhaFunc])
     const [alert, setAlert] = React.useState({
         type: 'error',
-        text: 'This is a alert message',
+        codigo: codigo,
+        text: descricao,
+        momento: momento,
         show: false
       })
       function onCloseAlert() {
         setAlert({
           type: '',
-          text: '',
+          codigo: 0,
+          text:'',
+          momento:'',
           show: false
         })
+        setPost(!post)
       }
-      function onShowAlert(type:string) {
-        setAlert({
+      async function onShowAlert(type:string) {
+        await setAlert({
           type: type,
-          text: 'Demo alert',
+          codigo: codigo,
+        text: descricao,
+        momento: momento,
           show: true
         })
       }
     return (
             <>
           <Alert  
-        header={'Header'}
-        btnText={'Close'}
+        header={''}
+        btnText={'Fechar'}
         text={alert.text}
+        codigo={alert.codigo}
+        momento={alert.momento}
         type={alert.type}
         show={alert.show}
         onClosePress={onCloseAlert}
         pressCloseOnOutsideClick={true}
         showBorderBottom={true}
-        alertStyles={{"background-color": "rgb(40, 167, 69)",
-                    "width": "300px"}}
+        alertStyles={{"background-color": "#f8f9fa",
+                    "width": "300px",
+                  "height": "100px",
+                  "display": "flex",
+                  "flex-direction": "column",
+                  "align-items": "center",
+                  "justify-content": "center",
+                  "left": "42%",
+                  "bottom": "30%",
+                  "border-radius": "8px",
+                  "border": "2px solid #C4C4C4",
+                  "position": "absolute"
+                }}
         headerStyles={{}}
         textStyles={{}}
-        buttonStyles={{}}
+        buttonStyles={{"background-color": "#efefef",
+                      "border-radius": "8px",
+                      "margin-bottom": "10px",
+                      "text-decoration": "none",
+                      "button-decoration": "none",
+                      "align-text": "center",
+                      "width": "70px",
+                      "border": "2px solid #C4C4C4",
+                  "height": "30px",
+                  "color":"#000",
+                  "padding-left":"10px"
+                    }}
       />
             <body id='CriarFuncionarioBody'>
             <h2 id='TitleBar'>Cadastro de Funcionario</h2>
                 <ul id='CriarFuncionarioUl'>
                 <div id='CriarFuncionarioForm'>
                     <div id='divH1'>
-                        <h1>Nome: </h1>
+                        <h1>Nome*: </h1>
                         <h1>Cargo: </h1>
                         <h1>Telefone: </h1>
-                        <h1>Email: </h1>
-                        <h1>Senha: </h1>
-                        <h1>Confirmar senha: </h1>
+                        <h1>Email*: </h1>
+                        <h1>Senha*: </h1>
+                        <h1>Confirmar senha*: </h1>
                         <h1>Admin: </h1>
                     </div>
                     <div id='divInput'>

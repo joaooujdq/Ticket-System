@@ -9,9 +9,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import com.example.ticket_system.dtos.ValidationsGroups.FuncionarioId;
-@JsonPropertyOrder({"codigo_func", "nome_func", "cargo_func", "email_func", "telefone_func"})
+@JsonPropertyOrder({"codigo_func", "nome_func", "cargo_func", "email_func", "telefone_func", "senha_func"})
 public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @NotNull(groups = FuncionarioId.class)
     @JsonProperty("codigo_func")
     private Integer codigo;
@@ -31,12 +32,15 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implemen
     @Size(min = 10)
     @JsonProperty("telefone_func")
     private String telefone;
+    @JsonProperty("senha_func")
+    private String senha;
     public FuncionarioDTO(Funcionario obj) {
         this.codigo = obj.getCodigo();
         this.nome = obj.getNome();
         this.cargo = obj.getCargo();
         this.email = obj.getEmail();
         this.telefone = obj.getTelefone();
+        this.senha= obj.getSenha();
     }
     //<editor-fold defaultstate="collapsed" desc="delombok">
     @SuppressWarnings("all")
@@ -58,6 +62,10 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implemen
     @SuppressWarnings("all")
     public String getTelefone() {
         return this.telefone;
+    }
+    @SuppressWarnings("all")
+    public String getSenha() {
+        return this.senha;
     }
     @JsonProperty("codigo_func")
     @SuppressWarnings("all")
@@ -84,16 +92,23 @@ public class FuncionarioDTO extends RepresentationModel<FuncionarioDTO> implemen
     public void setTelefone(final String telefone) {
         this.telefone = telefone;
     }
+
+    @JsonProperty("senha_func")
+    @SuppressWarnings("all")
+    public void setSenha(final String senha) {
+        this.senha = senha;
+    }
     @SuppressWarnings("all")
     public FuncionarioDTO() {
     }
     @SuppressWarnings("all")
-    public FuncionarioDTO(final Integer codigo, final String nome, final String cargo, final String email, final String telefone) {
+    public FuncionarioDTO(final Integer codigo, final String nome, final String cargo, final String email, final String telefone, final String senha) {
         this.codigo = codigo;
         this.nome = nome;
         this.cargo = cargo;
         this.email = email;
         this.telefone = telefone;
+        this.senha = senha;
     }
     @Override
     @SuppressWarnings("all")

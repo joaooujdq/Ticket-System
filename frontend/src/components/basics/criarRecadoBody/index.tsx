@@ -58,7 +58,9 @@ const CriarRecadoBody: React.FC = () => {
     const [inputMensagem, setInputMensagem] = useState('');
     const [prioridade, setPrioridade] = useState(0);
     const [status, setStatus] = useState(0);
-
+    const [codigo, setCodigo] = useState(0);
+    const [momento, setMomento] = useState("");
+    const [descricao, setDescricao] = useState("");
     const [inputFuncionarioId, setInputFuncionarioId] = useState('');
     const [inputEmpresaId, setInputEmpresaId] = useState('');
     const [page, setPage] = useState(0);
@@ -87,23 +89,29 @@ const CriarRecadoBody: React.FC = () => {
 
     const [alert, setAlert] = React.useState({
         type: 'error',
-        text: 'This is a alert message',
+        codigo: codigo,
+        text: descricao,
+        momento: momento,
         show: false
       })
     
       function onCloseAlert() {
         setAlert({
-          type: '',
-          text: '',
-          show: false
+            type: '',
+            codigo: 0,
+            text:'',
+            momento:'',
+            show: false
         })
       }
     
       function onShowAlert(type:string) {
         setAlert({
-          type: type,
-          text: 'Demo alert',
-          show: true
+            type: type,
+            codigo: codigo,
+          text: descricao,
+          momento: momento,
+            show: true
         })
       }
 
@@ -129,6 +137,8 @@ const CriarRecadoBody: React.FC = () => {
         header={'Header'}
         btnText={'Close'}
         text={alert.text}
+        codigo={alert.codigo}
+        momento={alert.momento}
         type={alert.type}
         show={alert.show}
         onClosePress={onCloseAlert}

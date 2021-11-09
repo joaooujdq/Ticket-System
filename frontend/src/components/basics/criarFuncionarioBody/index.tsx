@@ -36,6 +36,7 @@ const CriarFuncionarioBody: React.FC = () => {
             "cargo": inputCargoFunc,
             "email": inputEmailFunc,
             "telefone": inputTelefoneFunc,
+            "senha": inputSenhaFunc
         }).then( response =>  response.data)
         .catch(  async error => {
             if (error.response) {

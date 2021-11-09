@@ -89,10 +89,14 @@ body thead #funcBody{
     padding-top: 0.5vh;
     padding-left: 1vw;
 }
-body thead #funcBody #deleteButton{
+body thead #funcBody .deleteButton{
     cursor: pointer;
     text-align: center;
     padding-left: 0;
+}
+
+body thead #funcBody popup h4,.h4{
+    font-size: 10px;
 }
 #carouselBar{
     display: flex;

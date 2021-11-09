@@ -3,171 +3,147 @@ import api from "../../../services/api";
 import React from 'react'
 import Alert from 'react-popup-alert'
 import '../criarFuncionarioBody/index.css'
-import { Link } from "react-router-dom";
-interface ierror{
-    codigo: number,
-    momento: string,
-    descricao:string
-}
-interface ifuncionario {
-    nome: string,
-    cargo: string,
-    email: string,
-    telefone: string,
-}
 const CriarFuncionarioBody: React.FC = () => {
-    const [Msg, setMsg] = useState<ifuncionario[]>([]);
-    const [Erro, setErro] = useState<ierror[]>([]);
-    const [codigo, setCodigo] = useState(0);
-    const [momento, setMomento] = useState("");
-    const [descricao, setDescricao] = useState("");
-    const [post, setPost] = useState(false);
-    const [inputNomeFunc, setInputNomeFunc] = useState('');
-    const [inputCargoFunc, setInputCargoFunc] = useState('');
-    const [inputEmailFunc, setInputEmailFunc] = useState('');
-    const [inputTelefoneFunc, setInputTelefoneFunc] = useState('');
-    const [inputSenhaFunc, setInputSenhaFunc] = useState('');
-    const [inputConfSenhaFunc, setInputConfSenhaFunc] = useState('');
-    const [inputAdminFunc, setInputAdminFunc] = useState(false);
-    const [adminFunc, setAdminFunc] = useState('0');
-      const postMsg = async () => {
-          const response =  await api.post('/v1/ts/funcionarios', {
-            "nome": inputNomeFunc,
-            "cargo": inputCargoFunc,
-            "email": inputEmailFunc,
-            "telefone": inputTelefoneFunc,
-            "senha": inputSenhaFunc
-        }).then( response =>  response.data)
-        .catch(  async error => {
-            if (error.response) {
-                await setDescricao(error.response.data.descricao)
-                setPost(!post)
-                
-                
-            }
-          });
-          
+  const [descricao, setDescricao] = useState("");
+  const [post, setPost] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [inputNomeFunc, setInputNomeFunc] = useState('');
+  const [inputCargoFunc, setInputCargoFunc] = useState('');
+  const [inputEmailFunc, setInputEmailFunc] = useState('');
+  const [inputTelefoneFunc, setInputTelefoneFunc] = useState('');
+  const [inputSenhaFunc, setInputSenhaFunc] = useState('');
+  /* const [inputConfSenhaFunc, setInputConfSenhaFunc] = useState('');
+     const [inputAdminFunc, setInputAdminFunc] = useState(false);
+     const [adminFunc, setAdminFunc] = useState('0'); */
+  const postMsg = async () => {
+    const response = await api.post('/v1/ts/funcionarios', {
+      "nome": inputNomeFunc,
+      "cargo": inputCargoFunc,
+      "email": inputEmailFunc,
+      "telefone": inputTelefoneFunc,
+      "senha": inputSenhaFunc
+    }).then(response => response.data)
+      .catch(async error => {
+        if (error.response) {
+          await setDescricao(error.response.data.descricao)
+          setPost(!post)
         }
-    useEffect(()=>{
-      console.log(post)
-      console.log(codigo + momento+ descricao)
-        if(post){
-          onShowAlert('error')
-        }
-    },[post])
-    useEffect(() => {
-        console.log(adminFunc)
-        console.log(inputAdminFunc)
-        if(inputAdminFunc == true){
-            setAdminFunc('0')
-        }else{
-            setAdminFunc('1')
-        }
-    }, [inputAdminFunc])
-    useEffect(() => {
-        if(inputSenhaFunc == inputConfSenhaFunc){
-            console.log("igual")
-        }else{
-            console.log("diferente")
-        }
-    }, [inputConfSenhaFunc, inputSenhaFunc])
-    const [alert, setAlert] = React.useState({
-        type: 'error',
-        codigo: codigo,
-        text: descricao,
-        momento: momento,
-        show: false
-      })
-      function onCloseAlert() {
-        setAlert({
-          type: '',
-          codigo: 0,
-          text:'',
-          momento:'',
-          show: false
-        })
-        setPost(!post)
+      });
+      setFlag(true);
+      
+  }
+  useEffect(() => {
+    if (post) {
+      onShowAlert('error')
+    }else if(flag){
+      window.location.reload();
+    }
+  }, [post])
+  /* useEffect(() => {
+      if(inputAdminFunc == true){
+          setAdminFunc('0')
+      }else{
+          setAdminFunc('1')
       }
-      async function onShowAlert(type:string) {
-        await setAlert({
-          type: type,
-          codigo: codigo,
-        text: descricao,
-        momento: momento,
-          show: true
-        })
+  }, [inputAdminFunc])
+  useEffect(() => {
+      if(inputSenhaFunc == inputConfSenhaFunc){
+          console.log("igual")
+      }else{
+          console.log("diferente")
       }
-    return (
-            <>
-          <Alert  
+  }, [inputConfSenhaFunc, inputSenhaFunc]) */
+  const [alert, setAlert] = React.useState({
+    type: 'error',
+    text: descricao,
+    show: false
+  })
+  function onCloseAlert() {
+    setAlert({
+      type: '',
+      text: '',
+      show: false
+    })
+    setPost(!post)
+  }
+  async function onShowAlert(type: string) {
+    await setAlert({
+      type: type,
+      text: descricao,
+      show: true
+    })
+  }
+  return (
+    <>
+      <Alert
         header={''}
         btnText={'Fechar'}
         text={alert.text}
-        codigo={alert.codigo}
-        momento={alert.momento}
         type={alert.type}
         show={alert.show}
         onClosePress={onCloseAlert}
         pressCloseOnOutsideClick={true}
         showBorderBottom={true}
-        alertStyles={{"background-color": "#f8f9fa",
-                    "width": "300px",
-                  "height": "100px",
-                  "display": "flex",
-                  "flex-direction": "column",
-                  "align-items": "center",
-                  "justify-content": "center",
-                  "left": "42%",
-                  "bottom": "30%",
-                  "border-radius": "8px",
-                  "border": "2px solid #C4C4C4",
-                  "position": "absolute"
-                }}
+        alertStyles={{
+          "background-color": "#f8f9fa",
+          "width": "300px",
+          "height": "100px",
+          "display": "flex",
+          "flex-direction": "column",
+          "align-items": "center",
+          "justify-content": "center",
+          "left": "42%",
+          "bottom": "30%",
+          "border-radius": "8px",
+          "border": "2px solid #C4C4C4",
+          "position": "absolute"
+        }}
         headerStyles={{}}
         textStyles={{}}
-        buttonStyles={{"background-color": "#efefef",
-                      "border-radius": "8px",
-                      "margin-bottom": "10px",
-                      "text-decoration": "none",
-                      "button-decoration": "none",
-                      "align-text": "center",
-                      "width": "70px",
-                      "border": "2px solid #C4C4C4",
-                  "height": "30px",
-                  "color":"#000",
-                  "padding-left":"10px"
-                    }}
+        buttonStyles={{
+          "background-color": "#efefef",
+          "border-radius": "8px",
+          "margin-bottom": "10px",
+          "text-decoration": "none",
+          "button-decoration": "none",
+          "align-text": "center",
+          "width": "70px",
+          "border": "2px solid #C4C4C4",
+          "height": "30px",
+          "color": "#000",
+          "padding-left": "10px"
+        }}
       />
-            <body id='CriarFuncionarioBody'>
-            <h2 id='TitleBar'>Cadastro de Funcionario</h2>
-                <ul id='CriarFuncionarioUl'>
-                <div id='CriarFuncionarioForm'>
-                    <div id='divH1'>
-                        <h1>Nome*: </h1>
-                        <h1>Cargo: </h1>
-                        <h1>Telefone: </h1>
-                        <h1>Email*: </h1>
-                        <h1>Senha*: </h1>
-                        <h1>Confirmar senha*: </h1>
-                        <h1>Admin: </h1>
-                    </div>
-                    <div id='divInput'>
-                        <input type="text" value={inputNomeFunc} onChange={e => setInputNomeFunc(e.target.value)} />
-                        <input type="text" value={inputCargoFunc} onChange={e => setInputCargoFunc(e.target.value)} />
-                        <input type="text" value={inputTelefoneFunc} onChange={e => setInputTelefoneFunc(e.target.value)} />
-                        <input type="text" value={inputEmailFunc} onChange={e => setInputEmailFunc(e.target.value)} />
-                        <input type="text" value={inputSenhaFunc} onChange={e => setInputSenhaFunc(e.target.value)} />
-                        <input type="text" value={inputConfSenhaFunc} onChange={e => setInputConfSenhaFunc(e.target.value)} />
+      <body id='CriarFuncionarioBody'>
+        <h2 id='TitleBar'>Cadastro de Funcionario</h2>
+        <ul id='CriarFuncionarioUl'>
+          <div id='CriarFuncionarioForm'>
+            <div id='divH1'>
+              <h1>Nome*: </h1>
+              <h1>Cargo: </h1>
+              <h1>Telefone: </h1>
+              <h1>Email*: </h1>
+              <h1>Senha*: </h1>
+              {/* <h1>Confirmar senha*: </h1>
+                        <h1>Admin: </h1> */}
+            </div>
+            <div id='divInput'>
+              <input type="text" value={inputNomeFunc} onChange={e => setInputNomeFunc(e.target.value)} />
+              <input type="text" value={inputCargoFunc} onChange={e => setInputCargoFunc(e.target.value)} />
+              <input type="text" value={inputTelefoneFunc} onChange={e => setInputTelefoneFunc(e.target.value)} />
+              <input type="text" value={inputEmailFunc} onChange={e => setInputEmailFunc(e.target.value)} />
+              <input type="text" value={inputSenhaFunc} onChange={e => setInputSenhaFunc(e.target.value)} />
+              {/* <input type="text" value={inputConfSenhaFunc} onChange={e => setInputConfSenhaFunc(e.target.value)} />
                         <div id='checkAdmin'>
                         <input type="checkbox" id="scales" name="scales"  onChange={e => setInputAdminFunc(!inputAdminFunc)} />
                         <h3>É administrador(a)?</h3>
-                        </div>
-                    </div>
-                    </div>
-                    <button onClick={postMsg}>Cadastrar</button>
-                </ul>
-            </body>
-        </>
-    );
+                        </div> */}
+            </div>
+          </div>
+          <button onClick={postMsg}>Cadastrar</button>
+        </ul>
+      </body>
+    </>
+  );
 }
 export default CriarFuncionarioBody;

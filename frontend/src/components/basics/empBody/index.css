@@ -3,22 +3,17 @@
     flex-direction: row;
     align-items: center;
 }
-
 #searchBarEmp #search{
     display: flex;
     flex-direction: row;
     align-items: center;
     padding-top: 20px;
 }
-
 #searchBarEmp #search input{
     border-radius: 4px 0px 0px 4px;
     border: 2px solid rgba(0, 0, 0, 0.479);
     box-shadow: 2px rgba(0, 0, 0, 0.596);
-   
 }
-
-
 #searchBarEmp #search #dropdownSearch{
     display: flex;
     flex-direction: row;
@@ -28,15 +23,10 @@
     box-shadow: 2px rgba(0, 0, 0, 0.596);
     padding: 0px 5px 0px 5px;
 }
-
-
-
 #searchBarEmp #search h3{
     font-size: 18px;
     padding: 0px 20px 0px 180px;
-    
 }
-
 #searchBarEmp #ordenation{
     display: flex;
     flex-direction: row;
@@ -44,13 +34,10 @@
     padding-top: 20px;
     padding-left: 530px; 
 }
-
 #searchBarEmp #ordenation h3{
     font-size: 18px;
     padding-right: 20px;
-    
 }
-
 #searchBarEmp #ordenation #dropdownOrdenation{
     height: 30px;
     padding: 0px 5px 0px 5px;
@@ -58,7 +45,6 @@
     border: 2px solid rgba(0, 0, 0, 0.479);
     box-shadow: 2px rgba(0, 0, 0, 0.596);
 }
-
 body thead #empBody{
     background-color: rgb(219, 219, 219);
     width: 20vw;
@@ -86,11 +72,13 @@ body thead #empBody{
     padding-top: 0.5vh;
     padding-left: 1vw;
 }
-body thead #empBody #deleteButton{
-    
+body thead #empBody .deleteButton{
     cursor: pointer;
     text-align: center;
     padding-left: 0;
+}
+body thead #empBody popup h4,.h4{
+    font-size: 10px;
 }
 #carouselBar{
     display: flex;

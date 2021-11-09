@@ -1,11 +1,11 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../../services/api";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { Form } from "react-bootstrap";
 import './index.css'
-
-
-
+import React from 'react';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 interface imensagem {
     codigo_rec: number,
     status_rec: string,
@@ -39,48 +39,33 @@ interface i_links {
 interface iself {
     href: string
 }
-
-
 const HomeBody: React.FC = () => {
     const [Msg, setMsg] = useState<imensagem[]>([]);
     const [Limit, setLimit] = useState<imensagem[]>([]);
+    const [direction, setDirection] = useState('desc');
+    const [ordenation, setOrdenation] = useState('codigo');
+    const [senhaExcluir, setSenhaExcluir] = useState('');
     const [inputBuscar, setInputBuscar] = useState('');
     const [buscarCategoria, setBuscarCategoria] = useState('1');
     const [ordenarCategoria, setOrdenarCategoria] = useState('1');
     const [page, setPage] = useState(0);
     useEffect(() => {
         const loadMsg = async () => {
-            const response = await api.get('/v1/ts/recados', { params: { page: page, limit: 3 } });
+            const response = await api.get('/v1/ts/recados', { params: { page: page, limit: 3, direction: direction, ordenation: ordenation } });
             const limit = await api.get('/v1/ts/recados');
-            setMsg(response.data._embedded.recadoDTOList);
+            if (Object.keys(response.data).length) {
+                setMsg(response.data._embedded.recadoDTOList);
+            } else {
+                setMsg([]);
+            }
             setLimit(limit.data._embedded.recadoDTOList);
         }
         loadMsg()
     }, [page]);
-
-    /* useEffect(() => {
-        const buscarMsg = async () => {
-   
-            //setDeleteCodigo(codigo);
-            const response = await api.get('/v1/ts/funcionarios/nomes/:nomes?page=0&limit=12&direction=asc&nomes='+ inputBuscar, { params: { page: page, limit: 3 } });
-            setMsg(response.data._embedded.recadoDTOList);
-            //window.location.reload()
-        }
-        buscarMsg()
-    }, [inputBuscar]);
- */
-
-    const deleteMsg = async (codigo: string) => {
-   
-        //setDeleteCodigo(codigo);
-        const responseDelete = await api.delete('/v1/ts/recados/' + codigo);
-        window.location.reload()
-    }
-
     useEffect(() => {
         const buscarMsg = async () => {
             if (buscarCategoria == "1") {
-                const response = await api.get('/v1/ts/recados/funcionario', { params: { page: page, limit: 3, funcionario: inputBuscar } });
+                const response = await api.get('/v1/ts/recados/funcionario', { params: { page: page, limit: 3, funcionario: inputBuscar} });
                 if (Object.keys(response.data).length) {
                     setMsg(response.data._embedded.recadoDTOList);
                 } else {
@@ -88,7 +73,7 @@ const HomeBody: React.FC = () => {
                 }
             }
             if (buscarCategoria == "2") {
-                const response = await api.get('/v1/ts/recados/empresa', { params: { page: page, limit: 3, empresa: inputBuscar } });
+                const response = await api.get('/v1/ts/recados/empresa', { params: { page: page, limit: 3, empresa: inputBuscar} });
                 if (Object.keys(response.data).length) {
                     setMsg(response.data._embedded.recadoDTOList);
                 } else {
@@ -96,7 +81,7 @@ const HomeBody: React.FC = () => {
                 }
             }
             if (buscarCategoria == "3") {
-                const response = await api.get('/v1/ts/recados/setor', { params: { page: page, limit: 3, setor: inputBuscar } });
+                const response = await api.get('/v1/ts/recados/setor', { params: { page: page, limit: 3, setor: inputBuscar} });
                 if (Object.keys(response.data).length) {
                     setMsg(response.data._embedded.recadoDTOList);
                 } else {
@@ -109,38 +94,51 @@ const HomeBody: React.FC = () => {
     useEffect(() => {
         const ordenarMsg = async () => {
             if (ordenarCategoria == '1') {
+                setDirection('desc');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'desc' } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
             if (ordenarCategoria == '2') {
+                setDirection('asc');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc' } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
             if (ordenarCategoria == '3') {
+                setDirection('desc');
+                setOrdenation('numStatus');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'desc', ordenation: "numStatus" } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
             if (ordenarCategoria == '4') {
+                setDirection('asc');
+                setOrdenation('numStatus');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc', ordenation: "numStatus" } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
             if (ordenarCategoria == '5') {
+                setDirection('desc');
+                setOrdenation('numPrioridade');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc', ordenation: "numPrioridade" } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
             if (ordenarCategoria == '6') {
+                setDirection('asc');
+                setOrdenation('numPrioridade');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'desc', ordenation: "numPrioridade" } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
         }
         ordenarMsg()
     }, [ordenarCategoria]);
-
-    
-
+    const deleteMsg = async (codigo: string) => {
+        const admin = await api.get('/v1/ts/funcionarios/1');
+        if (senhaExcluir == admin.data.senha_func) {
+            const responseDelete = await api.delete('/v1/ts/recados/' + codigo);
+            window.location.reload()
+        }
+    }
     return (
         <>
-
             <div id='searchBarRecado'>
                 <div id='search'>
                     <h3>Selecione a categoria que deseja pesquisar: </h3>
@@ -173,7 +171,6 @@ const HomeBody: React.FC = () => {
                     </Form.Group>
                 </div>
             </div>
-
             <body>
                 <thead>
                     {
@@ -187,7 +184,11 @@ const HomeBody: React.FC = () => {
                                 <li>Setor: {m.setor_rec}</li>
                                 <li id='msgRecado'>Mensagem: {m.mensagem_rec}</li>
                                 <li>Data: {m.data_rec}</li>
-                                <li id='deleteButton' onClick={() => { deleteMsg(m.codigo_rec.toString()) }}> <strong>EXCLUIR RECADO</strong> </li>
+                                <Popup trigger={<li className='deleteButton' ><strong >EXCLUIR RECADO</strong></li>} position="bottom center">
+                                    <h4>Digite a senha:</h4>
+                                    <input type="text" value={senhaExcluir} onChange={e => { setSenhaExcluir(e.target.value) }} />
+                                    <button id='confDelete' onClick={() => { deleteMsg(m.codigo_rec.toString()) }}>Excluir</button>
+                                </Popup>
                             </ul>
                         ))
                     }

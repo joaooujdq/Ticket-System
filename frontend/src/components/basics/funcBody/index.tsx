@@ -12,7 +12,7 @@ interface ifuncionario {
     cargo_func: string;
     email_func: string;
     telefone_func: string;
-    senha_func:string;
+    senha_func: string;
     _links: i_links
 }
 interface i_links {
@@ -32,13 +32,13 @@ const FuncBody: React.FC = () => {
     const [page, setPage] = useState(0);
     useEffect(() => {
         const loadMsg = async () => {
-            const response = await api.get('/v1/ts/funcionarios/', { params: { page: page, limit: 3 , direction: direction} });
+            const response = await api.get('/v1/ts/funcionarios/', { params: { page: page, limit: 3, direction: direction } });
             const limit = await api.get('/v1/ts/funcionarios/');
-                if (Object.keys(response.data).length) {
-                    setFunc(response.data._embedded.funcionarioDTOList);
-                } else {
-                    setFunc([]);
-                }
+            if (Object.keys(response.data).length) {
+                setFunc(response.data._embedded.funcionarioDTOList);
+            } else {
+                setFunc([]);
+            }
             setLimit(limit.data._embedded.funcionarioDTOList);
         }
         loadMsg()
@@ -54,7 +54,7 @@ const FuncBody: React.FC = () => {
                 }
             }
             if (buscarCategoria == "2") {
-                const response = await api.get('/v1/ts/funcionarios/cargo', { params: { page: page, limit: 3, cargo: inputBuscar } });
+                const response = await api.get('/v1/ts/funcionarios/cargo', { params: { page: page, limit: 3, cargo: inputBuscar} });
                 if (Object.keys(response.data).length) {
                     setFunc(response.data._embedded.funcionarioDTOList);
                 } else {
@@ -66,26 +66,26 @@ const FuncBody: React.FC = () => {
     }, [inputBuscar]);
     useEffect(() => {
         const ordenarMsg = async () => {
-                if (ordenarCategoria == '1') {
-                    setDirection('desc');
-                    const response = await api.get('/v1/ts/funcionarios/', { params: { page: page, limit: 3, direction: 'desc' } });
-                    setFunc(response.data._embedded.funcionarioDTOList);
-                }
-                if (ordenarCategoria == '2') {
-                    setDirection('asc');
-                    const response = await api.get('/v1/ts/funcionarios/', { params: { page: page, limit: 3, direction: 'asc' } });
-                    setFunc(response.data._embedded.funcionarioDTOList);
-                }
+            if (ordenarCategoria == '1') {
+                setDirection('desc');
+                const response = await api.get('/v1/ts/funcionarios/', { params: { page: page, limit: 3, direction: 'desc' } });
+                setFunc(response.data._embedded.funcionarioDTOList);
+            }
+            if (ordenarCategoria == '2') {
+                setDirection('asc');
+                const response = await api.get('/v1/ts/funcionarios/', { params: { page: page, limit: 3, direction: 'asc' } });
+                setFunc(response.data._embedded.funcionarioDTOList);
+            }
         }
         ordenarMsg()
     }, [ordenarCategoria]);
-        const deleteMsg = async (codigo: string) => {
-            const admin = await api.get('/v1/ts/funcionarios/1');
-            if(senhaExcluir == admin.data.senha_func){
-                const responseDelete = await api.delete('/v1/ts/funcionarios/' + codigo);
+    const deleteMsg = async (codigo: string) => {
+        const admin = await api.get('/v1/ts/funcionarios/1');
+        if (senhaExcluir == admin.data.senha_func) {
+            const responseDelete = await api.delete('/v1/ts/funcionarios/' + codigo);
             window.location.reload()
-            }
         }
+    }
     return (
         <>
             <div id='searchBarFunc'>
@@ -125,11 +125,11 @@ const FuncBody: React.FC = () => {
                                 <li>Cargo: {m.cargo_func}</li>
                                 <li>Email: {m.email_func}</li>
                                 <li>Telefone: {m.telefone_func}</li>
-                                <Popup  trigger={<li className='deleteButton' ><strong >EXCLUIR FUNCIONARIO</strong></li>} position="bottom center">
-                                <h4>Digite a senha:</h4>
-                                <input type="text" value={senhaExcluir} onChange={e => { setSenhaExcluir(e.target.value)}} />
-                                <button id='confDelete' onClick={() => { deleteMsg(m.codigo_func.toString()) }}>Excluir</button>
-                                 </Popup>
+                                <Popup trigger={<li className='deleteButton' ><strong >EXCLUIR FUNCIONARIO</strong></li>} position="bottom center">
+                                    <h4>Digite a senha:</h4>
+                                    <input type="text" value={senhaExcluir} onChange={e => { setSenhaExcluir(e.target.value) }} />
+                                    <button id='confDelete' onClick={() => { deleteMsg(m.codigo_func.toString()) }}>Excluir</button>
+                                </Popup>
                             </ul>
                         ))
                     }

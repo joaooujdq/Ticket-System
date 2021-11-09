@@ -1,4 +1,3 @@
-
  #CriarEmpresaBody{
     width: 100vw;
     height: 70vh;
@@ -10,7 +9,6 @@
     align-items: center;
     justify-content: center;
 }
-
 #CriarEmpresaBody #TitleBar{
    border-radius: 8px 8px 0px 0px;
    width: 25vw;
@@ -19,12 +17,8 @@
     font-size: 18px;
     padding: 10px 0px 0px 20px;
     margin: 0;
-   
-    
 }
-
 #CriarEmpresaBody #CriarEmpresaUl{
-    
     width: 25vw;
     height: 52vh;
     margin: 0;
@@ -33,9 +27,7 @@
     border: 3px solid #C4C4C4;
     box-shadow: 3px rgba(0, 0, 0, 0.527);
 }
-
 #CriarEmpresaBody #CriarEmpresaUl #CriarEmpresaForm{
-    
     display: flex;
     flex-direction: row;
     padding: 0;
@@ -44,8 +36,6 @@
     width: 25vw;
     height: 43vh;
     border-radius: 0px 0px 4px 4px;
-    
-    
  }
  #CriarEmpresaBody #CriarEmpresaUl #CriarEmpresaForm #divH1 {
     display: flex;
@@ -64,7 +54,6 @@
     height: 45vh;
     width: 14vw;
     border-radius: 8px;
-    
     border-style: none;
 }
 #CriarEmpresaBody #CriarEmpresaUl #CriarEmpresaForm #divInput input{
@@ -83,15 +72,12 @@
     text-justify: inherit;
     text-orientation: sideways;
 }
-
 #CriarEmpresaBody #CriarEmpresaUl #CriarEmpresaForm #divH1 h1{
     padding: 0 0 50px 0;
     height: 25px;
     width: 12.5vw;
     font-size: 16px;
 }
-
-
 #CriarEmpresaBody  #CriarEmpresaUl button{
     margin: 0 0 60px 0;
     position: absolute;

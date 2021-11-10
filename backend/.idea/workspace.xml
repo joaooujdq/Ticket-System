@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8b91d35e-478f-4fe9-b794-b90e02b9c614" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/criarEmpresaBody/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/criarEmpresaBody/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/criarFuncionarioBody/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/criarFuncionarioBody/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/empBody/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/empBody/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/empBody/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/empBody/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/funcBody/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/funcBody/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/funcBody/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/funcBody/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/homeBody/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/homeBody/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/basics/criarRecadoBody/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/basics/criarRecadoBody/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -6,7 +6,6 @@ import '../criarFuncionarioBody/index.css'
 const CriarFuncionarioBody: React.FC = () => {
   const [descricao, setDescricao] = useState("");
   const [post, setPost] = useState(false);
-  const [flag, setFlag] = useState(false);
   const [inputNomeFunc, setInputNomeFunc] = useState('');
   const [inputCargoFunc, setInputCargoFunc] = useState('');
   const [inputEmailFunc, setInputEmailFunc] = useState('');
@@ -16,27 +15,27 @@ const CriarFuncionarioBody: React.FC = () => {
      const [inputAdminFunc, setInputAdminFunc] = useState(false);
      const [adminFunc, setAdminFunc] = useState('0'); */
   const postMsg = async () => {
+    let flag2 = false;
     const response = await api.post('/v1/ts/funcionarios', {
       "nome": inputNomeFunc,
       "cargo": inputCargoFunc,
       "email": inputEmailFunc,
       "telefone": inputTelefoneFunc,
       "senha": inputSenhaFunc
-    }).then(response => response.data)
-      .catch(async error => {
-        if (error.response) {
+    }).then(response => response.data).catch(async error => {
+        if(error.response) {
           await setDescricao(error.response.data.descricao)
+          flag2 = true;
           setPost(!post)
         }
       });
-      setFlag(true);
-      
+      if(!flag2){
+        window.location.reload();
+      }
   }
   useEffect(() => {
     if (post) {
       onShowAlert('error')
-    }else if(flag){
-      window.location.reload();
     }
   }, [post])
   /* useEffect(() => {
@@ -128,11 +127,11 @@ const CriarFuncionarioBody: React.FC = () => {
                         <h1>Admin: </h1> */}
             </div>
             <div id='divInput'>
-              <input type="text" value={inputNomeFunc} onChange={e => setInputNomeFunc(e.target.value)} />
+              <input type="text" value={inputNomeFunc} onChange={e => setInputNomeFunc(e.target.value)} required/>
               <input type="text" value={inputCargoFunc} onChange={e => setInputCargoFunc(e.target.value)} />
               <input type="text" value={inputTelefoneFunc} onChange={e => setInputTelefoneFunc(e.target.value)} />
-              <input type="text" value={inputEmailFunc} onChange={e => setInputEmailFunc(e.target.value)} />
-              <input type="text" value={inputSenhaFunc} onChange={e => setInputSenhaFunc(e.target.value)} />
+              <input type="text" value={inputEmailFunc} onChange={e => setInputEmailFunc(e.target.value)} required/>
+              <input type="text" value={inputSenhaFunc} onChange={e => setInputSenhaFunc(e.target.value)} required/>
               {/* <input type="text" value={inputConfSenhaFunc} onChange={e => setInputConfSenhaFunc(e.target.value)} />
                         <div id='checkAdmin'>
                         <input type="checkbox" id="scales" name="scales"  onChange={e => setInputAdminFunc(!inputAdminFunc)} />

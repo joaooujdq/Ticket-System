@@ -65,7 +65,11 @@ public class GestaoEmpresa {
         boolean telefoneExists = empresaDAO.findByTelefone(obj.getTelefone()).stream().anyMatch(objResult -> !objResult.equals(obj));
         boolean emailExists = empresaDAO.findByEmail(obj.getEmail()).stream().anyMatch(objResult -> !objResult.equals(obj));
         boolean cnpjExists = empresaDAO.findByCnpj(obj.getCnpj()).stream().anyMatch(objResult -> !objResult.equals(obj));
-        if (telefoneExists) {
+        if(obj.getCnpj()=="" || obj.getEmail()=="" || obj.getNome()=="" || obj.getRazao()==""){
+            throw new BusinessException("Os campos com * são obrigatórios!");
+        }else if(obj.getCnpj().length()!=14){
+            throw new BusinessException("O CNPJ deve ter 14 dígitos!");
+        }else if (telefoneExists) {
             throw new BusinessException("Telefone já existente!");
         } else if (emailExists) {
             throw new BusinessException("Email já existente!");

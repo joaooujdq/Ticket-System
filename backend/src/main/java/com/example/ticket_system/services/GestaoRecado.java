@@ -46,14 +46,14 @@ public class GestaoRecado {
     }
     @Transactional
     public RecadoDTO save(RecadoDTO obj) {
-
+        if(obj.getEmpresaDTO().getCodigo()==null || obj.getFuncionarioDTO().getCodigo()==null){
+            throw new BusinessException("Funcionario ou empresa incorretos!");
+        }else if(obj.getMensagem()==""){
+            throw new BusinessException("Os campos com * são obrigatórios!");
+        }
         Optional<Empresa> emp = empresaDAO.findById(obj.getEmpresaDTO().getCodigo());
         Optional<Funcionario> func = funcionarioDAO.findById(obj.getFuncionarioDTO().getCodigo());
         Recado entity = new Recado(obj.getCodigo() ,obj.getStatus(), obj.getPrioridade(), obj.getSetor(), obj.getMensagem(), new Empresa(emp.get().getCodigo(), emp.get().getNome(), emp.get().getRazao(), emp.get().getCnpj(), emp.get().getEmail(), emp.get().getEndereco(), emp.get().getTelefone()), new Funcionario(func.get().getCodigo(), func.get().getNome(), func.get().getCargo(), func.get().getEmail(), func.get().getTelefone(), func.get().getSenha()));
-        if(entity.getMensagem() ==""){
-            throw new BusinessException("mensagem vazia!");
-        }
-
         return new RecadoDTO(recadoDAO.save(entity));
     }
     @Transactional

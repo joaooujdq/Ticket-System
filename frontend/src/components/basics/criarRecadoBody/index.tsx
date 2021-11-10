@@ -39,6 +39,7 @@ const CriarRecadoBody: React.FC = () => {
     const [Emp, setEmp] = useState<iempresa[]>([]);
     const [Func, setFunc] = useState<ifuncionario[]>([]);
     const postMsg = async () => {
+        let flag2 = false;
         const response = await api.post('/v1/ts/recados/', {
             "status_rec": inputStatus,
             "prioridade_rec": inputPrioridade,
@@ -50,10 +51,13 @@ const CriarRecadoBody: React.FC = () => {
             .catch(async error => {
                 if (error.response) {
                     await setDescricao(error.response.data.descricao)
+                    flag2 = true;
                     setPost(!post)
                 }
             });
-        window.location.reload();
+        if (!flag2) {
+            window.location.reload();
+        }
     }
     useEffect(() => {
         if (post) {
@@ -62,6 +66,7 @@ const CriarRecadoBody: React.FC = () => {
     }, [post])
     useEffect(() => {
         const findFuncionarioById = async () => {
+           
             const response = await api.get('/v1/ts/funcionarios/' + inputFuncionarioId)
             setFunc(response.data)
         }
@@ -69,6 +74,7 @@ const CriarRecadoBody: React.FC = () => {
     }, [inputFuncionarioId])
     useEffect(() => {
         const findEmpresaById = async () => {
+  
             const responses = await api.get('/v1/ts/empresas/' + inputEmpresaId)
             setEmp(responses.data)
         }
@@ -85,6 +91,7 @@ const CriarRecadoBody: React.FC = () => {
             text: '',
             show: false
         })
+        setPost(!post)
     }
     function onShowAlert(type: string) {
         setAlert({
@@ -142,9 +149,9 @@ const CriarRecadoBody: React.FC = () => {
                             <h1>Status: </h1>
                             <h1>Prioridade: </h1>
                             <h1>Setor: </h1>
-                            <h2>Mensagem: </h2>
-                            <h1>Empresa ID: </h1>
-                            <h1>Funcionario ID: </h1>
+                            <h2>Mensagem*: </h2>
+                            <h1>Empresa ID*: </h1>
+                            <h1>Funcionario ID*: </h1>
                         </div>
                         <div id='divInput'>
                             <div id='divRadios'>
@@ -184,9 +191,9 @@ const CriarRecadoBody: React.FC = () => {
                                 </div>
                             </div>
                             <input type="text" value={inputSetor} onChange={e => setInputSetor(e.target.value)} />
-                            <textarea value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} required />
-                            <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} required />
-                            <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} required />
+                            <textarea value={inputMensagem} onChange={e => setInputMensagem(e.target.value)} required/>
+                            <input type="text" value={inputEmpresaId} onChange={e => setInputEmpresaId(e.target.value)} required/>
+                            <input type="text" value={inputFuncionarioId} onChange={e => setInputFuncionarioId(e.target.value)} required/>
                         </div>
                     </div>
                     <button type="submit" onClick={postMsg}  >Cadastrar</button>

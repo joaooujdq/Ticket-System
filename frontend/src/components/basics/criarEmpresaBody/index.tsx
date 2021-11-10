@@ -13,6 +13,7 @@ const CriarEmpresaBody: React.FC = () => {
     const [inputEnderecoEmp, setInputEnderecoEmp] = useState('');
     const [inputTelefoneEmp, setInputTelefoneEmp] = useState('');
     async function postMsg() {
+        let flag2 = false;
         const response = await api.post('/v1/ts/empresas', {
             "nome": inputNomeEmp,
             "razao": inputRazaoEmp,
@@ -24,10 +25,13 @@ const CriarEmpresaBody: React.FC = () => {
             .catch(async error => {
                 if (error.response) {
                     await setDescricao(error.response.data.descricao)
+                    flag2 = true;
                     setPost(!post)
                 }
             });
-        window.location.reload();
+        if (!flag2) {
+            window.location.reload();
+        }
     }
     useEffect(() => {
         if (post) {
@@ -108,10 +112,10 @@ const CriarEmpresaBody: React.FC = () => {
                             <h1>Telefone: </h1>
                         </div>
                         <div id='divInput'>
-                            <input type="text" value={inputNomeEmp} onChange={e => setInputNomeEmp(e.target.value)} />
-                            <input type="text" value={inputRazaoEmp} onChange={e => setInputRazaoEmp(e.target.value)} />
-                            <input type="text" value={inputCnpjEmp} onChange={e => setInputCnpjEmp(e.target.value)} />
-                            <input type="text" value={inputEmailEmp} onChange={e => setInputEmailEmp(e.target.value)} />
+                            <input type="text" value={inputNomeEmp} onChange={e => setInputNomeEmp(e.target.value)} required/>
+                            <input type="text" value={inputRazaoEmp} onChange={e => setInputRazaoEmp(e.target.value)} required/>
+                            <input type="text" value={inputCnpjEmp} onChange={e => setInputCnpjEmp(e.target.value)} required/>
+                            <input type="text" value={inputEmailEmp} onChange={e => setInputEmailEmp(e.target.value)} required/>
                             <input type="text" value={inputEnderecoEmp} onChange={e => setInputEnderecoEmp(e.target.value)} />
                             <input type="text" value={inputTelefoneEmp} onChange={e => setInputTelefoneEmp(e.target.value)} />
                         </div>

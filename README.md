@@ -9,13 +9,15 @@ Sistema de Recados é uma aplicação full stack web parcialmente construída du
 
 A aplicação consiste em um sistema para salvar recados, funcionários e empresas. Representados como entidades. A entidade funcionário e empresa são independentes, elas não precisam de um recado para existir. A entidade recado exige como que o ID de um funcionario e de uma empresa sejam passados como parâmetro. **Quando o funcionario, ou empresa, é excluido, o recado que possui uma relação com ele também é excluído.**
 
+Para excluir um recado, funcionário ou empresa, será requisitado uma senha ao usuário. A senha é a senha do primeiro funcionário criado na aplicação, que por padrão é "senha".
+
 # :camera: Apresentação
 
  **Aprensentação da aplicação no Youtube:**   
  https://youtu.be/q3nNgmOLk0o
  
  
-![Desktop 1](https://github.com/joaooujdq/assets-ticket-system/blob/main/5.png)
+![Desktop 1](https://github.com/joaooujdq/assets-ticket-system/blob/main/ts_home.png)
 
 # :rocket: Tecnologias utilizadas
 ## Back end

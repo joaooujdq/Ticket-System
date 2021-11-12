@@ -5,9 +5,9 @@
 
 # :pencil2: Sobre o projeto
 
-Sistema de Recados é uma aplicação full stack web parcialmente construída durante a disciplina de Desenvolvimento Web, do curso de Ciência da Computação na Universidade Federal de Jataí. Após a conclusão da disciplina, eu tomei a iniciativa de implementar novas funcionalidades e corrigir os bugs que restavam. O planejamento e desenvolvimento da aplicação é de minha autoria.
+Sistema de Recados é uma aplicação que usa Spring no backend e React.js no frontend. Foi parcialmente construída durante a disciplina de Desenvolvimento Web, do curso de Ciência da Computação na Universidade Federal de Jataí. Após a conclusão da disciplina, eu tomei a iniciativa de implementar novas funcionalidades e corrigir os bugs que restavam. O planejamento e desenvolvimento da aplicação é de minha autoria.
 
-A aplicação consiste em um sistema para salvar recados, funcionários e empresas. Representados como entidades. A entidade funcionário e empresa são independentes, elas não precisam de um recado para existir. A entidade recado exige como que o ID de um funcionario e de uma empresa sejam passados como parâmetro. **Quando o funcionario, ou empresa, é excluido, o recado que possui uma relação com ele também é excluído.**
+A aplicação consiste em um sistema para salvar recados, funcionários e empresas. Representados como entidades. A entidade funcionário e empresa são independentes, elas não precisam de um recado para existir. A entidade recado exige que o ID de um funcionario e de uma empresa sejam passados como parâmetro. **Quando o funcionario, ou empresa, é excluido, o recado que possui uma relação com ele também é excluído.**
 
 Para excluir um recado, funcionário ou empresa, será requisitado uma senha ao usuário. A senha é a senha do primeiro funcionário criado na aplicação, que por padrão é "senha".
 

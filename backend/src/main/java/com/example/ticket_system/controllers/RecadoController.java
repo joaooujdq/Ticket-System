@@ -1,6 +1,5 @@
 package com.example.ticket_system.controllers;
 import com.example.ticket_system.dtos.RecadoDTO;
-import com.example.ticket_system.models.Recado;
 import com.example.ticket_system.services.GestaoRecado;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

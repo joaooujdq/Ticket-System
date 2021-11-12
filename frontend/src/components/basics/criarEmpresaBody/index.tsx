@@ -120,7 +120,7 @@ const CriarEmpresaBody: React.FC = () => {
                             <input type="text" value={inputTelefoneEmp} onChange={e => setInputTelefoneEmp(e.target.value)} />
                         </div>
                     </div>
-                    <button onClick={postMsg}>Cadastrar</button>
+                    <button type="submit" onClick={postMsg}>Cadastrar</button>
                 </ul>
             </body>
         </>

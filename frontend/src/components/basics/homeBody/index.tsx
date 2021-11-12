@@ -116,13 +116,13 @@ const HomeBody: React.FC = () => {
                 setMsg(response.data._embedded.recadoDTOList);
             }
             if (ordenarCategoria == '5') {
-                setDirection('desc');
+                setDirection('asc');
                 setOrdenation('numPrioridade');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'asc', ordenation: "numPrioridade" } });
                 setMsg(response.data._embedded.recadoDTOList);
             }
             if (ordenarCategoria == '6') {
-                setDirection('asc');
+                setDirection('desc');
                 setOrdenation('numPrioridade');
                 const response = await api.get('/v1/ts/recados/', { params: { page: page, limit: 3, direction: 'desc', ordenation: "numPrioridade" } });
                 setMsg(response.data._embedded.recadoDTOList);
@@ -176,18 +176,19 @@ const HomeBody: React.FC = () => {
                     {
                         Msg.map(m => (
                             <ul id='homeBody'>
-                                <li>ID: {m.codigo_rec}</li>
-                                <li>Nome da Empresa: {m.empresaDTO.nome_emp}</li>
-                                <li>Nome do Funcionario: {m.funcionarioDTO.nome_func}</li>
-                                <li>Status: {m.status_rec}</li>
-                                <li>Prioridade: {m.prioridade_rec}</li>
-                                <li>Setor: {m.setor_rec}</li>
-                                <li id='msgRecado'>Mensagem: {m.mensagem_rec}</li>
-                                <li>Data: {m.data_rec}</li>
+                                <li><strong>ID: {m.codigo_rec}</strong></li>
+                                <li><strong>Nome da Empresa: {m.empresaDTO.nome_emp}</strong></li>
+                                <li><strong>Nome do Funcionario: {m.funcionarioDTO.nome_func}</strong></li>
+                                <li><strong>Status: {m.status_rec}</strong></li>
+                                <li><strong>Prioridade: {m.prioridade_rec}</strong></li>
+                                <li><strong>Setor: {m.setor_rec}</strong></li>
+                                <li id='msgRecado'><strong>Mensagem: {m.mensagem_rec}</strong></li>
+                                <li><strong>Data: {m.data_rec}</strong></li>
                                 <Popup trigger={<li className='deleteButton' ><strong >EXCLUIR RECADO</strong></li>} position="bottom center">
                                     <h4>Digite a senha:</h4>
                                     <input type="text" value={senhaExcluir} onChange={e => { setSenhaExcluir(e.target.value) }} />
-                                    <button id='confDelete' onClick={() => { deleteMsg(m.codigo_rec.toString()) }}>Excluir</button>
+                                    <button className='confDelete' onClick={() => { deleteMsg(m.codigo_rec.toString()) }}>Excluir</button>
+                                    
                                 </Popup>
                             </ul>
                         ))

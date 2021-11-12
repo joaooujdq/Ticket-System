@@ -3,9 +3,6 @@ import com.example.ticket_system.models.Funcionario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import java.util.List;
 import java.util.Optional;
 public interface FuncionarioDAO extends JpaRepository<Funcionario, Integer> {
     Page<Funcionario> findByNomeContains(String searchTerm, Pageable pageable);

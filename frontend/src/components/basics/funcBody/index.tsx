@@ -120,15 +120,15 @@ const FuncBody: React.FC = () => {
                     {
                         Func.map(m => (
                             <ul id='funcBody'>
-                                <li>ID: {m.codigo_func}</li>
-                                <li>Nome: {m.nome_func}</li>
-                                <li>Cargo: {m.cargo_func}</li>
-                                <li>Email: {m.email_func}</li>
-                                <li>Telefone: {m.telefone_func}</li>
+                                <li><strong>ID: {m.codigo_func}</strong></li>
+                                <li><strong>Nome: {m.nome_func}</strong></li>
+                                <li><strong>Cargo: {m.cargo_func}</strong></li>
+                                <li><strong>Email: {m.email_func}</strong></li>
+                                <li><strong>Telefone: {m.telefone_func}</strong></li>
                                 <Popup trigger={<li className='deleteButton' ><strong >EXCLUIR FUNCIONARIO</strong></li>} position="bottom center">
                                     <h4>Digite a senha:</h4>
                                     <input type="text" value={senhaExcluir} onChange={e => { setSenhaExcluir(e.target.value) }} />
-                                    <button id='confDelete' onClick={() => { deleteMsg(m.codigo_func.toString()) }}>Excluir</button>
+                                    <button className='confDelete' onClick={() => { deleteMsg(m.codigo_func.toString()) }}>Excluir</button>
                                 </Popup>
                             </ul>
                         ))

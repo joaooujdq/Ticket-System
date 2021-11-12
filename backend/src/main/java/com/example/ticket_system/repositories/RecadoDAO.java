@@ -1,5 +1,4 @@
 package com.example.ticket_system.repositories;
-import com.example.ticket_system.models.Funcionario;
 import com.example.ticket_system.models.Recado;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

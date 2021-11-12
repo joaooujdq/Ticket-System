@@ -1,38 +1,48 @@
 package com.example.ticket_system.models;
 
-import lombok.*;
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "Recados")
-public class Recado implements Serializable {
+public class Recado {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codigo;
+
     @Column(name="numStatus")
     private Integer numStatus;
+
     @Column(name="numPrioridade")
     private Integer numPrioridade;
+
     @Column(name = "status", nullable = false)
     private String status;
+
     @Column(name = "prioridade")
     private String prioridade;
+
     @Column(name = "setor", nullable = false)
     private String setor;
+
     @Column(name = "mensagem", nullable = false)
     private String mensagem;
+
     @Column(name = "data", nullable = false)
     private LocalDate dataHora;
+
     @ManyToOne
     private Empresa empresaObj;
+
     @ManyToOne
     private Funcionario funcionarioObj;
 
+    public Recado(){
+
+    }
+
     public Recado(Integer codigo, String strStatus, String strPrioridade, String setor, String mensagem, Empresa empresaObj, Funcionario funcionarioObj) {
-        //Obs: não devo implementar codigo no construtor. Vou corrigir em breve.
-        //<editor-fold defaultstate="collapsed" desc="delombok">
         switch (strStatus) {
         case "option1": 
             this.status = "Pendente";
@@ -75,98 +85,13 @@ public class Recado implements Serializable {
         this.empresaObj = empresaObj;
         this.funcionarioObj = funcionarioObj;
     }
-        //</editor-fold>
 
-    @SuppressWarnings("all")
-    public Recado() {
-    }
-
-    @SuppressWarnings("all")
     public Integer getCodigo() {
-        return this.codigo;
+        return codigo;
     }
 
-    @SuppressWarnings("all")
-    public String getStatus() {
-        return this.status;
-    }
-
-    @SuppressWarnings("all")
-    public String getPrioridade() {
-        return this.prioridade;
-    }
-
-    @SuppressWarnings("all")
-    public String getSetor() {
-        return this.setor;
-    }
-
-    @SuppressWarnings("all")
-    public String getMensagem() {
-        return this.mensagem;
-    }
-
-    @SuppressWarnings("all")
-    public LocalDate getDataHora() {
-        return this.dataHora;
-    }
-
-    @SuppressWarnings("all")
-    public Empresa getEmpresaObj() {
-        return this.empresaObj;
-    }
-
-    @SuppressWarnings("all")
-    public Funcionario getFuncionarioObj() {
-        return this.funcionarioObj;
-    }
-
-    @SuppressWarnings("all")
-    public void setCodigo(final Integer codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
-    }
-
-    @SuppressWarnings("all")
-    public void setStatus(final String status) {
-        this.status = status;
-    }
-
-    @SuppressWarnings("all")
-    public void setPrioridade(final String prioridade) {
-        this.prioridade = prioridade;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
-    }
-
-    @SuppressWarnings("all")
-    public void setSetor(final String setor) {
-    //</editor-fold>
-        this.setor = setor;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
-    }
-
-    @SuppressWarnings("all")
-    public void setMensagem(final String mensagem) {
-    //</editor-fold>
-        this.mensagem = mensagem;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
-    }
-
-    @SuppressWarnings("all")
-    public void setDataHora(final LocalDate dataHora) {
-        this.dataHora = dataHora;
-    }
-
-    @SuppressWarnings("all")
-    public void setEmpresaObj(final Empresa empresaObj) {
-    //</editor-fold>
-        this.empresaObj = empresaObj;
-    //<editor-fold defaultstate="collapsed" desc="delombok">
-    }
-
-    @SuppressWarnings("all")
-    public void setFuncionarioObj(final Funcionario funcionarioObj) {
-    //</editor-fold>
-        this.funcionarioObj = funcionarioObj;
     }
 
     public Integer getNumStatus() {
@@ -185,33 +110,60 @@ public class Recado implements Serializable {
         this.numPrioridade = numPrioridade;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="delombok">
-    @Override
-    @SuppressWarnings("all")
-    public boolean equals(final Object o) {
-        if (o == this) return true;
-        if (!(o instanceof Recado)) return false;
-        final Recado other = (Recado) o;
-        if (!other.canEqual((Object) this)) return false;
-        final Object this$codigo = this.getCodigo();
-        final Object other$codigo = other.getCodigo();
-        if (this$codigo == null ? other$codigo != null : !this$codigo.equals(other$codigo)) return false;
-        return true;
+    public String getStatus() {
+        return status;
     }
 
-    @SuppressWarnings("all")
-    protected boolean canEqual(final Object other) {
-        return other instanceof Recado;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    @Override
-    @SuppressWarnings("all")
-    public int hashCode() {
-        final int PRIME = 59;
-        int result = 1;
-        final Object $codigo = this.getCodigo();
-        result = result * PRIME + ($codigo == null ? 43 : $codigo.hashCode());
-        return result;
+    public String getPrioridade() {
+        return prioridade;
+    }
+
+    public void setPrioridade(String prioridade) {
+        this.prioridade = prioridade;
+    }
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    public LocalDate getDataHora() {
+        return dataHora;
+    }
+
+    public void setDataHora(LocalDate dataHora) {
+        this.dataHora = dataHora;
+    }
+
+    public Empresa getEmpresaObj() {
+        return empresaObj;
+    }
+
+    public void setEmpresaObj(Empresa empresaObj) {
+        this.empresaObj = empresaObj;
+    }
+
+    public Funcionario getFuncionarioObj() {
+        return funcionarioObj;
+    }
+
+    public void setFuncionarioObj(Funcionario funcionarioObj) {
+        this.funcionarioObj = funcionarioObj;
     }
 }
-    //</editor-fold>
+

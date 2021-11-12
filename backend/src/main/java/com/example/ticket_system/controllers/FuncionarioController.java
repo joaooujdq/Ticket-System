@@ -1,6 +1,4 @@
 package com.example.ticket_system.controllers;
-
-import com.example.ticket_system.dtos.EmpresaDTO;
 import com.example.ticket_system.dtos.FuncionarioDTO;
 import com.example.ticket_system.models.Funcionario;
 import com.example.ticket_system.services.GestaoFuncionario;
@@ -15,22 +13,15 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 @RestController
 @RequestMapping("/v1/ts/funcionarios")
 @Tag(name = "Endpoint de Funcionario")
 public class FuncionarioController {
-
-
     @Autowired
     private GestaoFuncionario service;
-
-
     @GetMapping
     @Operation(summary = "Busca todos os funcionarios")
     public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarTodos(
@@ -38,12 +29,8 @@ public class FuncionarioController {
             @RequestParam(value="limit", defaultValue = "12") int limit,
             @RequestParam(value="direction", defaultValue = "desc") String direction,
             @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation) {
-
-
         Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
-
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
-
         Page<FuncionarioDTO> pages = service.findAll(pageable);
         pages
                 .stream()
@@ -51,10 +38,8 @@ public class FuncionarioController {
                                 linkTo(methodOn(FuncionarioController.class).buscarUm(p.getCodigo())).withSelfRel()
                         )
                 );
-
         return ResponseEntity.ok(CollectionModel.of(pages));
     }
-
     @GetMapping("/nomes")
     @Operation(summary = "Busca pelo nome")
     public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarPeloNome(
@@ -63,12 +48,8 @@ public class FuncionarioController {
             @RequestParam(value="direction", defaultValue = "desc") String direction,
             @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation,
              String nomes){
-
-
         Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
-
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
-
         Page<FuncionarioDTO> pages = service.findByNomeContains(nomes, pageable);
         pages
                 .stream()
@@ -76,10 +57,8 @@ public class FuncionarioController {
                                 linkTo(methodOn(FuncionarioController.class).buscarUm(p.getCodigo())).withSelfRel()
                         )
                 );
-
         return ResponseEntity.ok(CollectionModel.of(pages));
     }
-
     @GetMapping("/cargo")
     @Operation(summary = "Busca pelo cargo")
     public ResponseEntity<CollectionModel<FuncionarioDTO>> buscarPeloCargo(
@@ -88,12 +67,8 @@ public class FuncionarioController {
             @RequestParam(value="direction", defaultValue = "desc") String direction,
             @RequestParam(value="ordenation", defaultValue = "codigo") String ordenation,
             String cargo){
-
-
         Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
-
         Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, ordenation));
-
         Page<FuncionarioDTO> pages = service.findByCargoContains(cargo, pageable);
         pages
                 .stream()
@@ -101,11 +76,8 @@ public class FuncionarioController {
                                 linkTo(methodOn(FuncionarioController.class).buscarUm(p.getCodigo())).withSelfRel()
                         )
                 );
-
         return ResponseEntity.ok(CollectionModel.of(pages));
     }
-
-
     @GetMapping("/{id}")
     @Operation(summary = "Busca por Id")
     public ResponseEntity<FuncionarioDTO> buscarUm(@PathVariable Integer id) {
@@ -113,7 +85,6 @@ public class FuncionarioController {
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarUm(id)).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
-
     /*@GetMapping("/nome/{nome}")
     @Operation(summary = "Busca pelo Nome")
     public ResponseEntity<FuncionarioDTO> buscarFuncionario(@PathVariable String empresa) {
@@ -121,16 +92,13 @@ public class FuncionarioController {
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarFuncionario(empresa)).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }*/
-
     @PutMapping
     @Operation(summary = "Atualiza um funcionario")
     public ResponseEntity<FuncionarioDTO> atualizar(@RequestBody Funcionario objBody) {
-
         FuncionarioDTO objDTO = service.save(objBody);
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
-
     //response body informa que no corpo da requisição post, virá um objeto Funcionario
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -140,8 +108,6 @@ public class FuncionarioController {
         objDTO.add(linkTo(methodOn(FuncionarioController.class).buscarUm(objDTO.getCodigo())).withSelfRel());
         return ResponseEntity.ok(objDTO);
     }
-
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Exclui um funcionario pelo id")
     public ResponseEntity<Void> excluir(@PathVariable Integer id){

@@ -72,12 +72,10 @@ public class GestaoRecado {
         Page<Recado> result = recadoDAO.findBySetorContains(setor, pageable);
         return result.map(obj -> new RecadoDTO(obj));
     }
-    //<editor-fold defaultstate="collapsed" desc="delombok">
-    @SuppressWarnings("all")
-    public GestaoRecado(final RecadoDAO recadoDAO, final FuncionarioDAO funcionarioDAO, final EmpresaDAO empresaDAO) {
+
+    public GestaoRecado( RecadoDAO recadoDAO, FuncionarioDAO funcionarioDAO, EmpresaDAO empresaDAO) {
         this.recadoDAO = recadoDAO;
         this.funcionarioDAO = funcionarioDAO;
         this.empresaDAO = empresaDAO;
     }
-    //</editor-fold>
 }

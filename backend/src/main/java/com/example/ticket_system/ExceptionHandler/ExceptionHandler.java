@@ -1,5 +1,4 @@
 package com.example.ticket_system.ExceptionHandler;
-
 import com.example.ticket_system.services.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -13,22 +12,17 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 @ControllerAdvice
 public class ExceptionHandler extends ResponseEntityExceptionHandler {
-
     @Autowired
     private MessageSource msg;
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<StandardError.Fields> erro_campos = new ArrayList<>();
-
         for(ObjectError error : ex.getBindingResult().getAllErrors()){
             String nome = ((FieldError) error).getField();
             String mensagem = msg.getMessage(error, LocaleContextHolder.getLocale());
@@ -36,13 +30,10 @@ public class ExceptionHandler extends ResponseEntityExceptionHandler {
         }
         StandardError erro = new StandardError(status.value(),
                 LocalDateTime.now(),"Verifique o preenchimento dos campos", erro_campos);
-
         return handleExceptionInternal(ex, erro, headers, status, request);
     }
-
     @org.springframework.web.bind.annotation.ExceptionHandler(BusinessException.class)
     public ResponseEntity<StandardError> dataIntegrity (BusinessException ex){
-
         StandardError erro = new StandardError(HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now(),ex.getMessage(), null);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);

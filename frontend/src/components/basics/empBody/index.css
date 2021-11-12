@@ -1,3 +1,15 @@
+#popup-root .popup-content .confDelete{
+    margin-left:33%;
+    border-radius: 4px;
+}
+#popup-root .popup-content h4{
+    font-size: 15px;
+}
+#popup-root .popup-content input{
+    padding: 10px 0px;
+    margin-bottom: 5px;
+    height: 20px;
+}
 #searchBarEmp {
     display: flex;
     flex-direction: row;
@@ -66,6 +78,7 @@ body thead #empBody{
 }
  body thead #empBody li{
     font-size: 1.5vh;
+
     height: 4vh;
     border: 2px solid rgba(127,127,127,0.16);
     margin:0;

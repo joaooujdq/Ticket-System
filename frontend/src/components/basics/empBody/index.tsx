@@ -130,17 +130,17 @@ const EmpBody: React.FC = () => {
                     {
                         Emp.map(m => (
                             <ul id='empBody'>
-                                <li>ID: {m.codigo_emp}</li>
-                                <li>Nome: {m.nome_emp}</li>
-                                <li>Razão Social: {m.razao_emp}</li>
-                                <li>CNPJ: {m.cnpj_emp}</li>
-                                <li >Email: {m.email_emp}</li>
-                                <li>Endereço: {m.endereco_emp}</li>
-                                <li >Telefone: {m.telefone_emp}</li>
+                                <li><strong>ID: {m.codigo_emp}</strong></li>
+                                <li><strong>Nome: {m.nome_emp}</strong></li>
+                                <li><strong>Razão Social: {m.razao_emp}</strong></li>
+                                <li><strong>CNPJ: {m.cnpj_emp}</strong></li>
+                                <li><strong>Email: {m.email_emp}</strong></li>
+                                <li><strong>Endereço: {m.endereco_emp}</strong></li>
+                                <li ><strong>Telefone: {m.telefone_emp}</strong></li>
                                 <Popup trigger={<li className='deleteButton' ><strong >EXCLUIR EMPRESA</strong></li>} position="bottom center">
                                     <h4>Digite a senha:</h4>
                                     <input type="text" value={senhaExcluir} onChange={e => { setSenhaExcluir(e.target.value) }} />
-                                    <button id='confDelete' onClick={() => { deleteMsg(m.codigo_emp.toString()) }}>Excluir</button>
+                                    <button className='confDelete' onClick={() => { deleteMsg(m.codigo_emp.toString()) }}>Excluir</button>
                                 </Popup>
                             </ul>
                         ))

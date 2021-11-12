@@ -139,7 +139,7 @@ const CriarFuncionarioBody: React.FC = () => {
                         </div> */}
             </div>
           </div>
-          <button onClick={postMsg}>Cadastrar</button>
+          <button type="submit" onClick={postMsg}>Cadastrar</button>
         </ul>
       </body>
     </>

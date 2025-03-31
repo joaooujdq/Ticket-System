@@ -26,7 +26,7 @@ Para excluir um recado, funcionário ou empresa, será requisitado uma senha ao 
 - JPA / Hibernate
 - Maven
 - MySQL
-- Swagger
+
 
 ## Front end
 - HTML / CSS / JS / TypeScript

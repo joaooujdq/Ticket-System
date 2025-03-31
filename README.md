@@ -41,7 +41,7 @@ Pré-requisitos: Npm
 ```bash
 0. Instale o Maven (https://maven.apache.org/download.cgi)
 
-1. Clonar repositório (git clone https://github.com/joaooujdq/Ticket-System)
+1. Clonar repositório 
 
 2. Pelo CMD, acesse a pasta "backend"  
 
@@ -49,7 +49,7 @@ Pré-requisitos: Npm
 
 4. Use outra janela do CMD e acesse a pasta frontend, localizada na raiz do projeto.
 
-5. Execute o comando npm install, e em seguida npm start
+5. Execute os comandos "export NODE_OPTIONS=--openssl-legacy-provider" (no linux), "npm install", e em seguida "npm start"
 
 6. Acesse http://localhost:3000/ para exibir o projeto no seu navegador
 ```
